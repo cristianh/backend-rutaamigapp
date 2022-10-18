@@ -1,12 +1,27 @@
 {
     "compilerOptions": {
-        "lib": ["es5", "es6", "dom"],
+        "lib": [
+            "es5",
+            "es6",
+            "dom"
+        ],
+        "baseUrl": ".",
         "target": "es5",
         "module": "commonjs",
         "moduleResolution": "node",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "sourceMap": true,
-        "outDir": "dist"
+        "outDir": "dist",
+        "inlineSources": false
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "typedocOptions": {
+        "entryPoints": [
+            "src/controllers/*.ts"
+        ],
+        "out": "docs"
     }
 }

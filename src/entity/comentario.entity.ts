@@ -28,6 +28,4 @@ export class Comentario{
 
     @ManyToOne(() => Usuario, (usuario) => usuario.comentario)
     usuario:Usuario[]
-
- 
 }

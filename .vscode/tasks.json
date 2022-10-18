@@ -1,0 +1,43 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Inicio Backend AmigaApp",
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "dependsOrder": "parallel", // or parallel
+            "dependsOn": [
+                "typescript",
+                "servidor",
+                "socket"
+            ]
+        },
+        {
+            "label": "typescript",
+            "type": "shell",
+            "command": "tsc --w",
+            "presentation": {
+                "group": "groupServerStuff"
+            }
+        },
+        {
+            "label": "servidor",
+            "type": "shell",
+            "command": "nodemon dist/app.js ",
+            "presentation": {
+                "group": "groupServerStuff"
+            }
+        },
+        {
+            "label": "socket",
+            "type": "shell",
+            "command": "nodemon dist/src/servermap/servermap",
+            "presentation": {
+                "group": "groupServerStuff"
+            }
+        },
+    ]
+}
