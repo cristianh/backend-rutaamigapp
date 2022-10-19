@@ -88,12 +88,12 @@ export const saveUser = async (req: Request, res: Response) => {
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
         console.log(errors.array());
-        return res.json({ errors: errors.array() });
+        return res.status(400).json({ errors: errors.array() });
     }
 
     const usuario = await myDataSource.getRepository(Usuario).create(req.body)
     const results = await myDataSource.getRepository(Usuario).save(usuario)
-    return res.send(results)
+    return res.status(200).send(results)
 }
 
 /**

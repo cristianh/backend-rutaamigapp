@@ -154,7 +154,7 @@ var saveUser = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
                 errors = (0, express_validator_1.validationResult)(req);
                 if (!errors.isEmpty()) {
                     console.log(errors.array());
-                    return [2 /*return*/, res.json({ errors: errors.array() })];
+                    return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
                 }
                 return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).create(req.body)];
             case 1:
@@ -162,7 +162,7 @@ var saveUser = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
                 return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).save(usuario)];
             case 2:
                 results = _a.sent();
-                return [2 /*return*/, res.send(results)];
+                return [2 /*return*/, res.status(200).send(results)];
         }
     });
 }); };
