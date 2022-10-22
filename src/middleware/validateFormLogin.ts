@@ -10,7 +10,7 @@ const validateFormUsuarioRegister = () => {
         validator.body('correo_usuario').not().isEmpty().trim().escape().withMessage('El campo correo es requerido'),
         //Verifica que el campo password_usuario tenga como minimo 8 caracteres y que tenga al menos una letra, un número y un carácter especial.
         validator.body('password_usuario').isLength({ min: 8 }).withMessage('La contraseña debe tener como minimo 8 caracteres.')
-            .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]/)
+            .matches(/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/)
             .withMessage('La contraseña debe contener al menos una letra, un número y un carácter especial.'),
         //varifica que el correo tenga un formato valido.
         validator.body('correo_usuario').isEmail().withMessage('El correo no es valido.'),

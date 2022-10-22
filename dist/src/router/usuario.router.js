@@ -7,7 +7,7 @@ var usuario_controller_1 = require("../controllers/usuario.controller");
 var validateFormLogin_1 = require("../middleware/validateFormLogin");
 var router = (0, express_1.Router)();
 // Usuarios
-router.get("/usuarios", usuario_controller_1.getAllUsers);
+router.get("/usuario", usuario_controller_1.getAllUsers);
 router.get("/usuario/comentarios", usuario_controller_1.getComentariesUsers);
 router.get("/usuario/:usuarioId/comentarios/:comentarioId", usuario_controller_1.getUserByIdComentariesById);
 router.get("/usuario/:id", usuario_controller_1.getUserById);

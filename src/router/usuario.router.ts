@@ -10,7 +10,7 @@ import validateFormUsuarioRegister from '../middleware/validateFormLogin'
 const router = Router()
 
 // Usuarios
-router.get("/usuarios", getAllUsers);
+router.get("/usuario", getAllUsers);
 router.get("/usuario/comentarios", getComentariesUsers);
 router.get("/usuario/:usuarioId/comentarios/:comentarioId", getUserByIdComentariesById);
 router.get("/usuario/:id", getUserById);
