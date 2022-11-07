@@ -38,6 +38,10 @@ app.use(express.json());
 // Servimos los archivos que se encuentran en el directorio public
 app.use(express.static(path.join(__dirname, './public')));
 app.use(express.static(path.join(__dirname, './uploads')));
+//ruta test 
+app.get("/testPrueba", function (res, req) {
+    res.send("hola mundo");
+});
 //Habilitando subida de archivos
 app.use(fileUpload({
     createParentPath: true,

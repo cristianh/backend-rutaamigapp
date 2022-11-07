@@ -6,6 +6,7 @@ import routerUploadFile from './src/router/uploadFile.roter'
 import myDataSource from "./app-data-source"
 import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 import * as fileUpload from 'express-fileupload'
+import { Request, Response } from "express"
 dotenv.config()
 import * as cors from "cors"
 //Morgan
@@ -48,6 +49,11 @@ app.use(express.json())
 // Servimos los archivos que se encuentran en el directorio public
 app.use(express.static(path.join(__dirname, './public')));
 app.use(express.static(path.join(__dirname, './uploads')));
+
+//ruta test 
+app.get("/testPrueba", (res:Response,req:Request)=>{
+    res.send("hola mundo")
+});
 
 //Habilitando subida de archivos
 app.use(fileUpload({
