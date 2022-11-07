@@ -40,7 +40,10 @@ app.use(express.static(path.join(__dirname, './public')));
 app.use(express.static(path.join(__dirname, './uploads')));
 //Habilitando subida de archivos
 app.use(fileUpload({
-    createParentPath: true
+    createParentPath: true,
+    limits: {
+        fileSize: 2 * 1024 * 1024 * 1024
+    }
 }));
 //!Ojo esto es opcional se utilizara en el mapa.
 // Indicamos que serviremos el archivo index.html cuando accedamos a esta ruta

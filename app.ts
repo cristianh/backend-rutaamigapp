@@ -3,7 +3,7 @@ import routerUsuario from './src/router/usuario.router'
 import routerComentario from './src/router/comentario.router'
 import routerRuta from './src/router/ruta.router'
 import routerUploadFile from './src/router/uploadFile.roter'
-import  myDataSource  from "./app-data-source"
+import myDataSource from "./app-data-source"
 import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 import * as fileUpload from 'express-fileupload'
 dotenv.config()
@@ -26,7 +26,7 @@ myDataSource
     })
 
 
-    
+
 // create and setup express app
 const app = express()
 
@@ -51,7 +51,10 @@ app.use(express.static(path.join(__dirname, './uploads')));
 
 //Habilitando subida de archivos
 app.use(fileUpload({
-    createParentPath:true
+    createParentPath: true,
+    limits: {
+        fileSize: 2 * 1024 * 1024 * 1024
+    }
 }))
 
 
@@ -63,10 +66,10 @@ app.use(fileUpload({
 }); */
 
 //Rutas
-app.use('/app',routerUsuario)
-app.use('/app',routerComentario)
-app.use('/app',routerRuta)
-app.use('/app',routerUploadFile)
+app.use('/app', routerUsuario)
+app.use('/app', routerComentario)
+app.use('/app', routerRuta)
+app.use('/app', routerUploadFile)
 
 // start express server
 app.listen(PORT)
