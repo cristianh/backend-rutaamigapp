@@ -14,5 +14,9 @@ router.get("/usuario/:id", usuario_controller_1.getUserById);
 router.post("/usuario", (0, validateFormLogin_1.default)(), usuario_controller_1.saveUser);
 router.put("/usuario/:id", usuario_controller_1.updateUser);
 router.delete("/usuario/:id", usuario_controller_1.deleteUser);
+//ruta test 
+router.get("/testPrueba", function (req, res) {
+    res.send("hola mundo");
+});
 exports.default = router;
 //# sourceMappingURL=usuario.router.js.map

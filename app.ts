@@ -50,10 +50,7 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, './public')));
 app.use(express.static(path.join(__dirname, './uploads')));
 
-//ruta test 
-app.get("/testPrueba", (res:Response,req:Request)=>{
-    res.send("hola mundo")
-});
+
 
 //Habilitando subida de archivos
 app.use(fileUpload({
