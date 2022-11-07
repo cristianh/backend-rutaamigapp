@@ -10,8 +10,13 @@ import { validationResult } from 'express-validator';
  * @param {Response} res - Response - The response object
  */
 export const getAllUsers = async (req: Request, res: Response) => {
-    const usuario = await myDataSource.getRepository(Usuario).find()
-    res.json(usuario)
+    try {
+        const usuario = await myDataSource.getRepository(Usuario).find()
+        res.json(usuario)
+    } catch (error) {
+        res.json({ error })
+    }
+
 }
 
 
@@ -21,12 +26,19 @@ export const getAllUsers = async (req: Request, res: Response) => {
  * @param {Response} res - Response - The response object.
  */
 export const getComentariesUsers = async (req: Request, res: Response) => {
-    const usuario = await myDataSource.getRepository(Usuario).find({
-        relations: {
-            comentario: true,
-        },
-    })
-    res.json(usuario)
+
+    try {
+        const usuario = await myDataSource.getRepository(Usuario).find({
+            relations: {
+                comentario: true,
+            },
+        })
+        res.json(usuario)
+    } catch (error) {
+        res.json({ error })
+    }
+
+
 }
 
 
@@ -37,18 +49,23 @@ export const getComentariesUsers = async (req: Request, res: Response) => {
  * @param {Response} res - Response
  */
 export const getUserByIdComentariesById = async (req: Request, res: Response) => {
-    const usuario = await myDataSource.getRepository(Usuario).find({
-        relations: {
-            comentario: true,
-        },
-        where: {
-            idusuario: parseInt(req.params.usuarioId),
-            comentario: {
-                idComentarios: parseInt(req.params.comentarioId)
-            }
-        },
-    })
-    res.json(usuario)
+    try {
+        const usuario = await myDataSource.getRepository(Usuario).find({
+            relations: {
+                comentario: true,
+            },
+            where: {
+                idusuario: parseInt(req.params.usuarioId),
+                comentario: {
+                    idComentarios: parseInt(req.params.comentarioId)
+                }
+            },
+        })
+        res.json(usuario)
+    } catch (error) {
+        res.json({ error })
+    }
+
 }
 
 
@@ -59,10 +76,15 @@ export const getUserByIdComentariesById = async (req: Request, res: Response) =>
  * @returns An object with the user data.
  */
 export const getUserById = async (req: Request, res: Response) => {
-    const results = await myDataSource.getRepository(Usuario).findOneBy({
-        idusuario: parseInt(req.params.id),
-    })
-    return res.send(results)
+    try {
+        const results = await myDataSource.getRepository(Usuario).findOneBy({
+            idusuario: parseInt(req.params.id),
+        })
+        return res.send(results)
+    } catch (error) {
+        res.json({ error })
+    }
+
 }
 
 
@@ -85,15 +107,20 @@ export const getUserById = async (req: Request, res: Response) => {
  */
 export const saveUser = async (req: Request, res: Response) => {
 
-    let errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        console.log(errors.array());
-        return res.status(400).json({ errors: errors.array() });
+    try {
+        let errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.log(errors.array());
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const usuario = await myDataSource.getRepository(Usuario).create(req.body)
+        const results = await myDataSource.getRepository(Usuario).save(usuario)
+        return res.status(200).send({ res: "Usuario guardado con exito", results })
+    } catch (error) {
+        res.json({ error })
     }
 
-    const usuario = await myDataSource.getRepository(Usuario).create(req.body)
-    const results = await myDataSource.getRepository(Usuario).save(usuario)
-    return res.status(200).send(results)
 }
 
 /**
@@ -103,12 +130,17 @@ export const saveUser = async (req: Request, res: Response) => {
  * @returns The updated user.
  */
 export const updateUser = async (req: Request, res: Response) => {
-    const usuario = await myDataSource.getRepository(Usuario).findOneBy({
-        idusuario: parseInt(req.params.id),
-    })
-    myDataSource.getRepository(Usuario).merge(usuario, req.body)
-    const results = await myDataSource.getRepository(Usuario).save(usuario)
-    return res.send(results)
+    try {
+        const usuario = await myDataSource.getRepository(Usuario).findOneBy({
+            idusuario: parseInt(req.params.id),
+        })
+        myDataSource.getRepository(Usuario).merge(usuario, req.body)
+        const results = await myDataSource.getRepository(Usuario).save(usuario)
+        return res.send(200).json({ res: "Usuario actualizado con exito", results })
+    } catch (error) {
+        res.json({ error })
+    }
+
 }
 
 /**
@@ -118,6 +150,11 @@ export const updateUser = async (req: Request, res: Response) => {
  * @returns The number of rows affected by the delete operation.
  */
 export const deleteUser = async (req: Request, res: Response) => {
-    const results = await myDataSource.getRepository(Usuario).delete(req.params.id)
-    return res.send(results)
+    try {
+        const results = await myDataSource.getRepository(Usuario).delete(req.params.id)
+        return res.send(results)
+    } catch (error) {
+        res.json({ error })
+    }
+
 }

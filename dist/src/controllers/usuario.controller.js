@@ -46,14 +46,21 @@ var express_validator_1 = require("express-validator");
  * @param {Response} res - Response - The response object
  */
 var getAllUsers = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var usuario;
+    var usuario, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).find()];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).find()];
             case 1:
                 usuario = _a.sent();
                 res.json(usuario);
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                res.json({ error: error_1 });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
@@ -64,18 +71,25 @@ exports.getAllUsers = getAllUsers;
  * @param {Response} res - Response - The response object.
  */
 var getComentariesUsers = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var usuario;
+    var usuario, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).find({
-                    relations: {
-                        comentario: true,
-                    },
-                })];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).find({
+                        relations: {
+                            comentario: true,
+                        },
+                    })];
             case 1:
                 usuario = _a.sent();
                 res.json(usuario);
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                res.json({ error: error_2 });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
@@ -87,24 +101,31 @@ exports.getComentariesUsers = getComentariesUsers;
  * @param {Response} res - Response
  */
 var getUserByIdComentariesById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var usuario;
+    var usuario, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).find({
-                    relations: {
-                        comentario: true,
-                    },
-                    where: {
-                        idusuario: parseInt(req.params.usuarioId),
-                        comentario: {
-                            idComentarios: parseInt(req.params.comentarioId)
-                        }
-                    },
-                })];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).find({
+                        relations: {
+                            comentario: true,
+                        },
+                        where: {
+                            idusuario: parseInt(req.params.usuarioId),
+                            comentario: {
+                                idComentarios: parseInt(req.params.comentarioId)
+                            }
+                        },
+                    })];
             case 1:
                 usuario = _a.sent();
                 res.json(usuario);
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_3 = _a.sent();
+                res.json({ error: error_3 });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
@@ -116,15 +137,22 @@ exports.getUserByIdComentariesById = getUserByIdComentariesById;
  * @returns An object with the user data.
  */
 var getUserById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var results;
+    var results, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).findOneBy({
-                    idusuario: parseInt(req.params.id),
-                })];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).findOneBy({
+                        idusuario: parseInt(req.params.id),
+                    })];
             case 1:
                 results = _a.sent();
                 return [2 /*return*/, res.send(results)];
+            case 2:
+                error_4 = _a.sent();
+                res.json({ error: error_4 });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
@@ -147,10 +175,11 @@ exports.getUserById = getUserById;
  *             "param": "email",
  */
 var saveUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var errors, usuario, results;
+    var errors, usuario, results, error_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 3, , 4]);
                 errors = (0, express_validator_1.validationResult)(req);
                 if (!errors.isEmpty()) {
                     console.log(errors.array());
@@ -162,7 +191,12 @@ var saveUser = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
                 return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).save(usuario)];
             case 2:
                 results = _a.sent();
-                return [2 /*return*/, res.status(200).send(results)];
+                return [2 /*return*/, res.status(200).send({ res: "Usuario guardado con exito", results: results })];
+            case 3:
+                error_5 = _a.sent();
+                res.json({ error: error_5 });
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
@@ -174,19 +208,26 @@ exports.saveUser = saveUser;
  * @returns The updated user.
  */
 var updateUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var usuario, results;
+    var usuario, results, error_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).findOneBy({
-                    idusuario: parseInt(req.params.id),
-                })];
+            case 0:
+                _a.trys.push([0, 3, , 4]);
+                return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).findOneBy({
+                        idusuario: parseInt(req.params.id),
+                    })];
             case 1:
                 usuario = _a.sent();
                 app_data_source_1.default.getRepository(usuario_entity_1.Usuario).merge(usuario, req.body);
                 return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).save(usuario)];
             case 2:
                 results = _a.sent();
-                return [2 /*return*/, res.send(results)];
+                return [2 /*return*/, res.send(200).json({ res: "Usuario actualizado con exito", results: results })];
+            case 3:
+                error_6 = _a.sent();
+                res.json({ error: error_6 });
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
@@ -198,13 +239,20 @@ exports.updateUser = updateUser;
  * @returns The number of rows affected by the delete operation.
  */
 var deleteUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var results;
+    var results, error_7;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).delete(req.params.id)];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).delete(req.params.id)];
             case 1:
                 results = _a.sent();
                 return [2 /*return*/, res.send(results)];
+            case 2:
+                error_7 = _a.sent();
+                res.json({ error: error_7 });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };

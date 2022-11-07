@@ -1,7 +1,7 @@
 import {Router} from "express"
 
 //Controllers
-import { getAllComentaries, getAllComentariesUsuario,getComentariesById,saveComentaries,updateComentaries, deleteComentaries} from '../controllers/comentario.controlles'
+import { getAllComentaries, getAllComentariesUsuario,getComentariesById,saveComentaries,updateComentaries, deleteComentaries} from '../controllers/comentario.controller'
 
 const router = Router()
 
