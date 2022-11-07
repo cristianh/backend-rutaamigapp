@@ -25,14 +25,26 @@ import { DataSource } from "typeorm"
     synchronize: true,
 }) */
 
-const myDataSource = new DataSource({
+/* const myDataSource = new DataSource({
     type: "postgres",
     url: "postgres://regmlgkffxgeyn:e75becdcadf3c1129fd5fe71a8976509f24d6d975345810680c39b7d997db4dd@ec2-3-209-39-2.compute-1.amazonaws.com:5432/d9o8e0jee2gk9u",
-   /*  port: 5432,
+    port: 5432,
     username: "regmlgkffxgeyn",
     password: "e75becdcadf3c1129fd5fe71a8976509f24d6d975345810680c39b7d997db4dd",
-    database: "d9o8e0jee2gk9u", */
+    database: "d9o8e0jee2gk9u",
     ssl: { rejectUnauthorized: false },
+    entities: ["dist/src/entity/*.js"],
+    logging: false,
+    synchronize: true,
+}) */
+
+const myDataSource = new DataSource({
+    type: "postgres",
+    host: "postgresql-95002-0.cloudclusters.net",
+    port: 19264,
+    username: "root",
+    password: "crusto2009",
+    database: "test",
     entities: ["dist/src/entity/*.js"],
     logging: false,
     synchronize: true,
