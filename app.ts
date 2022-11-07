@@ -53,7 +53,7 @@ app.use(express.static(path.join(__dirname, './uploads')));
 app.use(fileUpload({
     createParentPath: true,
     limits: {
-        fileSize: 2 * 1024 * 1024 * 1024
+        fileSize: 2 * 1024 * 1024 * 1024// Limitamos el  peso del archivo.
     }
 }))
 
