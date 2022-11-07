@@ -34,7 +34,7 @@ var Foro = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Foro.prototype, "latitud", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "tinyint", nullable: false }),
+        (0, typeorm_1.Column)({ type: "smallint", nullable: false }),
         __metadata("design:type", Boolean)
     ], Foro.prototype, "estado", void 0);
     __decorate([

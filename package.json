@@ -33,6 +33,7 @@
     "express-validator": "^6.14.2",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
+    "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
     "socket.io": "^4.5.3",
     "typeorm": "^0.3.10"
