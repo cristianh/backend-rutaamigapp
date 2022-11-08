@@ -56,7 +56,7 @@ var myDataSource = new typeorm_1.DataSource({
      password: "crusto2009",
      database: "test", */
     ssl: { rejectUnauthorized: false },
-    entities: ["dist/src/entity/*.js"],
+    entities: [__dirname + "./src/entity/*.js"],
     logging: false,
     synchronize: true,
 });
