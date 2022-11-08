@@ -4,12 +4,14 @@ var express_1 = require("express");
 //Controllers
 var comentario_controller_1 = require("../controllers/comentario.controller");
 var router = (0, express_1.Router)();
+//Inicializamos controllador.
+var comentarioController = new comentario_controller_1.ComentarioController();
 // Comentarios
-router.get("/comentarios", comentario_controller_1.getAllComentaries);
-router.get("/comentario/usuario", comentario_controller_1.getAllComentariesUsuario);
-router.get("/comentario/:id", comentario_controller_1.getComentariesById);
-router.post("/comentario", comentario_controller_1.saveComentaries);
-router.put("/comentario/:id", comentario_controller_1.updateComentaries);
-router.delete("/comentario/:id", comentario_controller_1.deleteComentaries);
+router.get("/comentario", comentarioController.getAllComentaries);
+router.get("/comentario/usuario", comentarioController.getAllComentariesUsuario);
+router.get("/comentario/:id", comentarioController.getComentariesById);
+router.post("/comentario", comentarioController.saveComentaries);
+router.put("/comentario/:id", comentarioController.updateComentaries);
+router.delete("/comentario/:id", comentarioController.deleteComentaries);
 exports.default = router;
 //# sourceMappingURL=comentario.router.js.map

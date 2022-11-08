@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Comentario = void 0;
 var typeorm_1 = require("typeorm");
-var foro_entity_1 = require("../entity/foro.entity");
 var usuario_entity_1 = require("../entity/usuario.entity");
 /*idComentarios INT PRIMARY KEY auto_increment,
 fecha DATE not null,
@@ -37,10 +36,6 @@ var Comentario = /** @class */ (function () {
         (0, typeorm_1.Column)({ type: "varchar", nullable: false }),
         __metadata("design:type", String)
     ], Comentario.prototype, "comentario", void 0);
-    __decorate([
-        (0, typeorm_1.OneToMany)(function () { return foro_entity_1.Foro; }, function (foro) { return foro.comentario; }),
-        __metadata("design:type", foro_entity_1.Foro)
-    ], Comentario.prototype, "foro", void 0);
     __decorate([
         (0, typeorm_1.ManyToOne)(function () { return usuario_entity_1.Usuario; }, function (usuario) { return usuario.comentario; }),
         __metadata("design:type", Array)

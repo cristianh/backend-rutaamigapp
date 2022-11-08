@@ -36,22 +36,22 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RutaController = void 0;
-var ruta_entity_1 = require("../entity/ruta.entity");
+exports.ForoController = void 0;
+var foro_entity_1 = require("../entity/foro.entity");
 var app_data_source_1 = require("../../app-data-source");
-var RutaController = /** @class */ (function () {
-    function RutaController() {
+var ForoController = /** @class */ (function () {
+    function ForoController() {
         var _this = this;
-        this.getAllRutas = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var rutas, error_1;
+        this.getAllForo = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var foros, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).find()];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).find()];
                     case 1:
-                        rutas = _a.sent();
-                        res.json(rutas);
+                        foros = _a.sent();
+                        res.json(foros);
                         return [3 /*break*/, 3];
                     case 2:
                         error_1 = _a.sent();
@@ -61,14 +61,14 @@ var RutaController = /** @class */ (function () {
                 }
             });
         }); };
-        this.getAllRutaById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        this.getForoById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var results, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).findOneBy({
-                                idRutas: parseInt(req.params.id),
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).findOneBy({
+                                idForo: parseInt(req.params.id),
                             })];
                     case 1:
                         results = _a.sent();
@@ -81,17 +81,17 @@ var RutaController = /** @class */ (function () {
                 }
             });
         }); };
-        this.saveRuta = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var ruta, results, error_3;
+        this.saveForo = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var foro, results, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
                         console.log(req.body);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).create(req.body)];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).create(req.body)];
                     case 1:
-                        ruta = _a.sent();
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).save(ruta)];
+                        foro = _a.sent();
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).save(foro)];
                     case 2:
                         results = _a.sent();
                         return [2 /*return*/, res.status(200).send({ status: "Ruta guardadad", results: results })];
@@ -103,19 +103,19 @@ var RutaController = /** @class */ (function () {
                 }
             });
         }); };
-        this.updateRuta = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var usuario, results, error_4;
+        this.updateForo = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var foro, results, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).findOneBy({
-                                idRutas: parseInt(req.params.id),
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).findOneBy({
+                                idForo: parseInt(req.params.id),
                             })];
                     case 1:
-                        usuario = _a.sent();
-                        app_data_source_1.default.getRepository(ruta_entity_1.Ruta).merge(usuario, req.body);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).save(usuario)];
+                        foro = _a.sent();
+                        app_data_source_1.default.getRepository(foro_entity_1.Foro).merge(foro, req.body);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).save(foro)];
                     case 2:
                         results = _a.sent();
                         return [2 /*return*/, res.send(200).json({ status: 'ok', results: results })];
@@ -127,13 +127,13 @@ var RutaController = /** @class */ (function () {
                 }
             });
         }); };
-        this.deleteRuta = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        this.deleteForo = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var results, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).delete(req.params.id)];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).delete(req.params.id)];
                     case 1:
                         results = _a.sent();
                         return [2 /*return*/, res.send(results)];
@@ -146,7 +146,7 @@ var RutaController = /** @class */ (function () {
             });
         }); };
     }
-    return RutaController;
+    return ForoController;
 }());
-exports.RutaController = RutaController;
-//# sourceMappingURL=rutas.controller.js.map
+exports.ForoController = ForoController;
+//# sourceMappingURL=foro.controller.js.map

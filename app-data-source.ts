@@ -1,7 +1,5 @@
 import { DataSource } from "typeorm"
-const path = require('path');
 
-console.log(__dirname + "/src/entity/*.js");
 //MySQL
 /* const myDataSource = new DataSource({
     type: "mysql",
@@ -51,6 +49,8 @@ console.log(__dirname + "/src/entity/*.js");
     logging: false,
     synchronize: true,
 }) */
+
+//Conexion remota.
 const myDataSource = new DataSource({
     type: "postgres",
     url: "postgres://root:6lEuAC2VJErRMWCwRxHzCiwrGJGPAEQg@dpg-cdkod8cgqg43pc4c83ig-a.oregon-postgres.render.com/test_37ws",

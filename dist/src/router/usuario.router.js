@@ -6,15 +6,17 @@ var usuario_controller_1 = require("../controllers/usuario.controller");
 //Middleware
 var validateFormLogin_1 = require("../middleware/validateFormLogin");
 var router = (0, express_1.Router)();
+//Inicializamos el controlador.
+var usuarioController = new usuario_controller_1.UsuarioController();
 // Usuarios
-router.get("/usuario", usuario_controller_1.getAllUsers);
-router.get("/usuario/comentarios", usuario_controller_1.getComentariesUsers);
-router.get("/usuario/:usuarioId/comentarios/:comentarioId", usuario_controller_1.getUserByIdComentariesById);
-router.get("/usuario/:id", usuario_controller_1.getUserById);
-router.post("/usuario", (0, validateFormLogin_1.default)(), usuario_controller_1.saveUser);
-router.put("/usuario/:id", usuario_controller_1.updateUser);
-router.delete("/usuario/:id", usuario_controller_1.deleteUser);
-//ruta test 
+router.get("/usuario", usuarioController.getAllUsers);
+router.get("/usuario/:id/comentarios", usuarioController.getComentariesUsersById);
+router.get("/usuario/:usuarioId/comentarios/:comentarioId", usuarioController.getUserByIdComentariesById);
+router.get("/usuario/:id", usuarioController.getUserById);
+router.post("/usuario", (0, validateFormLogin_1.default)(), usuarioController.saveUser);
+router.put("/usuario/:id", usuarioController.updateUser);
+router.delete("/usuario/:id", usuarioController.deleteUser);
+//ruta test pagina
 router.get("/testPrueba", function (req, res) {
     res.send("hola mundo");
 });

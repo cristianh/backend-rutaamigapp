@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Usuario = void 0;
 var typeorm_1 = require("typeorm");
 var comentario_entity_1 = require("../entity/comentario.entity");
-var foro_entity_1 = require("../entity/foro.entity");
 /*idusuario           INT PRIMARY KEY auto_increment,
 nombre_usuario      VARCHAR(45) NOT NULL,
 apellido_usuario    VARCHAR(45) NOT NULL,
@@ -50,10 +49,6 @@ var Usuario = /** @class */ (function () {
         (0, typeorm_1.Column)({ type: "boolean", nullable: false }),
         __metadata("design:type", String)
     ], Usuario.prototype, "estado_usuario", void 0);
-    __decorate([
-        (0, typeorm_1.OneToMany)(function () { return foro_entity_1.Foro; }, function (foro) { return foro.comentario; }),
-        __metadata("design:type", foro_entity_1.Foro)
-    ], Usuario.prototype, "foro", void 0);
     __decorate([
         (0, typeorm_1.OneToMany)(function () { return comentario_entity_1.Comentario; }, function (comentario) { return comentario.usuario; }),
         __metadata("design:type", comentario_entity_1.Comentario)

@@ -11,8 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Foro = void 0;
 var typeorm_1 = require("typeorm");
-var usuario_entity_1 = require("../entity/usuario.entity");
-var comentario_entity_1 = require("../entity/comentario.entity");
 /*idForo int primary key auto_increment,
 usuarios_idusuario int,
 comentarios_idcomentarios int,
@@ -26,29 +24,9 @@ var Foro = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Foro.prototype, "idForo", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "float", nullable: false }),
-        __metadata("design:type", Number)
-    ], Foro.prototype, "longitud", void 0);
-    __decorate([
-        (0, typeorm_1.Column)({ type: "float", nullable: false }),
-        __metadata("design:type", Number)
-    ], Foro.prototype, "latitud", void 0);
-    __decorate([
         (0, typeorm_1.Column)({ type: "smallint", nullable: false }),
         __metadata("design:type", Boolean)
     ], Foro.prototype, "estado", void 0);
-    __decorate([
-        (0, typeorm_1.Column)({ type: "time", nullable: false }),
-        __metadata("design:type", String)
-    ], Foro.prototype, "tiempo_recorrido", void 0);
-    __decorate([
-        (0, typeorm_1.ManyToOne)(function () { return usuario_entity_1.Usuario; }, function (usuario) { return usuario.foro; }),
-        __metadata("design:type", usuario_entity_1.Usuario)
-    ], Foro.prototype, "usuario", void 0);
-    __decorate([
-        (0, typeorm_1.ManyToOne)(function () { return comentario_entity_1.Comentario; }, function (comentario) { return comentario.foro; }),
-        __metadata("design:type", comentario_entity_1.Comentario)
-    ], Foro.prototype, "comentario", void 0);
     Foro = __decorate([
         (0, typeorm_1.Entity)()
     ], Foro);

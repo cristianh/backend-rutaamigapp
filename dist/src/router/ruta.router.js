@@ -4,15 +4,14 @@ var express_1 = require("express");
 //Controllers
 var rutas_controller_1 = require("../controllers/rutas.controller");
 var router = (0, express_1.Router)();
+//Iniciamos ruta controller
+var rutaController = new rutas_controller_1.RutaController();
 // register Rutas
-router.get("/rutas", rutas_controller_1.getAllRutas);
-/* router.get("/usuario/comentarios", async function (req: Request, res: Response) {
-    const ruta = await myDataSource.getRepository(Ruta).find()
-    res.json(ruta)
-}) */
-router.get("/ruta/:id", rutas_controller_1.getAllRutaById);
-router.post("/ruta", rutas_controller_1.saveRuta);
-router.put("/ruta/:id", rutas_controller_1.updateRuta);
-router.delete("/ruta/:id", rutas_controller_1.deleteRuta);
+router.get("/ruta", rutaController.getAllRutas);
+router.get("/ruta/:id", rutaController.getAllRutas);
+router.get("/ruta/:id", rutaController.getAllRutaById);
+router.post("/ruta", rutaController.saveRuta);
+router.put("/ruta/:id", rutaController.updateRuta);
+router.delete("/ruta/:id", rutaController.deleteRuta);
 exports.default = router;
 //# sourceMappingURL=ruta.router.js.map
