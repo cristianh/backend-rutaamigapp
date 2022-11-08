@@ -93,7 +93,7 @@ var saveRuta = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
                 return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).save(ruta)];
             case 2:
                 results = _a.sent();
-                return [2 /*return*/, res.send(results)];
+                return [2 /*return*/, res.status(200).send({ status: "Ruta guardadad", results: results })];
             case 3:
                 error_3 = _a.sent();
                 res.json({ error: error_3 });
@@ -118,7 +118,7 @@ var updateRuta = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).save(usuario)];
             case 2:
                 results = _a.sent();
-                return [2 /*return*/, res.send(200).json({ res: 'ok', results: results })];
+                return [2 /*return*/, res.send(200).json({ status: 'ok', results: results })];
             case 3:
                 error_4 = _a.sent();
                 res.json({ error: error_4 });

@@ -116,7 +116,7 @@ export const saveUser = async (req: Request, res: Response) => {
 
         const usuario = await myDataSource.getRepository(Usuario).create(req.body)
         const results = await myDataSource.getRepository(Usuario).save(usuario)
-        return res.status(200).send({ res: "Usuario guardado con exito", results })
+        return res.status(200).send({ status: "Usuario guardado con exito", results })
     } catch (error) {
         res.json({ error })
     }

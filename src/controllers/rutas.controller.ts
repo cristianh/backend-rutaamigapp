@@ -29,7 +29,7 @@ export const saveRuta = async (req: Request, res: Response) => {
         console.log(req.body)
         const ruta = await myDataSource.getRepository(Ruta).create(req.body)
         const results = await myDataSource.getRepository(Ruta).save(ruta)
-        return res.send(results)
+        return res.status(200).send({status:"Ruta guardadad",results})
     } catch (error) {
         res.json({ error })
     }
@@ -42,7 +42,7 @@ export const updateRuta = async (req: Request, res: Response) => {
         })
         myDataSource.getRepository(Ruta).merge(usuario, req.body)
         const results = await myDataSource.getRepository(Ruta).save(usuario)
-        return res.send(200).json({ res: 'ok', results })
+        return res.send(200).json({ status: 'ok', results })
     } catch (error) {
         res.json({ error })
     }

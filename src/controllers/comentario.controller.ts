@@ -33,7 +33,7 @@ export const getAllComentariesUsuario = async (req: Request, res: Response) => {
  * @param {Response} res - Response =&gt; Express.Response
  * @returns An array of objects.
  */
-export const getComentariesById = async (req: Request, res: Response)  => {
+export const getComentariesById = async (req: Request, res: Response) => {
     const results = await myDataSource.getRepository(Comentario).findOneBy({
         idComentarios: parseInt(req.params.id),
     })
@@ -53,11 +53,15 @@ export const getComentariesById = async (req: Request, res: Response)  => {
  *         "nome": "teste",
  *         "email": "teste@teste.com
  */
-export const saveComentaries = async (req: Request, res: Response)  => {
-    console.log(req.body)
-    const comentario = await myDataSource.getRepository(Comentario).create(req.body)
-    const results = await myDataSource.getRepository(Comentario).save(comentario)
-    return res.send(results)
+export const saveComentaries = async (req: Request, res: Response) => {
+    try {
+        const comentario = await myDataSource.getRepository(Comentario).create(req.body)
+        const results = await myDataSource.getRepository(Comentario).save(comentario)
+        return res.status(100).send({status:"Comentario guardado",results})
+    } catch (error) {
+        res.json({ error })
+    }
+
 }
 
 /**
@@ -67,7 +71,7 @@ export const saveComentaries = async (req: Request, res: Response)  => {
  * @param {Response} res - Response
  * @returns The updated object.
  */
-export const updateComentaries = async  (req: Request, res: Response) => {
+export const updateComentaries = async (req: Request, res: Response) => {
     const comentario = await myDataSource.getRepository(Comentario).findOneBy({
         idComentarios: parseInt(req.params.id),
     })
@@ -82,7 +86,7 @@ export const updateComentaries = async  (req: Request, res: Response) => {
  * @param {Response} res - Response
  * @returns The result of the delete operation.
  */
-export const deleteComentaries = async  (req: Request, res: Response)  => {
+export const deleteComentaries = async (req: Request, res: Response) => {
     const results = await myDataSource.getRepository(Comentario).delete(req.params.id)
     return res.send(results)
 }

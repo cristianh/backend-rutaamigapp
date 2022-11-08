@@ -191,7 +191,7 @@ var saveUser = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
                 return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).save(usuario)];
             case 2:
                 results = _a.sent();
-                return [2 /*return*/, res.status(200).send({ res: "Usuario guardado con exito", results: results })];
+                return [2 /*return*/, res.status(200).send({ status: "Usuario guardado con exito", results: results })];
             case 3:
                 error_5 = _a.sent();
                 res.json({ error: error_5 });

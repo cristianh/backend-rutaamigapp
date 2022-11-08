@@ -113,18 +113,23 @@ exports.getComentariesById = getComentariesById;
  *         "email": "teste@teste.com
  */
 var saveComentaries = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var comentario, results;
+    var comentario, results, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log(req.body);
+                _a.trys.push([0, 3, , 4]);
                 return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).create(req.body)];
             case 1:
                 comentario = _a.sent();
                 return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).save(comentario)];
             case 2:
                 results = _a.sent();
-                return [2 /*return*/, res.send(results)];
+                return [2 /*return*/, res.status(100).send({ status: "Comentario guardado", results: results })];
+            case 3:
+                error_1 = _a.sent();
+                res.json({ error: error_1 });
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
