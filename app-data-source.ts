@@ -1,5 +1,7 @@
 import { DataSource } from "typeorm"
+const path = require('path');
 
+console.log(__dirname + "/src/entity/*.js");
 //MySQL
 /* const myDataSource = new DataSource({
     type: "mysql",
@@ -57,7 +59,7 @@ const myDataSource = new DataSource({
     password: "crusto2009",
     database: "test", */
     ssl: { rejectUnauthorized: false },
-    entities: [__dirname +"./src/entity/*.js"],
+    entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
 })

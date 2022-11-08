@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
+var path = require('path');
+console.log(__dirname + "/src/entity/*.js");
 //MySQL
 /* const myDataSource = new DataSource({
     type: "mysql",
@@ -56,7 +58,7 @@ var myDataSource = new typeorm_1.DataSource({
      password: "crusto2009",
      database: "test", */
     ssl: { rejectUnauthorized: false },
-    entities: [__dirname + "./src/entity/*.js"],
+    entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
 });
