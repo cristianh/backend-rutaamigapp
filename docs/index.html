@@ -10,7 +10,113 @@
 <div class="col-8 col-content">
 <div class="tsd-page-title">
 <h2>user</h2></div>
-<div class="tsd-panel tsd-typography"></div></div>
+<div class="tsd-panel tsd-typography">
+<a href="#backend---rutamigapp" id="backend---rutamigapp" style="color: inherit; text-decoration: none;">
+  <h1>BACKEND - RUTAMIGAPP</h1>
+</a>
+<p>Configuracion inicial:</p>
+
+<a href="#instalar-todas-las-dependencias" id="instalar-todas-las-dependencias" style="color: inherit; text-decoration: none;">
+  <h2>Instalar Todas las dependencias:</h2>
+</a>
+<pre><code class="language-bash"><span class="hl-0">  npm run install</span>
+</code></pre>
+<p><strong>NOTA:</strong> Antes de correr el proyecto verificar tener instalado las siguientes dependencias:</p>
+
+<a href="#typescript" id="typescript" style="color: inherit; text-decoration: none;">
+  <h2>Typescript:</h2>
+</a>
+<pre><code class="language-bash"><span class="hl-0">  npm install -g typescript </span>
+</code></pre>
+
+<a href="#nodemon" id="nodemon" style="color: inherit; text-decoration: none;">
+  <h2>Nodemon:</h2>
+</a>
+<pre><code class="language-bash"><span class="hl-0">npm install -g nodemon</span>
+</code></pre>
+
+<a href="#deployment" id="deployment" style="color: inherit; text-decoration: none;">
+  <h2>Deployment:</h2>
+</a>
+<p>Verificar que la aplicación xampp este corriendo, en el puerto &#39;3006&#39;, si no tienen xampp utilicen cualquier otro gestor de db.</p>
+<p>El archivo de configuracion de la base de datos es &#39;app-data-source.ts&#39;</p>
+<img src="./imagenesRed/img6.png" alt="" width="600px">
+
+<p><strong>NOTA:</strong> Si no les corre me comentan.</p>
+
+<a href="#paso-1" id="paso-1" style="color: inherit; text-decoration: none;">
+  <h2>Paso 1:</h2>
+</a>
+<p>Ir al menu &#39;Terminal&#39;:
+<img src="./imagenesRed/img1.png" alt="" width="600px"></p>
+
+<a href="#paso-2" id="paso-2" style="color: inherit; text-decoration: none;">
+  <h2>Paso 2:</h2>
+</a>
+<p>Dar click en la opcion &#39;Ejecutar tarea&#39;:
+<img src="./imagenesRed/img2.png" alt="" width="600px"></p>
+
+<a href="#paso-3" id="paso-3" style="color: inherit; text-decoration: none;">
+  <h2>Paso 3:</h2>
+</a>
+<p>Aparece esta ventana:
+<img src="./imagenesRed/img3.png" alt="" width="600px"></p>
+
+<a href="#paso-4" id="paso-4" style="color: inherit; text-decoration: none;">
+  <h2>Paso 4:</h2>
+</a>
+<p><strong>NOTA:</strong> Solo ejecuten el que dice &#39;servidor&#39;.</p>
+<img src="./imagenesRed/img4.png" alt="" width="600px">
+
+
+<a href="#paso-5" id="paso-5" style="color: inherit; text-decoration: none;">
+  <h2>Paso 5:</h2>
+</a>
+<p>Aparece esta ventana, dar clic en la opcion indicada.
+<img src="./imagenesRed/img5.png" alt="" width="600px"></p>
+
+<a href="#paso-6" id="paso-6" style="color: inherit; text-decoration: none;">
+  <h2>Paso 6:</h2>
+</a>
+<p>Revisar que en la salida de la terminal este corriendo el servidor.
+<img src="./imagenesRed/img7.png" alt="" width="600px"></p>
+
+<a href="#rutas-usuario" id="rutas-usuario" style="color: inherit; text-decoration: none;">
+  <h2>Rutas Usuario:<br></h2>
+</a>
+<table>
+<thead>
+<tr>
+<th align="left">Method</th>
+<th align="center">URL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">GET</td>
+<td align="center">/usuario</td>
+</tr>
+<tr>
+<td align="left">GET</td>
+<td align="center">/usuario/:id/comentarios</td>
+</tr>
+<tr>
+<td align="left">GET</td>
+<td align="center">/usuario/:usuarioId/comentarios/:comentarioId</td>
+</tr>
+<tr>
+<td align="left">PUT</td>
+<td align="center">/usuario/:id</td>
+</tr>
+<tr>
+<td align="left">POST</td>
+<td align="center">/usuario</td>
+</tr>
+<tr>
+<td align="left">DELETE</td>
+<td align="center">/usuario /:id</td>
+</tr>
+</tbody></table>
+</div></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
@@ -31,16 +137,26 @@
 <div class="tsd-accordion-details">
 <ul>
 <li class="current selected"><a href="modules.html">user</a>
-<ul></ul></li></ul></div></details></nav>
-<nav class="tsd-navigation secondary menu-sticky">
 <ul>
-<li class="tsd-kind-function"><a href="functions/deleteUser.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-64-path"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)" id="icon-64-text"></path></svg>delete<wbr/>User</a></li>
-<li class="tsd-kind-function"><a href="functions/getAllUsers.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>get<wbr/>All<wbr/>Users</a></li>
-<li class="tsd-kind-function"><a href="functions/getComentariesUsers.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>get<wbr/>Comentaries<wbr/>Users</a></li>
-<li class="tsd-kind-function"><a href="functions/getUserById.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>get<wbr/>User<wbr/>By<wbr/>Id</a></li>
-<li class="tsd-kind-function"><a href="functions/getUserByIdComentariesById.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>get<wbr/>User<wbr/>By<wbr/>Id<wbr/>Comentaries<wbr/>By<wbr/>Id</a></li>
-<li class="tsd-kind-function"><a href="functions/saveUser.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>save<wbr/>User</a></li>
-<li class="tsd-kind-function"><a href="functions/updateUser.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>update<wbr/>User</a></li></ul></nav></div></div>
+<li class="tsd-kind-module"><a href="modules/controllers_comentario_controller.html">controllers/comentario.controller</a></li>
+<li class="tsd-kind-module"><a href="modules/controllers_foro_controller.html">controllers/foro.controller</a></li>
+<li class="tsd-kind-module"><a href="modules/controllers_rutas_controller.html">controllers/rutas.controller</a></li>
+<li class="tsd-kind-module"><a href="modules/controllers_usuario_controller.html">controllers/usuario.controller</a></li>
+<li class="tsd-kind-module"><a href="modules/entity_comentario_entity.html">entity/comentario.entity</a></li>
+<li class="tsd-kind-module"><a href="modules/entity_foro_entity.html">entity/foro.entity</a></li>
+<li class="tsd-kind-module"><a href="modules/entity_marcadores_entity.html">entity/marcadores.entity</a></li>
+<li class="tsd-kind-module"><a href="modules/entity_notificacion_entity.html">entity/notificacion.entity</a></li>
+<li class="tsd-kind-module"><a href="modules/entity_rol_entity.html">entity/rol.entity</a></li>
+<li class="tsd-kind-module"><a href="modules/entity_ruta_entity.html">entity/ruta.entity</a></li>
+<li class="tsd-kind-module"><a href="modules/entity_rutausuario_entity.html">entity/rutausuario.entity</a></li>
+<li class="tsd-kind-module"><a href="modules/entity_usuario_entity.html">entity/usuario.entity</a></li>
+<li class="tsd-kind-module"><a href="modules/middleware_validateFormLogin.html">middleware/validate<wbr/>Form<wbr/>Login</a></li>
+<li class="tsd-kind-module"><a href="modules/router_comentario_router.html">router/comentario.router</a></li>
+<li class="tsd-kind-module"><a href="modules/router_foro_router.html">router/foro.router</a></li>
+<li class="tsd-kind-module"><a href="modules/router_ruta_router.html">router/ruta.router</a></li>
+<li class="tsd-kind-module"><a href="modules/router_uploadFile_roter.html">router/upload<wbr/>File.roter</a></li>
+<li class="tsd-kind-module"><a href="modules/router_usuario_router.html">router/usuario.router</a></li>
+<li class="tsd-kind-module"><a href="modules/servermap_servermap.html">servermap/servermap</a></li></ul></li></ul></div></details></nav></div></div>
 <div class="container tsd-generator">
 <p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
 <div class="overlay"></div><script src="assets/main.js"></script></body></html>
