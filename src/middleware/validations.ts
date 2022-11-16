@@ -42,6 +42,8 @@ export class Validations {
             validator.body('password_usuario').not().isEmpty().trim().escape().withMessage('El campo password es requerido'),
             //Verifica que el campo correo_usuario no sea vacio , elimina espacios y caracteres innecesarios.
             validator.body('correo_usuario').not().isEmpty().trim().escape().withMessage('El campo correo es requerido'),
+            //varifica que el correo tenga un formato valido.
+            validator.body('correo_usuario').isEmail().withMessage('El correo no es valido.')
         ]
     }
 }

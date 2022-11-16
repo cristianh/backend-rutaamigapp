@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <title>Login</title>
+    <title>Registro</title>
     <style>
         .hidden {
             display: none
@@ -18,17 +18,34 @@
     <div clas="container center">
         <form onSubmit="ingresar(event)">
             <div class="field">
-                <label class="label">Correo</label>
+                <label class="label">Nombre usuario</label>
                 <div class="control">
-                    <input class="input" type="text" name="correo_usuario" id="correo_usuario" placeholder="Correo">
+                    <input class="input" type="text" name="nombre_usuario" id="nombre_usuario"
+                        placeholder="Nombre usuario">
                 </div>
             </div>
             <div class="field">
-                <label class="label">Password</label>
+                <label class="label">Apellido usuario</label>
                 <div class="control">
-                    <input class="input" type="password" name="password_usuario"  id="password_usuario" placeholder="Password">
+                    <input class="input" type="text" name="apellido_usuario" id="apellido_usuario"
+                        placeholder="Apellido usuario">
                 </div>
             </div>
+            <div class="field">
+                <label class="label">Correo usuario</label>
+                <div class="control">
+                    <input class="input" type="text" name="correo_usuario" id="correo_usuario"
+                        placeholder="Correo usuario">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Password usuario</label>
+                <div class="control">
+                    <input class="input" type="password" name="password_usuario" id="password_usuario"
+                        placeholder="Password">
+                </div>
+            </div>
+
             <div class="field is-grouped">
                 <div class="control">
                     <button class="button is-link">INGRESAR</button>
@@ -39,7 +56,7 @@
             </div>
         </form>
     </div>
-    <article class="message is-danger hidden" id="mensaje">
+    <article class="message is-danger hidden" id="mensaje-error">
         <div class="message-header">
             <p>Danger</p>
             <button class="delete" aria-label="delete"></button>
@@ -51,18 +68,32 @@
             </div>
         </div>
     </article>
+    <article class="message is-primary hidden" id="mensaje-sucess">
+        <div class="message-header">
+          <p>Correcto</p>
+          <button class="delete" aria-label="delete"></button>
+        </div>
+        <div class="message-body">
+            <div id="mensaje-sucerss">
+
+            </div>
+        </div>
+      </article>
     <script>
         function ingresar(e) {
 
             e.preventDefault();
 
             let data = {
+                nombre_usuario: document.getElementById('nombre_usuario').value,
+                apellido_usuario: document.getElementById('apellido_usuario').value,
                 correo_usuario: document.getElementById('correo_usuario').value,
-                password_usuario: document.getElementById('password_usuario').value
+                password_usuario: document.getElementById('password_usuario').value,
+                estado_usuario:true
             }
 
 
-            fetch('http://localhost:6060/app/login', {
+            fetch('http://localhost:6060/app/registro', {
                 method: 'POST', // or 'PUT'
                 body: JSON.stringify(data), // data can be `string` or {object}!
                 headers: {
@@ -71,27 +102,29 @@
             }).then(res => res.json())
                 .catch(error => console.error('Error:', error))
                 .then(response => {
-                    if (response.estado) {
+                    if (response.status=="Usuario guardado con exito") {
                         console.log('Success:', response)
-                        document.getElementById('mensaje').classList.add('hidden')
-                        document.getElementById('mensaje-error').innerHTML=''
-                        window.location = '/src/view/listarUsuarioDemo.html';
+                        document.getElementById('mensaje-sucess').classList.remove('hidden')
+                        document.getElementById('mensaje-error').classList.add('hidden')
+                        document.getElementById('mensaje-sucess').innerHTML = response.status + '<a href="loginDemo.html">Login</a>'
+                        
                     } else {
                         console.log('Success:', response)
                         if (response.errors) {
-                            document.getElementById('mensaje').classList.remove('hidden')
+                            document.getElementById('mensaje-error').classList.remove('hidden')
+                            document.getElementById('mensaje-sucess').classList.add('hidden')
                             let errorMessague = []
                             response.errors.forEach(element => {
                                 errorMessague.push(element.msg)
 
                             });
-                            document.getElementById('mensaje-error').innerHTML=''
+                            document.getElementById('mensaje-error').innerHTML = ''
                             errorMessague.forEach(element => {
                                 document.getElementById('mensaje-error').innerHTML += `${element}<br>`
                             });
                         }
-                        if(response.error){
-                            document.getElementById('mensaje').classList.remove('hidden')
+                        if (response.error) {
+                            document.getElementById('mensaje-error').classList.remove('hidden')
                             document.getElementById('mensaje-error').innerHTML += `${response.error} <a href="registroDemo.html">Registrar</a>`
                         }
                     }

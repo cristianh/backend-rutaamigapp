@@ -15,7 +15,7 @@ router.get("/usuario", usuarioController.getAllUsers);
 router.get("/usuario/:id/comentarios", usuarioController.getComentariesUsersById);
 router.get("/usuario/:usuarioId/comentarios/:comentarioId", usuarioController.getUserByIdComentariesById);
 router.get("/usuario/:id", usuarioController.getUserById);
-router.post("/usuario", validation.validateFormUsuarioRegister(), usuarioController.saveUser);
+router.post("/registro", validation.validateFormUsuarioRegister(), usuarioController.saveUser);
 router.put("/usuario/:id", usuarioController.updateUser);
 router.delete("/usuario/:id", usuarioController.deleteUser);
 router.post("/login", validation.validateFormUsuarioLogin(), usuarioController.getUsuarioLogin);
