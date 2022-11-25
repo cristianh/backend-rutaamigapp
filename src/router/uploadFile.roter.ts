@@ -15,6 +15,7 @@ router.post("/upload", async (req: Request, res: Response) => {
 
 
             let imagenUpload: any = req.files.imagen;
+            //Implementar el sanitizador para evitar archivos indeseados
             imagenUpload.mv( path.resolve(__dirname, '../../uploads',imagenUpload.name))
            
 

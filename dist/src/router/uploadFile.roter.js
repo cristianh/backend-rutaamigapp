@@ -51,6 +51,7 @@ router.post("/upload", function (req, res) { return __awaiter(void 0, void 0, vo
             }
             else {
                 imagenUpload = req.files.imagen;
+                //Implementar el sanitizador para evitar archivos indeseados
                 imagenUpload.mv(path.resolve(__dirname, '../../uploads', imagenUpload.name));
                 res.send({
                     status: 200,

@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
     const appDiv = document.getElementById('app');
-   /*  appDiv.innerHTML = `<h1>Obtener Geolocalización</h1>`; */
+    /*  appDiv.innerHTML = `<h1>Obtener Geolocalización</h1>`; */
 
     const options = {
         enableHighAccuracy: true,
@@ -35,14 +35,14 @@ window.addEventListener('DOMContentLoaded', () => {
         appDiv.innerHTML += `<h2>WatchPosition( )</h2>`;
         appDiv.innerHTML += `<p>Latitud: ${pos.coords.latitude}</p>`;
         appDiv.innerHTML += `<p>Longitud: ${pos.coords.longitude}</p>`;
-        
+
 
     });
 
     navigator.geolocation.clearWatch(watchID);
 
     const loadMap = (lat, lng) => {
-        console.log(lat,lng);
+        console.log(lat, lng);
 
         mapboxgl.accessToken = 'pk.eyJ1IjoiY3J1c3RvMjAyMiIsImEiOiJjbDg3c3lmaTExNmg4M3BubGhyMThvMmhsIn0.AhcG868gRKbP-zDiccuMdA';
         const map = new mapboxgl.Map({
@@ -58,17 +58,54 @@ window.addEventListener('DOMContentLoaded', () => {
         // Add zoom and rotation controls to the map.
         map.addControl(new mapboxgl.NavigationControl());
 
-        //createMarket(lat, lng,this.map)
+        /* const el = document.createElement('div');
+        el.className = 'marker'; */
+
+       
+
+        // add markers to map
+        for (const feature of geojson.features) {
+            // create a HTML element for each feature
+            const el = document.createElement('div');
+            el.className = 'marker';
+
+            // make a marker for each feature and add to the map
+            new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates)
+                .setPopup(
+                    new mapboxgl.Popup({ offset: 25 }) // add popups
+                        .setHTML(
+                            `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+                        )
+                ).addTo(map);
+        }
+
+        //Posicion actual usuario.
+         //createMarket(lat, lng,this.map)
         const marker = new mapboxgl.Marker()
-        .setLngLat([lng, lat])
-        .addTo(map);
+            .setLngLat([lng, lat])
+            .addTo(map);
+
+
+
+
+        /* //popup
+        new mapboxgl.Marker(el)
+            .setLngLat([lng, lat])
+            .setPopup(
+                new mapboxgl.Popup({ offset: 25 }) // add popups
+                    .setHTML(
+                        `<h3>hola mundo</p>`
+                    )
+            )
+            .addTo(map); */
     }
 
-    const createMarket = (lat, lng,map) => {
+    const createMarket = (lat, lng, map) => {
         // Create a new marker.
         const marker = new mapboxgl.Marker()
             .setLngLat([lat, lng])
             .addTo(map);
     }
+
 })
 
