@@ -1,6 +1,7 @@
 
 function init(){
     console.log('Ready')
+    
    /*         
     if("geolocation" in navigator){
         document.querySelector('#map').innerHTML='Disponible geolocation'

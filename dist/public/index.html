@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>Rutaamiapp- movilizate entre amigos</title>
 
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
@@ -13,17 +13,26 @@
 </head>
 
 <body>
+    <div class="button-Menu-nav">
+        <div>
+            <select name="rutasSelect" id="selectRutas">
+                <option value="Seleccione">Seleccione</option>
+            </select>`
+        </div>
+    </div>
+
+
     <div id="map">
 
     </div>
     <div id="app">
-        <button onclick="notifyMe()">Notify me!</button>
+        <!--  <button onclick="notifyMe()">Notify me!</button> -->
     </div>
 
     <script src='./geolocalizacion.js'></script>
     <script src='./mapa.js'></script>
     <script src='./rutas.js'></script>
-   
+
     <script src='./socket.io/socket.io.js'></script>
     <script src='./js/clientsocket.js'></script>
 
