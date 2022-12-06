@@ -49,12 +49,20 @@ var UsuarioController = /** @class */ (function () {
      * @param {Response} res - Response - The response object
      */
         this.getAllUsers = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var usuario, error_1;
+            var limit, skip, query, usuario, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).find()];
+                        limit = req.query['limit'];
+                        skip = req.query['skip'];
+                        console.log(typeof (limit));
+                        console.log(typeof (skip));
+                        query = {
+                            skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
+                            take: req.query['limit'] == undefined ? 100 : parseInt(limit)
+                        };
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).find(query)];
                     case 1:
                         usuario = _a.sent();
                         res.json(usuario);

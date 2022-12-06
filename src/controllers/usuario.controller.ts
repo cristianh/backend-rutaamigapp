@@ -4,7 +4,7 @@ import myDataSource from "../../app-data-source"
 import { validationResult } from 'express-validator';
 
 
-export class UsuarioController{
+export class UsuarioController {
 
 
     /**
@@ -12,9 +12,19 @@ export class UsuarioController{
  * @param {Request} req - Request - The request object
  * @param {Response} res - Response - The response object
  */
-     public getAllUsers = async (req: Request, res: Response) => {
+    public getAllUsers = async (req: Request, res: Response) => {
         try {
-            const usuario = await myDataSource.getRepository(Usuario).find()
+
+            let limit: any = req.query['limit']
+            let skip: any = req.query['skip']
+
+            console.log(typeof (limit))
+            console.log(typeof (skip))
+            let query = {
+                skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
+                take: req.query['limit'] == undefined ? 100 : parseInt(limit)
+            }
+            const usuario = await myDataSource.getRepository(Usuario).find(query)
             res.json(usuario)
         } catch (error) {
             res.json({ error })
@@ -180,8 +190,8 @@ export class UsuarioController{
         }
     }
 
-     /* Getting all the comments of a user by id. */
-     public getUsuarioLogin = async (req: Request, res: Response) => {
+    /* Getting all the comments of a user by id. */
+    public getUsuarioLogin = async (req: Request, res: Response) => {
         try {
 
             let errors = validationResult(req);
@@ -191,13 +201,13 @@ export class UsuarioController{
             }
 
             const usuario = await myDataSource.getRepository(Usuario).findOneBy({
-                password_usuario:req.body.password_usuario,
-                correo_usuario:req.body.correo_usuario
+                password_usuario: req.body.password_usuario,
+                correo_usuario: req.body.correo_usuario
             })
 
-            res.status(200).json({'nombre':usuario.nombre_usuario,'apellido':usuario.apellido_usuario,'estado':usuario.estado_usuario})
+            res.status(200).json({ 'nombre': usuario.nombre_usuario, 'apellido': usuario.apellido_usuario, 'estado': usuario.estado_usuario })
         } catch (error) {
-            res.json({ error:'Usuario no encontrado' })
+            res.json({ error: 'Usuario no encontrado' })
         }
     }
 }

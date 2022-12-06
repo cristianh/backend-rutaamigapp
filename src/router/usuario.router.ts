@@ -15,7 +15,7 @@ const usuarioController = new UsuarioController();
 const validation= new Validations()
 
 // Usuarios
-router.get("/usuario", usuarioController.getAllUsers);
+router.get("/usuario/:limit?/:skip?", usuarioController.getAllUsers);
 router.get("/usuario/:id/comentarios", usuarioController.getComentariesUsersById);
 router.get("/usuario/:usuarioId/comentarios/:comentarioId", usuarioController.getUserByIdComentariesById);
 router.get("/usuario/:id", usuarioController.getUserById);
