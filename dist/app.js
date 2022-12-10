@@ -58,9 +58,10 @@ var app = express();
 var httpServer = (0, http_1.createServer)(app);
 var corsUrl = 'https://backrutaamigaapptestnotification-com.onrender.com';
 //const corsUrl = 'http://localhost:6060'
+console.log('http://localhost:6060' || process.env.URLDESARROLLO);
 var io = new socket_io_1.Server(httpServer, {
     cors: {
-        origin: corsUrl
+        origin: 'http://localhost:6060' || process.env.URLDESARROLLO
     },
 });
 //Pasamos la conexion del server a express

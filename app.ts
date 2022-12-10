@@ -39,9 +39,10 @@ const app = express()
 const httpServer = createServer(app);
 const corsUrl = 'https://backrutaamigaapptestnotification-com.onrender.com'
 //const corsUrl = 'http://localhost:6060'
+console.log('http://localhost:6060' || process.env.URLDESARROLLO)
 const io = new Server(httpServer, {
     cors: {
-        origin: corsUrl
+        origin: 'http://localhost:6060' || process.env.URLDESARROLLO
     },
 });
 
