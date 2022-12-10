@@ -36,15 +36,10 @@ myDataSource
 
 // create and setup express app
 const app = express()
-const httpServer = createServer(app);
-const corsUrl = 'https://backrutaamigaapptestnotification-com.onrender.com'
-//const corsUrl = 'http://localhost:6060'
-console.log('http://localhost:6060' || process.env.URLDESARROLLO)
-const io = new Server(httpServer, {
-    cors: {
-        origin:  '*'
-    },
-});
+/* const httpServer = createServer(app); */
+
+
+
 
 //Pasamos la conexion del server a express
 
@@ -92,7 +87,14 @@ app.use('/app', routerRuta)
 app.use('/app', routerUploadFile)
 
 // start express server
-app.listen(PORT)
+const serverFull=app.listen(PORT)
+const corsUrl = 'https://backrutaamigaapptestnotification-com.onrender.com'
+//const corsUrl = 'http://localhost:6060'
+const io = new Server(serverFull, {
+    cors: {
+        origin:  '*'
+    },
+});
 
 /* const usuariosConectados = [] */
 /* const usuariosConectados = new Set(); */
@@ -165,8 +167,4 @@ io.on("connection", (client) => {
 
 });
 
-httpServer.listen(3500);
-
-
 console.log(`Server corriendo en http://localhost:${PORT}`)
-console.log(`Socket corriendo en http://localhost:${'3500'}`)

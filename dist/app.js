@@ -39,8 +39,6 @@ dotenv.config();
 var cors = require("cors");
 //Morgan
 var morgan = require("morgan");
-//Server
-var http_1 = require("http");
 var socket_io_1 = require("socket.io");
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -55,15 +53,7 @@ app_data_source_1.default
 });
 // create and setup express app
 var app = express();
-var httpServer = (0, http_1.createServer)(app);
-var corsUrl = 'https://backrutaamigaapptestnotification-com.onrender.com';
-//const corsUrl = 'http://localhost:6060'
-console.log('http://localhost:6060' || process.env.URLDESARROLLO);
-var io = new socket_io_1.Server(httpServer, {
-    cors: {
-        origin: '*'
-    },
-});
+/* const httpServer = createServer(app); */
 //Pasamos la conexion del server a express
 var PORT = process.env.PORT || 3000;
 //cors
@@ -96,7 +86,14 @@ app.use('/app', comentario_router_1.default);
 app.use('/app', ruta_router_1.default);
 app.use('/app', uploadFile_roter_1.default);
 // start express server
-app.listen(PORT);
+var serverFull = app.listen(PORT);
+var corsUrl = 'https://backrutaamigaapptestnotification-com.onrender.com';
+//const corsUrl = 'http://localhost:6060'
+var io = new socket_io_1.Server(serverFull, {
+    cors: {
+        origin: '*'
+    },
+});
 /* const usuariosConectados = [] */
 /* const usuariosConectados = new Set(); */
 io.on("connection", function (client) {
@@ -169,7 +166,5 @@ io.on("connection", function (client) {
     }
      */
 });
-httpServer.listen(3500);
 console.log("Server corriendo en http://localhost:".concat(PORT));
-console.log("Socket corriendo en http://localhost:".concat('3500'));
 //# sourceMappingURL=app.js.map

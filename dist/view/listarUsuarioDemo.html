@@ -29,6 +29,12 @@
     <pre id="usuarios_conectados">
 
     </pre>
+    <script>
+        /* const URL='http://localhost:6060/app/usuario' */
+        const url='https://backrutaamigaapptestnotification-com.onrender.com/app/'
+        const urlServer='https://backrutaamigaapptestnotification-com.onrender.com'
+        const urlLocalServer='http://localhost:6060'
+    </script>
     <!-- <script src='./socket.io/socket.io.js'></script> -->
     <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
     <script type="module">
@@ -36,7 +42,8 @@
         /*  console.log(io.on("user_conection",(data)=>{
              console.log(data);
          })); */
-        const urlServer = 'http://localhost:3500'
+        /* const urlServer = 'http://localhost:3500' */
+       /*  const urlServer = 'https://backrutaamigaapptestnotification-com.onrender.com:3500' */
         const socket = io(urlServer, { autoConnect: false });
 
         window.socket = socket
@@ -70,8 +77,7 @@
         });
     </script>
     <script>
-        /* const URL='http://localhost:6060/app/usuario' */
-        const url='https://backrutaamigaapptestnotification-com.onrender.com/app/'
+        
         window.addEventListener('DOMContentLoaded', () => {
 
 
