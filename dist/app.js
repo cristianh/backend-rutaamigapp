@@ -61,7 +61,7 @@ var corsUrl = 'https://backrutaamigaapptestnotification-com.onrender.com';
 console.log('http://localhost:6060' || process.env.URLDESARROLLO);
 var io = new socket_io_1.Server(httpServer, {
     cors: {
-        origin: 'http://localhost:6060' || process.env.URLDESARROLLO
+        origin: '*'
     },
 });
 //Pasamos la conexion del server a express
