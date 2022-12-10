@@ -19,6 +19,9 @@
                 <option value="Seleccione">Seleccione</option>
             </select>`
         </div>
+        <div>
+            <button onclick="conectarAlServer()">CONECTAR SERVER</button>
+        </div>
     </div>
 
 
@@ -32,14 +35,19 @@
     <script src='./geolocalizacion.js'></script>
     <script src='./mapa.js'></script>
     <script src='./rutas.js'></script>
-    <script src='./socket.io/socket.io.js'></script>
+   
     <script src='./js/clientsocket.js'></script>
-
-
+    <!--  <script src='https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.12/push.min.js'
+        integrity='sha512-DjIQO7OxE8rKQrBLpVCk60Zu0mcFfNx2nVduB96yk5HS/poYZAkYu5fxpwXj3iet91Ezqq2TNN6cJh9Y5NtfWg=='
+        crossorigin='anonymous'></script> -->
+   
 
 
     <script>
-        function notifyMe() {
+
+       
+
+        function notifyMe(mensajeData) {
             if (!("Notification" in window)) {
                 // Check if the browser supports notifications
                 alert("This browser does not support desktop notification");
@@ -48,8 +56,8 @@
                 // if so, create a notification
                 /* const notification = new Notification("Hi there!"); */
                 // create a new notification
-                const notification = new Notification('JavaScript Notification API', {
-                    body: 'This is a JavaScript Notification API demo',
+                const notification = new Notification('Nuevo Mensaje ', {
+                    body: mensajeData.mensaje,
                     icon: './img/js.png',
                     vibrate: true
                 });
@@ -94,6 +102,18 @@
             // At last, if the user has denied notifications, and you
             // want to be respectful there is no need to bother them anymore.
         }
+/* 
+                (() => {
+                    Push.create("Hello world!", {
+                        body: "How's it hangin'?",
+                        icon: '/icon.png',
+                        timeout: 4000,
+                        onClick: function () {
+                            window.focus();
+                            this.close();
+                        }
+                    });
+                })(); */
     </script>
 </body>
 

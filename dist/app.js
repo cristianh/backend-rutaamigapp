@@ -1,4 +1,31 @@
 "use strict";
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var usuario_router_1 = require("./src/router/usuario.router");
@@ -12,6 +39,9 @@ dotenv.config();
 var cors = require("cors");
 //Morgan
 var morgan = require("morgan");
+//Server
+var http_1 = require("http");
+var socket_io_1 = require("socket.io");
 var path = require('path');
 var bodyParser = require('body-parser');
 // establish database connection
@@ -25,6 +55,13 @@ app_data_source_1.default
 });
 // create and setup express app
 var app = express();
+var httpServer = (0, http_1.createServer)(app);
+var io = new socket_io_1.Server(httpServer, {
+    cors: {
+        origin: "http://localhost:6060",
+    },
+});
+//Pasamos la conexion del server a express
 var PORT = process.env.PORT || 3000;
 //cors
 app.options('*', cors());
@@ -57,5 +94,79 @@ app.use('/app', ruta_router_1.default);
 app.use('/app', uploadFile_roter_1.default);
 // start express server
 app.listen(PORT);
+/* const usuariosConectados = [] */
+/* const usuariosConectados = new Set(); */
+io.on("connection", function (client) {
+    var e_1, _a;
+    Object.keys(io.sockets.sockets).forEach(function (s) {
+        io.sockets.sockets[s].disconnect(true);
+    });
+    var users = [];
+    try {
+        for (var _b = __values(io.of("/").sockets), _c = _b.next(); !_c.done; _c = _b.next()) {
+            var _d = __read(_c.value, 1), id = _d[0];
+            users.push({
+                userID: id
+            });
+        }
+    }
+    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+    finally {
+        try {
+            if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+        }
+        finally { if (e_1) throw e_1.error; }
+    }
+    /*client.emit("users", {"usuarios":users}); */
+    client.emit("users", { users: users, "mensaje": "usuario conectado" });
+    console.log('users', users);
+    /* if (users.length != 0) {
+        if (users.length == 1) {
+            client.to(users[0].userID).emit('mensaje', { "mensaje": "hola1" });
+        }
+        if (users.length == 2) {
+            client.to(users[1].userID).emit('mensaje', { "mensaje": "hola2" });
+        }
+    }
+
+    
+
+    client.to(users[1].userID).emit('mensaje', { "mensaje": "hola2" }); */
+    client.on("mensaje_privado", function (_a) {
+        var mensaje = _a.mensaje, id = _a.id;
+        console.log(mensaje, id);
+        if (id != undefined) {
+            console.log(id.userID);
+            client.to(id.userID).emit('respuesta_mensaje_privado', mensaje);
+        }
+    });
+    // ...
+    //Guardamos los usuarios en su clave respectiva del idusuario
+    /*  usuariosConectados.push({id:client.id, client: client }) */
+    /*  usuariosConectados.add(client); */
+    //Enviamos una notificacion de conexion de usuario.
+    /*  client.broadcast.emit('user_conection',{"mensaje":"usuario conectado"}) */
+    /* client.emit('user_conection',{"mensaje":"usuario conectado"}) */
+    /*test*/
+    /* console.log(usuariosConectados); */
+    /*  client.to(usuariosConectados[0].id).emit('user_conection', { "mensaje": "usuario conectado" }); */
+    client.once('disconnect', function () {
+        /* usuariosConectados.delete(client); */
+        console.log(client.id);
+        //Desconectamos a todos los usuario.
+        /* Array.from(users).forEach((s) => {
+            s.disconnect(true);
+        }); */
+        Object.keys(io.sockets.sockets).forEach(function (s) {
+            io.sockets.sockets[s].disconnect(true);
+        });
+    });
+    /* function getConnectedSockets() {
+        return Array.from(users);
+    }
+     */
+});
+httpServer.listen(3500);
 console.log("Server corriendo en http://localhost:".concat(PORT));
+console.log("Socket corriendo en http://localhost:".concat('3500'));
 //# sourceMappingURL=app.js.map

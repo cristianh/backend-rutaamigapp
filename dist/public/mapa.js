@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let popup;
 
     document.getElementById('selectRutas').addEventListener('change', (event) => {
-        console.log(event.target.value);
+        
         point = 0
         loadPointTest(event.target.value)
         //LoadInfo(event.target.value)
@@ -34,9 +34,9 @@ window.addEventListener('DOMContentLoaded', () => {
         .catch(err => console.log(err))
         .finally(() => {
             let selectRutas = document.getElementById('selectRutas');
-            console.log(opcionesRuta)
+            
             opcionesRuta.forEach(opcion => {
-                console.log("opcion", opcion)
+                
                 let Op = document.createElement('option')
                 Op.value = opcion
                 Op.text = opcion
@@ -173,7 +173,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function animation(map, point, pointMarket) {
         tiempoGeo = setInterval(() => {
-            console.log("point", point)
+           
             //caramos el popup del bus.
             popup = document.querySelector('#velocidadRuta')
 
@@ -227,7 +227,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                     let dataPoints = Object.values(data)
 
-                    console.log(dataPoints);
+                    
 
                     dataPoints.forEach(points => {
 

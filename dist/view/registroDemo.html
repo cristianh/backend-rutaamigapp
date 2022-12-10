@@ -103,13 +103,13 @@
                 .catch(error => console.error('Error:', error))
                 .then(response => {
                     if (response.status=="Usuario guardado con exito") {
-                        
+                        console.log('Success:', response)
                         document.getElementById('mensaje-sucess').classList.remove('hidden')
                         document.getElementById('mensaje-error').classList.add('hidden')
                         document.getElementById('mensaje-sucess').innerHTML = response.status + '<a href="loginDemo.html">Login</a>'
                         
                     } else {
-                        
+                        console.log('Success:', response)
                         if (response.errors) {
                             document.getElementById('mensaje-error').classList.remove('hidden')
                             document.getElementById('mensaje-sucess').classList.add('hidden')

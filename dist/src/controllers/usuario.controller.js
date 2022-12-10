@@ -56,8 +56,6 @@ var UsuarioController = /** @class */ (function () {
                         _a.trys.push([0, 2, , 3]);
                         limit = req.query['limit'];
                         skip = req.query['skip'];
-                        console.log(typeof (limit));
-                        console.log(typeof (skip));
                         query = {
                             skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
                             take: req.query['limit'] == undefined ? 100 : parseInt(limit)
@@ -219,7 +217,6 @@ var UsuarioController = /** @class */ (function () {
                         _a.trys.push([0, 3, , 4]);
                         errors = (0, express_validator_1.validationResult)(req);
                         if (!errors.isEmpty()) {
-                            console.log(errors.array());
                             return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
                         }
                         return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).create(req.body)];
@@ -300,7 +297,6 @@ var UsuarioController = /** @class */ (function () {
                         _a.trys.push([0, 2, , 3]);
                         errors = (0, express_validator_1.validationResult)(req);
                         if (!errors.isEmpty()) {
-                            console.log(errors.array());
                             return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
                         }
                         return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).findOneBy({

@@ -11,6 +11,12 @@ dotenv.config()
 import * as cors from "cors"
 //Morgan
 import * as morgan from 'morgan'
+//Server
+import { createServer } from "http";
+import { Server } from "socket.io";
+
+
+
 
 const path = require('path');
 
@@ -30,6 +36,14 @@ myDataSource
 
 // create and setup express app
 const app = express()
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+    cors: {
+        origin: "http://localhost:6060",
+    },
+});
+
+//Pasamos la conexion del server a express
 
 const PORT = process.env.PORT || 3000;
 
@@ -77,5 +91,79 @@ app.use('/app', routerUploadFile)
 // start express server
 app.listen(PORT)
 
+/* const usuariosConectados = [] */
+/* const usuariosConectados = new Set(); */
+
+io.on("connection", (client) => {
+    Object.keys(io.sockets.sockets).forEach(function (s) {
+        io.sockets.sockets[s].disconnect(true);
+    });
+    const users = [];
+    for (let [id] of io.of("/").sockets) {
+        users.push({
+            userID: id
+        });
+    }
+    /*client.emit("users", {"usuarios":users}); */
+    client.emit("users", { users, "mensaje": "usuario conectado" });
+    console.log('users', users);
+
+    /* if (users.length != 0) {
+        if (users.length == 1) {
+            client.to(users[0].userID).emit('mensaje', { "mensaje": "hola1" });
+        }
+        if (users.length == 2) {
+            client.to(users[1].userID).emit('mensaje', { "mensaje": "hola2" });
+        }
+    }
+
+    
+
+    client.to(users[1].userID).emit('mensaje', { "mensaje": "hola2" }); */
+
+    client.on("mensaje_privado", ({ mensaje, id }) => {
+        console.log(mensaje, id)
+        if (id != undefined) {
+            console.log(id.userID)
+            client.to(id.userID).emit('respuesta_mensaje_privado', mensaje);
+        }
+
+    });
+    // ...
+    //Guardamos los usuarios en su clave respectiva del idusuario
+    /*  usuariosConectados.push({id:client.id, client: client }) */
+    /*  usuariosConectados.add(client); */
+    //Enviamos una notificacion de conexion de usuario.
+    /*  client.broadcast.emit('user_conection',{"mensaje":"usuario conectado"}) */
+    /* client.emit('user_conection',{"mensaje":"usuario conectado"}) */
+    /*test*/
+    /* console.log(usuariosConectados); */
+    /*  client.to(usuariosConectados[0].id).emit('user_conection', { "mensaje": "usuario conectado" }); */
+
+
+    client.once('disconnect', function () {
+        /* usuariosConectados.delete(client); */
+        console.log(client.id);
+        //Desconectamos a todos los usuario.
+        /* Array.from(users).forEach((s) => {
+            s.disconnect(true);
+        }); */
+        Object.keys(io.sockets.sockets).forEach(function (s) {
+            io.sockets.sockets[s].disconnect(true);
+        });
+    });
+
+    /* function getConnectedSockets() {
+        return Array.from(users);
+    }
+     */
+
+
+
+});
+
+httpServer.listen(3500);
+
 
 console.log(`Server corriendo en http://localhost:${PORT}`)
+console.log(`Socket corriendo en http://localhost:${'3500'}`)

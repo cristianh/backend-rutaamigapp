@@ -1,5 +1,7 @@
 import { Router,Response,Request} from "express";
 
+//path 
+const path = require('path');
 
 //Controllers
 import {UsuarioController} from '../controllers/usuario.controller'
@@ -26,6 +28,16 @@ router.post("/login", validation.validateFormUsuarioLogin(), usuarioController.g
 //ruta test pagina
 router.get("/testPrueba", (req:Request,res:Response)=>{
     res.send("hola mundo")
+});
+
+//ruta test pagina login
+router.get("/login", (req:Request,res:Response)=>{
+    res.sendFile(path.resolve(__dirname, '../../view','loginDemo.html'));
+});
+
+//ruta test pagina listar usuarios
+router.get("/listarusuarios", (req:Request,res:Response)=>{
+    res.sendFile(path.resolve(__dirname, '../../view','listarUsuarioDemo.html'));
 });
 
 export default router

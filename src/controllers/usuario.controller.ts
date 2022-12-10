@@ -18,8 +18,6 @@ export class UsuarioController {
             let limit: any = req.query['limit']
             let skip: any = req.query['skip']
 
-            console.log(typeof (limit))
-            console.log(typeof (skip))
             let query = {
                 skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
                 take: req.query['limit'] == undefined ? 100 : parseInt(limit)
@@ -142,7 +140,7 @@ export class UsuarioController {
         try {
             let errors = validationResult(req);
             if (!errors.isEmpty()) {
-                console.log(errors.array());
+                
                 return res.status(400).json({ errors: errors.array() });
             }
 
@@ -196,7 +194,7 @@ export class UsuarioController {
 
             let errors = validationResult(req);
             if (!errors.isEmpty()) {
-                console.log(errors.array());
+                
                 return res.status(400).json({ errors: errors.array() });
             }
 

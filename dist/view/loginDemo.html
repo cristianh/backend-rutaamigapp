@@ -26,7 +26,8 @@
             <div class="field">
                 <label class="label">Password</label>
                 <div class="control">
-                    <input class="input" type="password" name="password_usuario"  id="password_usuario" placeholder="Password">
+                    <input class="input" type="password" name="password_usuario" id="password_usuario"
+                        placeholder="Password">
                 </div>
             </div>
             <div class="field is-grouped">
@@ -51,6 +52,8 @@
             </div>
         </div>
     </article>
+
+    
     <script>
         function ingresar(e) {
 
@@ -60,7 +63,6 @@
                 correo_usuario: document.getElementById('correo_usuario').value,
                 password_usuario: document.getElementById('password_usuario').value
             }
-
 
             fetch('http://localhost:6060/app/login', {
                 method: 'POST', // or 'PUT'
@@ -74,8 +76,11 @@
                     if (response.estado) {
                         console.log('Success:', response)
                         document.getElementById('mensaje').classList.add('hidden')
-                        document.getElementById('mensaje-error').innerHTML=''
-                        window.location = '/src/view/listarUsuarioDemo.html';
+                        document.getElementById('mensaje-error').innerHTML = ''
+                        console.log(window.socket);
+                        window.socket.connect()
+                        window.location = './listarusuarios';
+
                     } else {
                         console.log('Success:', response)
                         if (response.errors) {
@@ -85,12 +90,12 @@
                                 errorMessague.push(element.msg)
 
                             });
-                            document.getElementById('mensaje-error').innerHTML=''
+                            document.getElementById('mensaje-error').innerHTML = ''
                             errorMessague.forEach(element => {
                                 document.getElementById('mensaje-error').innerHTML += `${element}<br>`
                             });
                         }
-                        if(response.error){
+                        if (response.error) {
                             document.getElementById('mensaje').classList.remove('hidden')
                             document.getElementById('mensaje-error').innerHTML += `${response.error} <a href="registroDemo.html">Registrar</a>`
                         }

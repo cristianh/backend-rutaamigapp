@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
+//path 
+var path = require('path');
 //Controllers
 var usuario_controller_1 = require("../controllers/usuario.controller");
 //Middleware
@@ -22,6 +24,14 @@ router.post("/login", validation.validateFormUsuarioLogin(), usuarioController.g
 //ruta test pagina
 router.get("/testPrueba", function (req, res) {
     res.send("hola mundo");
+});
+//ruta test pagina login
+router.get("/login", function (req, res) {
+    res.sendFile(path.resolve(__dirname, '../../view', 'loginDemo.html'));
+});
+//ruta test pagina listar usuarios
+router.get("/listarusuarios", function (req, res) {
+    res.sendFile(path.resolve(__dirname, '../../view', 'listarUsuarioDemo.html'));
 });
 exports.default = router;
 //# sourceMappingURL=usuario.router.js.map
