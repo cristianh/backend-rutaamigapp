@@ -70,10 +70,12 @@
         });
     </script>
     <script>
+        /* const URL='http://localhost:6060/app/usuario' */
+        const url='https://backrutaamigaapptestnotification-com.onrender.com/app/'
         window.addEventListener('DOMContentLoaded', () => {
 
 
-            fetch('http://localhost:6060/app/usuario')
+            fetch(`${URL}/usuario`)
                 .then(response => response.json())
                 .then(data => {
                     let tablaUsuario = document.getElementById('table_usuario').getElementsByTagName('tbody')[0]
