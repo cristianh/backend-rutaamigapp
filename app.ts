@@ -37,9 +37,11 @@ myDataSource
 // create and setup express app
 const app = express()
 const httpServer = createServer(app);
+const corsUrl = 'https://backrutaamigaapptestnotification-com.onrender.com'
+//const corsUrl = 'http://localhost:6060'
 const io = new Server(httpServer, {
     cors: {
-        origin: "http://localhost:6060",
+        origin: corsUrl
     },
 });
 
