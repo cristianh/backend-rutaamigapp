@@ -64,9 +64,15 @@
 
 
         socket.on("respuesta_mensaje_privado", (mensaje) => {
-            console.log(mensaje)
+            
             notifyMe(mensaje)
             document.getElementById('usuarios_conectados').innerHTML = mensaje
+        });
+
+        socket.on("mensaje_bienveida_admin", (mensaje) => {
+            
+            notifyMe(mensaje)
+            
         });
         socket.on("connect", () => {
             console.log("id del cliente", socket.id);

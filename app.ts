@@ -132,8 +132,11 @@ io.on("connection", (client) => {
             console.log(id)
             client.to(id).emit('respuesta_mensaje_privado', mensaje);
         }
-
     });
+
+    client.on("mensaje_admin", (mensaje)=>{
+        client.emit("mensaje_bienveida_admin",mensaje.mensaje);
+    })
     // ...
     //Guardamos los usuarios en su clave respectiva del idusuario
     /*  usuariosConectados.push({id:client.id, client: client }) */

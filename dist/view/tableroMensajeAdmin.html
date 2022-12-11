@@ -6,14 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #contenedor-conectados{
+            display:flex;
+            justify-content:space-evenly;
+            flex-direction: row;
+            align-items: center;
+            width:100%
+        }
+    </style>
 </head>
 
 <body>
     <h1>Tablero Mensajes Usuarios</h1>
-    <div>
+    <div class="flex-container">
         <h3>Usuarios conectados</h3>
         <div id="contenedor-conectados">
 
+        </div>
+        <div>
+            <div id="mensaje_usuarios">
+                <form>
+                    <input type="text" name="mensajeAdmin" id="mensajeAdmin">
+                    <button onclick="mensajeAdmin()">Enviar</button>
+                </form>
+                
+            </div>
         </div>
     </div>
     <script>
@@ -81,12 +99,15 @@
     </script>
     <script>
         function enviarMensaje(id, position) {
-           
-            console.log(socket);
-            
             let mensajeUsuario = document.getElementById(`${'mensaje' + position}`);
             console.log(mensajeUsuario.value);
             socket.emit("mensaje_privado", { mensaje:mensajeUsuario.value, id });
+        }
+
+        function mensajeAdmin(){
+            console.log(socket);
+            let mensajeAdmin = document.getElementById('mensajeAdmin');
+            socket.emit("mensaje_admin", { mensaje:mensajeAdmin.value});
         }
     </script>
 
