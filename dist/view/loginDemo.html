@@ -15,30 +15,37 @@
 </head>
 
 <body>
-    <div clas="container center">
-        <form onSubmit="ingresar(event)">
-            <div class="field">
-                <label class="label">Correo</label>
-                <div class="control">
-                    <input class="input" type="text" name="correo_usuario" id="correo_usuario" placeholder="Correo">
+    <div class="container center" style="border:2px solid silver;padding:30px 30px;position: absolute; top:50%;left:50%;transform: translate(-50%,-50%);">
+        <div>
+            <h1>LOGIN</h1>
+            <hr>
+        </div>
+        <div>
+            <form onSubmit="ingresar(event)">
+                <div class="field">
+                    <label class="label">Correo</label>
+                    <div class="control">
+                        <input class="input" type="text" name="correo_usuario" id="correo_usuario" placeholder="Correo">
+                    </div>
                 </div>
-            </div>
-            <div class="field">
-                <label class="label">Password</label>
-                <div class="control">
-                    <input class="input" type="password" name="password_usuario" id="password_usuario"
-                        placeholder="Password">
+                <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control">
+                        <input class="input" type="password" name="password_usuario" id="password_usuario"
+                            placeholder="Password">
+                    </div>
                 </div>
-            </div>
-            <div class="field is-grouped">
-                <div class="control">
-                    <button class="button is-link">INGRESAR</button>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link">INGRESAR</button>
+                    </div>
+                    <div class="control">
+                        <button class="button is-link is-light">CANCELAR</button>
+                    </div>
                 </div>
-                <div class="control">
-                    <button class="button is-link is-light">CANCELAR</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
+
     </div>
     <article class="message is-danger hidden" id="mensaje">
         <div class="message-header">
@@ -53,7 +60,7 @@
         </div>
     </article>
 
-    
+
     <script>
         function ingresar(e) {
 
@@ -74,15 +81,14 @@
                 .catch(error => console.error('Error:', error))
                 .then(response => {
                     if (response.estado) {
-                        console.log('Success:', response)
+                        console.log(response)
                         document.getElementById('mensaje').classList.add('hidden')
                         document.getElementById('mensaje-error').innerHTML = ''
-                        console.log(window.socket);
-                        window.socket.connect()
-                        window.location = './listarusuarios';
+                      
+                        window.location = './mapa';
 
                     } else {
-                        console.log('Success:', response)
+                        
                         if (response.errors) {
                             document.getElementById('mensaje').classList.remove('hidden')
                             let errorMessague = []

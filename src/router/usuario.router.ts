@@ -30,10 +30,25 @@ router.get("/testPrueba", (req:Request,res:Response)=>{
     res.send("hola mundo")
 });
 
-//ruta test pagina login
+/* //ruta test pagina login
 router.get("/login", (req:Request,res:Response)=>{
     res.sendFile(path.resolve(__dirname, '../../view','loginDemo.html'));
+}); */
+//ruta test pagina login
+router.get("/", (req:Request,res:Response)=>{
+    res.sendFile(path.resolve(__dirname, '../../view','loginDemo.html'));
 });
+
+//ruta para el mapa de
+router.get("/mapa", (req:Request,res:Response)=>{
+    res.sendFile(path.resolve(__dirname, '../../public','mapa.html'));
+});
+
+//ruta para el mapa de
+router.get("/tableromensajes", (req:Request,res:Response)=>{
+    res.sendFile(path.resolve(__dirname, '../../view','tableroMensajeAdmin.html'));
+});
+
 
 //ruta test pagina listar usuarios
 router.get("/listarusuarios", (req:Request,res:Response)=>{

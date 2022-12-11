@@ -25,9 +25,21 @@ router.post("/login", validation.validateFormUsuarioLogin(), usuarioController.g
 router.get("/testPrueba", function (req, res) {
     res.send("hola mundo");
 });
+/* //ruta test pagina login
+router.get("/login", (req:Request,res:Response)=>{
+    res.sendFile(path.resolve(__dirname, '../../view','loginDemo.html'));
+}); */
 //ruta test pagina login
-router.get("/login", function (req, res) {
+router.get("/", function (req, res) {
     res.sendFile(path.resolve(__dirname, '../../view', 'loginDemo.html'));
+});
+//ruta para el mapa de
+router.get("/mapa", function (req, res) {
+    res.sendFile(path.resolve(__dirname, '../../public', 'mapa.html'));
+});
+//ruta para el mapa de
+router.get("/tableromensajes", function (req, res) {
+    res.sendFile(path.resolve(__dirname, '../../view', 'tableroMensajeAdmin.html'));
 });
 //ruta test pagina listar usuarios
 router.get("/listarusuarios", function (req, res) {
