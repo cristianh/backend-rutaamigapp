@@ -136,8 +136,8 @@ io.on("connection", function (client) {
         var mensaje = _a.mensaje, id = _a.id;
         console.log(mensaje, id);
         if (id != undefined) {
-            console.log(id.userID);
-            client.to(id.userID).emit('respuesta_mensaje_privado', mensaje);
+            console.log(id);
+            client.to(id).emit('respuesta_mensaje_privado', mensaje);
         }
     });
     // ...
