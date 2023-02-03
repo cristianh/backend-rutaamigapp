@@ -53,7 +53,6 @@ app_data_source_1.default
 });
 // create and setup express app
 var app = express();
-/* const httpServer = createServer(app); */
 //Pasamos la conexion del server a express
 var PORT = process.env.PORT || 3000;
 //cors
@@ -88,7 +87,6 @@ app.use('/app', uploadFile_roter_1.default);
 // start express server
 var serverFull = app.listen(PORT);
 var corsUrl = 'https://backrutaamigaapptestnotification-com.onrender.com';
-//const corsUrl = 'http://localhost:6060'
 var io = new socket_io_1.Server(serverFull, {
     cors: {
         origin: '*'
@@ -134,13 +132,13 @@ io.on("connection", function (client) {
     client.to(users[1].userID).emit('mensaje', { "mensaje": "hola2" }); */
     client.on("mensaje_privado", function (_a) {
         var mensaje = _a.mensaje, id = _a.id;
-        console.log(mensaje, id);
         if (id != undefined) {
             console.log(id);
             client.to(id).emit('respuesta_mensaje_privado', mensaje);
         }
     });
     client.on("mensaje_admin", function (mensaje) {
+        console.log(mensaje.mensaje);
         client.emit("mensaje_bienveida_admin", mensaje.mensaje);
     });
     // ...

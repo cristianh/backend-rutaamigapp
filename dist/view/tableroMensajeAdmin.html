@@ -28,9 +28,9 @@
             <div id="mensaje_usuarios">
                 <form>
                     <input type="text" name="mensajeAdmin" id="mensajeAdmin">
-                    <button onclick="mensajeAdmin()">Enviar</button>
+                    
                 </form>
-                
+                <button onclick="mensajeAdmin(event)">Enviar</button>
             </div>
         </div>
     </div>
@@ -42,6 +42,7 @@
         let socket=null
     </script>
     <!-- <script src='./socket.io/socket.io.js'></script> -->
+   
     <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
     <script type="module">
         import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
@@ -50,7 +51,7 @@
          })); */
         /* const urlServer = 'http://localhost:3500' */
         /*  const urlServer = 'https://backrutaamigaapptestnotification-com.onrender.com:3500' */
-        socket = io(urlServer, { autoConnect: false });
+        socket = io(urlLocalServer, { autoConnect: false });
 
         window.socket = socket
 
@@ -73,6 +74,12 @@
             })
         })
 
+
+        socket.on("mensaje_bienveida_admin", (mensaje) => {
+            
+            notifyMe(mensaje)
+            
+        });
 
 
         socket.on("connect", () => {
@@ -104,13 +111,15 @@
             socket.emit("mensaje_privado", { mensaje:mensajeUsuario.value, id });
         }
 
-        function mensajeAdmin(){
-            console.log(socket);
+        function mensajeAdmin(event){
+            event.preventDefault();
+           
             let mensajeAdmin = document.getElementById('mensajeAdmin');
+            console.log(mensajeAdmin.value);
             socket.emit("mensaje_admin", { mensaje:mensajeAdmin.value});
         }
     </script>
-
+     <script src='./js/Notify.js'></script>
 </body>
 
 </html>

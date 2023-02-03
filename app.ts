@@ -15,13 +15,11 @@ import * as morgan from 'morgan'
 import { createServer } from "http";
 import { Server } from "socket.io";
 
-
-
-
 const path = require('path');
-
-
 let bodyParser = require('body-parser')
+
+
+
 // establish database connection
 myDataSource
     .initialize()
@@ -36,10 +34,6 @@ myDataSource
 
 // create and setup express app
 const app = express()
-/* const httpServer = createServer(app); */
-
-
-
 
 //Pasamos la conexion del server a express
 
@@ -89,7 +83,7 @@ app.use('/app', routerUploadFile)
 // start express server
 const serverFull=app.listen(PORT)
 const corsUrl = 'https://backrutaamigaapptestnotification-com.onrender.com'
-//const corsUrl = 'http://localhost:6060'
+
 const io = new Server(serverFull, {
     cors: {
         origin:  '*'
@@ -127,7 +121,7 @@ io.on("connection", (client) => {
     client.to(users[1].userID).emit('mensaje', { "mensaje": "hola2" }); */
 
     client.on("mensaje_privado", ({ mensaje, id }) => {
-        console.log(mensaje, id)
+       
         if (id != undefined) {
             console.log(id)
             client.to(id).emit('respuesta_mensaje_privado', mensaje);
@@ -135,6 +129,7 @@ io.on("connection", (client) => {
     });
 
     client.on("mensaje_admin", (mensaje)=>{
+        console.log(mensaje.mensaje)
         client.emit("mensaje_bienveida_admin",mensaje.mensaje);
     })
     // ...

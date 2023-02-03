@@ -44,7 +44,7 @@
          })); */
         /* const urlServer = 'http://localhost:3500' */
        /*  const urlServer = 'https://backrutaamigaapptestnotification-com.onrender.com:3500' */
-        const socket = io(urlServer, { autoConnect: false });
+        const socket = io(urlLocalServer, { autoConnect: false });
 
         window.socket = socket
 
@@ -53,12 +53,7 @@
             console.log(data);
            
 
-            /*  notifyMe(data) */
-
-            setTimeout(() => {
-                
-                socket.emit("mensaje_privado",{"mensaje":'hole mano1',"id":data.users[0]} );
-            }, 5000);
+          
 
         })
 
@@ -69,11 +64,7 @@
             document.getElementById('usuarios_conectados').innerHTML = mensaje
         });
 
-        socket.on("mensaje_bienveida_admin", (mensaje) => {
-            
-            notifyMe(mensaje)
-            
-        });
+        
         socket.on("connect", () => {
             console.log("id del cliente", socket.id);
         });
@@ -118,61 +109,7 @@
             window.socket.disconnect()
         }
 
-        function notifyMe(mensajeData) {
-            if (!("Notification" in window)) {
-                // Check if the browser supports notifications
-                alert("This browser does not support desktop notification");
-            } else if (Notification.permission === "granted") {
-                // Check whether notification permissions have already been granted;
-                // if so, create a notification
-                /* const notification = new Notification("Hi there!"); */
-                // create a new notification
-                const notification = new Notification('Nuevo Mensaje ', {
-                    body: mensajeData,
-                    icon: './img/js.png',
-                    vibrate: true
-                });
-
-                // close the notification after 10 seconds
-                setTimeout(() => {
-                    notification.close();
-                }, 10 * 1000);
-
-                // navigate to a URL
-                notification.addEventListener('click', () => {
-                    window.open('https://www.javascripttutorial.net/web-apis/javascript-notification/', '_blank');
-                });
-                // …
-            } else if (Notification.permission !== "denied") {
-                // We need to ask the user for permission
-                Notification.requestPermission().then((permission) => {
-                    // If the user accepts, let's create a notification
-                    if (permission === "granted") {
-                        /*  const notification = new Notification("Hi there!"); */
-                        // create a new notification
-                        const notification = new Notification('JavaScript Notification API', {
-                            body: mensajeData,
-                            icon: './img/js.png',
-                            vibrate: true
-                        });
-
-                        // close the notification after 10 seconds
-                        setTimeout(() => {
-                            notification.close();
-                        }, 10 * 1000);
-
-                        // navigate to a URL
-                        notification.addEventListener('click', () => {
-                            window.open('https://www.javascripttutorial.net/web-apis/javascript-notification/', '_blank');
-                        });
-                        // …
-                    }
-                });
-            }
-
-            // At last, if the user has denied notifications, and you
-            // want to be respectful there is no need to bother them anymore.
-        }
+        
     </script>
 </body>
 

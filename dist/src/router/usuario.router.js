@@ -33,6 +33,10 @@ router.get("/login", (req:Request,res:Response)=>{
 router.get("/", function (req, res) {
     res.sendFile(path.resolve(__dirname, '../../view', 'loginDemo.html'));
 });
+//ruta test notificacion.
+router.get("/notificacion", function (req, res) {
+    res.sendFile(path.resolve(__dirname, '../../view', 'notificacionDemo.html'));
+});
 //ruta para el mapa de
 router.get("/mapa", function (req, res) {
     res.sendFile(path.resolve(__dirname, '../../public', 'mapa.html'));
