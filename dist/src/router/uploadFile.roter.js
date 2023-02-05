@@ -39,7 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 var router = (0, express_1.Router)();
 var path = require('path');
-router.post("/upload", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.post("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var imagenUpload;
     return __generator(this, function (_a) {
         try {
@@ -51,6 +51,7 @@ router.post("/upload", function (req, res) { return __awaiter(void 0, void 0, vo
             }
             else {
                 imagenUpload = req.files.imagen;
+                //Implementar el sanitizador para evitar archivos indeseados
                 imagenUpload.mv(path.resolve(__dirname, '../../uploads', imagenUpload.name));
                 res.send({
                     status: 200,

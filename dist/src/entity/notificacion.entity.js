@@ -28,7 +28,7 @@ var Notificacion = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Notificacion.prototype, "intervalo", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "datetime", nullable: false }),
+        (0, typeorm_1.Column)({ type: "timestamp", nullable: false }),
         __metadata("design:type", String)
     ], Notificacion.prototype, "fecha_hora", void 0);
     __decorate([

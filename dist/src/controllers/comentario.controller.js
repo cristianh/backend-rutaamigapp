@@ -36,140 +36,146 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteComentaries = exports.updateComentaries = exports.saveComentaries = exports.getComentariesById = exports.getAllComentariesUsuario = exports.getAllComentaries = void 0;
+exports.ComentarioController = void 0;
 var comentario_entity_1 = require("../entity/comentario.entity");
 var app_data_source_1 = require("../../app-data-source");
-/**
- * This function gets all the comentaries from the database and returns them as a JSON object.
- * @param {Request} req - Request - The incoming request object.
- * @param {Response} res - Response - The response object that will be sent back to the client.
- */
-var getAllComentaries = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var comentario;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).find()];
-            case 1:
-                comentario = _a.sent();
-                res.json(comentario);
-                return [2 /*return*/];
-        }
-    });
-}); };
-exports.getAllComentaries = getAllComentaries;
-/**
- * It gets all the comentarios from the database and returns them as a JSON object.
- * @param {Request} req - Request - The incoming request object.
- * @param {Response} res - Response - the response object
- */
-var getAllComentariesUsuario = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var comentario;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).find({
-                    relations: {
-                        usuario: true,
-                    },
-                })];
-            case 1:
-                comentario = _a.sent();
-                res.json(comentario);
-                return [2 /*return*/];
-        }
-    });
-}); };
-exports.getAllComentariesUsuario = getAllComentariesUsuario;
-/**
- * It gets a comentary by its id.
- * @param {Request} req - Request
- * @param {Response} res - Response =&gt; Express.Response
- * @returns An array of objects.
- */
-var getComentariesById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var results;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).findOneBy({
-                    idComentarios: parseInt(req.params.id),
-                })];
-            case 1:
-                results = _a.sent();
-                return [2 /*return*/, res.send(results)];
-        }
-    });
-}); };
-exports.getComentariesById = getComentariesById;
-/**
- * It takes a request, and a response, and returns a response
- * @param {Request} req - Request
- * @param {Response} res - Response
- * @returns {
- *     "id": 1,
- *     "comentario": "teste",
- *     "data": "2019-07-29T00:00:00.000Z",
- *     "usuario": {
- *         "id": 1,
- *         "nome": "teste",
- *         "email": "teste@teste.com
- */
-var saveComentaries = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var comentario, results;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                console.log(req.body);
-                return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).create(req.body)];
-            case 1:
-                comentario = _a.sent();
-                return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).save(comentario)];
-            case 2:
-                results = _a.sent();
-                return [2 /*return*/, res.send(results)];
-        }
-    });
-}); };
-exports.saveComentaries = saveComentaries;
-/**
- * It takes the id of a comentary, finds it in the database, merges the new data with the old data, and
- * saves it.
- * @param {Request} req - Request - The request object.
- * @param {Response} res - Response
- * @returns The updated object.
- */
-var updateComentaries = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var comentario, results;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).findOneBy({
-                    idComentarios: parseInt(req.params.id),
-                })];
-            case 1:
-                comentario = _a.sent();
-                app_data_source_1.default.getRepository(comentario_entity_1.Comentario).merge(comentario, req.body);
-                return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).save(comentario)];
-            case 2:
-                results = _a.sent();
-                return [2 /*return*/, res.send(results)];
-        }
-    });
-}); };
-exports.updateComentaries = updateComentaries;
-/**
- * It deletes a comment from the database
- * @param {Request} req - Request - The request object.
- * @param {Response} res - Response
- * @returns The result of the delete operation.
- */
-var deleteComentaries = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var results;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).delete(req.params.id)];
-            case 1:
-                results = _a.sent();
-                return [2 /*return*/, res.send(results)];
-        }
-    });
-}); };
-exports.deleteComentaries = deleteComentaries;
+var ComentarioController = /** @class */ (function () {
+    function ComentarioController() {
+        var _this = this;
+        /**
+     * This function gets all the comentaries from the database and returns them as a JSON object.
+     * @param {Request} req - Request - The incoming request object.
+     * @param {Response} res - Response - The response object that will be sent back to the client.
+     */
+        this.getAllComentaries = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var comentario;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).find()];
+                    case 1:
+                        comentario = _a.sent();
+                        res.json(comentario);
+                        return [2 /*return*/];
+                }
+            });
+        }); };
+        /**
+         * It gets all the comentarios from the database and returns them as a JSON object.
+         * @param {Request} req - Request - The incoming request object.
+         * @param {Response} res - Response - the response object
+         */
+        this.getAllComentariesUsuario = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var comentario;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).find({
+                            relations: {
+                                usuario: true,
+                            },
+                        })];
+                    case 1:
+                        comentario = _a.sent();
+                        res.json(comentario);
+                        return [2 /*return*/];
+                }
+            });
+        }); };
+        /**
+         * It gets a comentary by its id.
+         * @param {Request} req - Request
+         * @param {Response} res - Response =&gt; Express.Response
+         * @returns An array of objects.
+         */
+        this.getComentariesById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var results;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).findOneBy({
+                            idComentarios: parseInt(req.params.id),
+                        })];
+                    case 1:
+                        results = _a.sent();
+                        return [2 /*return*/, res.send(results)];
+                }
+            });
+        }); };
+        /**
+         * It takes a request, and a response, and returns a response
+         * @param {Request} req - Request
+         * @param {Response} res - Response
+         * @returns {
+         *     "id": 1,
+         *     "comentario": "teste",
+         *     "data": "2019-07-29T00:00:00.000Z",
+         *     "usuario": {
+         *         "id": 1,
+         *         "nome": "teste",
+         *         "email": "teste@teste.com
+         */
+        this.saveComentaries = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var comentario, results, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).create(req.body)];
+                    case 1:
+                        comentario = _a.sent();
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).save(comentario)];
+                    case 2:
+                        results = _a.sent();
+                        return [2 /*return*/, res.status(200).send({ status: "Comentario guardado con exito", results: results })];
+                    case 3:
+                        error_1 = _a.sent();
+                        res.json({ error: error_1 });
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        }); };
+        /**
+         * It takes the id of a comentary, finds it in the database, merges the new data with the old data, and
+         * saves it.
+         * @param {Request} req - Request - The request object.
+         * @param {Response} res - Response
+         * @returns The updated object.
+         */
+        this.updateComentaries = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var comentario, results;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).findOneBy({
+                            idComentarios: parseInt(req.params.id),
+                        })];
+                    case 1:
+                        comentario = _a.sent();
+                        app_data_source_1.default.getRepository(comentario_entity_1.Comentario).merge(comentario, req.body);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).save(comentario)];
+                    case 2:
+                        results = _a.sent();
+                        return [2 /*return*/, res.send(results)];
+                }
+            });
+        }); };
+        /**
+         * It deletes a comment from the database
+         * @param {Request} req - Request - The request object.
+         * @param {Response} res - Response
+         * @returns The result of the delete operation.
+         */
+        this.deleteComentaries = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var results;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).delete(req.params.id)];
+                    case 1:
+                        results = _a.sent();
+                        return [2 /*return*/, res.send(results)];
+                }
+            });
+        }); };
+    }
+    return ComentarioController;
+}());
+exports.ComentarioController = ComentarioController;
 //# sourceMappingURL=comentario.controller.js.map

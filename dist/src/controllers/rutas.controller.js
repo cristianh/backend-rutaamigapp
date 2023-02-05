@@ -36,115 +36,117 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteRuta = exports.updateRuta = exports.saveRuta = exports.getAllRutaById = exports.getAllRutas = void 0;
+exports.RutaController = void 0;
 var ruta_entity_1 = require("../entity/ruta.entity");
 var app_data_source_1 = require("../../app-data-source");
-var getAllRutas = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var rutas, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).find()];
-            case 1:
-                rutas = _a.sent();
-                res.json(rutas);
-                return [3 /*break*/, 3];
-            case 2:
-                error_1 = _a.sent();
-                res.json({ error: error_1 });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-exports.getAllRutas = getAllRutas;
-var getAllRutaById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var results, error_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).findOneBy({
-                        idRutas: parseInt(req.params.id),
-                    })];
-            case 1:
-                results = _a.sent();
-                return [2 /*return*/, res.send(results)];
-            case 2:
-                error_2 = _a.sent();
-                res.json({ error: error_2 });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-exports.getAllRutaById = getAllRutaById;
-var saveRuta = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var ruta, results, error_3;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 3, , 4]);
-                console.log(req.body);
-                return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).create(req.body)];
-            case 1:
-                ruta = _a.sent();
-                return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).save(ruta)];
-            case 2:
-                results = _a.sent();
-                return [2 /*return*/, res.send(results)];
-            case 3:
-                error_3 = _a.sent();
-                res.json({ error: error_3 });
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
-        }
-    });
-}); };
-exports.saveRuta = saveRuta;
-var updateRuta = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var usuario, results, error_4;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 3, , 4]);
-                return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).findOneBy({
-                        idRutas: parseInt(req.params.id),
-                    })];
-            case 1:
-                usuario = _a.sent();
-                app_data_source_1.default.getRepository(ruta_entity_1.Ruta).merge(usuario, req.body);
-                return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).save(usuario)];
-            case 2:
-                results = _a.sent();
-                return [2 /*return*/, res.send(200).json({ res: 'ok', results: results })];
-            case 3:
-                error_4 = _a.sent();
-                res.json({ error: error_4 });
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
-        }
-    });
-}); };
-exports.updateRuta = updateRuta;
-var deleteRuta = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var results, error_5;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).delete(req.params.id)];
-            case 1:
-                results = _a.sent();
-                return [2 /*return*/, res.send(results)];
-            case 2:
-                error_5 = _a.sent();
-                res.json({ error: error_5 });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-exports.deleteRuta = deleteRuta;
+var RutaController = /** @class */ (function () {
+    function RutaController() {
+        var _this = this;
+        this.getAllRutas = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var rutas, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).find()];
+                    case 1:
+                        rutas = _a.sent();
+                        res.json(rutas);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_1 = _a.sent();
+                        res.json({ error: error_1 });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); };
+        this.getAllRutaById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var results, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).findOneBy({
+                                idRutas: parseInt(req.params.id),
+                            })];
+                    case 1:
+                        results = _a.sent();
+                        return [2 /*return*/, res.send(results)];
+                    case 2:
+                        error_2 = _a.sent();
+                        res.json({ error: error_2 });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); };
+        this.saveRuta = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var ruta, results, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        console.log(req.body);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).create(req.body)];
+                    case 1:
+                        ruta = _a.sent();
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).save(ruta)];
+                    case 2:
+                        results = _a.sent();
+                        return [2 /*return*/, res.status(200).send({ status: "Ruta guardadad", results: results })];
+                    case 3:
+                        error_3 = _a.sent();
+                        res.json({ error: error_3 });
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        }); };
+        this.updateRuta = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var usuario, results, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).findOneBy({
+                                idRutas: parseInt(req.params.id),
+                            })];
+                    case 1:
+                        usuario = _a.sent();
+                        app_data_source_1.default.getRepository(ruta_entity_1.Ruta).merge(usuario, req.body);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).save(usuario)];
+                    case 2:
+                        results = _a.sent();
+                        return [2 /*return*/, res.send(200).json({ status: 'ok', results: results })];
+                    case 3:
+                        error_4 = _a.sent();
+                        res.json({ error: error_4 });
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        }); };
+        this.deleteRuta = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var results, error_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).delete(req.params.id)];
+                    case 1:
+                        results = _a.sent();
+                        return [2 /*return*/, res.send(results)];
+                    case 2:
+                        error_5 = _a.sent();
+                        res.json({ error: error_5 });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); };
+    }
+    return RutaController;
+}());
+exports.RutaController = RutaController;
 //# sourceMappingURL=rutas.controller.js.map

@@ -5,11 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc -w",
-    "tsc:scripts": "tsc -w",
-    "server:scripts": "nodemon dist/app.js",
-    "socket:scripts": " nodemon dist/src/servermap/servermap",
-    "start": "nodemon dist/app.js"
+    "start": "node dist/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -33,6 +29,8 @@
     "express-validator": "^6.14.2",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
+    "pg": "^8.8.0",
+    "push.js": "^1.0.12",
     "reflect-metadata": "^0.1.13",
     "socket.io": "^4.5.3",
     "typeorm": "^0.3.10"

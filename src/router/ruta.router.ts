@@ -1,26 +1,18 @@
 import { Router } from "express"
 
 //Controllers
-import { getAllRutas, getAllRutaById, saveRuta, updateRuta, deleteRuta } from '../controllers/rutas.controller'
+import { RutaController } from '../controllers/rutas.controller'
 
 const router = Router()
+//Iniciamos ruta controller
+const rutaController = new RutaController()
 
 // register Rutas
-router.get("/rutas", getAllRutas)
-
-/* router.get("/usuario/comentarios", async function (req: Request, res: Response) {
-    const ruta = await myDataSource.getRepository(Ruta).find()
-    res.json(ruta)
-}) */
-
-
-
-router.get("/ruta/:id", getAllRutaById)
-
-router.post("/ruta", saveRuta)
-
-router.put("/ruta/:id", updateRuta)
-
-router.delete("/ruta/:id", deleteRuta)
+router.get("/", rutaController.getAllRutas)
+router.get("/:id", rutaController.getAllRutas)
+router.get("/:id", rutaController.getAllRutaById)
+router.post("/", rutaController.saveRuta)
+router.put("/:id", rutaController.updateRuta)
+router.delete("/:id", rutaController.deleteRuta)
 
 export default router

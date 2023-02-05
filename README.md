@@ -58,3 +58,4 @@ Aparece esta ventana, dar clic en la opcion indicada.
 ## Paso 6:
 Revisar que en la salida de la terminal este corriendo el servidor.
 <img src="./imagenesRed/img7.png" alt="" width="600px">
+                             |

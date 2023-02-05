@@ -23,8 +23,8 @@ export class Comentario{
     @Column({ type: "varchar", nullable: false })
     comentario: string
     
-    @OneToMany(() => Foro, (foro) => foro.comentario)
-    foro:Foro
+    /* @OneToMany(() => Foro, (foro) => foro.comentario)
+    foro:Foro */
 
     @ManyToOne(() => Usuario, (usuario) => usuario.comentario)
     usuario:Usuario[]
