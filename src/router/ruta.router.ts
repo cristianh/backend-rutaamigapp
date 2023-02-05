@@ -8,11 +8,11 @@ const router = Router()
 const rutaController = new RutaController()
 
 // register Rutas
-router.get("/ruta", rutaController.getAllRutas)
-router.get("/ruta/:id", rutaController.getAllRutas)
-router.get("/ruta/:id", rutaController.getAllRutaById)
-router.post("/ruta", rutaController.saveRuta)
-router.put("/ruta/:id", rutaController.updateRuta)
-router.delete("/ruta/:id", rutaController.deleteRuta)
+router.get("/", rutaController.getAllRutas)
+router.get("/:id", rutaController.getAllRutas)
+router.get("/:id", rutaController.getAllRutaById)
+router.post("/", rutaController.saveRuta)
+router.put("/:id", rutaController.updateRuta)
+router.delete("/:id", rutaController.deleteRuta)
 
 export default router

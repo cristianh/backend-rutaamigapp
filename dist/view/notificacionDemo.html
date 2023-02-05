@@ -17,18 +17,7 @@
 
         /* var urlencoded = new URLSearchParams();
         urlencoded.append("targetSegmentIds", "@ALL"); */
-        urlencoded.append("notification", "{\"alert\": {\"text\": \"Example push notification\", \"ios\":{\"attachments\":[{\"url\":\"https://viago.ca/wp-content/uploads/2017/08/1-Grande-Anse-Seychelles.jpg\"}]}, \"android\":{\"type\":\"bigPicture\", \"bigPicture\":\"https://res.cloudinary.com/devcristianh/image/upload/v1675375637/LogoApp_mb0fn5.jpg<<<<<<<<<<<<<<<<<<\"}, \"web\":{\"image\":\"https://viago.ca/wp-content/uploads/2017/08/1-Grande-Anse-Seychelles.jpg\"}}}");
-
-        var requestOptions = {
-            method: 'POST',
-            body: urlencoded,
-            redirect: 'follow'
-        };
-
-        fetch("https://management-api.wonderpush.com/v1/deliveries?accessToken=ZjM4ZDY4MTBhOWE2YTQyZDcyNGY3MDBiZjAxOGMyZWVjZTgwZjA2OThiZGU4Mjg2MmJlN2VmMTZlMGU4ZjQ1Nw", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
+        urlencoded.append("notification", "{\"alert\": {\"text\": \"Example push notification\", \"ios\":{\"attachments\":[{\"url\":\"https://viago.ca/wp-content/uploads/2017/08/1-Grande-Anse-Seychelles.jpg\"}]}, \"android\":{\"type\":\"bigPicture\", \"bigPicture\":\"https://res.cloudinary.com/devcristianh/image/upload/v1675375637/LogoApp_mb0fn5.jpg\"}, \"web\":{\"image\":\"https://viago.ca/wp-content/uploads/2017/08/1-Grande-Anse-Seychelles.jpg\"}}}");
 
         var requestOptions = {
             method: 'POST',
@@ -41,6 +30,17 @@
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
 
+        /* var requestOptions = {
+            method: 'POST',
+            body: urlencoded,
+            redirect: 'follow'
+        }; */
+
+        /* fetch("https://management-api.wonderpush.com/v1/deliveries", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+ */
 
     </script>
 </head>

@@ -17,23 +17,17 @@ const usuarioController = new UsuarioController();
 const validation= new Validations()
 
 // Usuarios
-router.get("/usuario/:limit?/:skip?", usuarioController.getAllUsers);
-router.get("/usuario/:id/comentarios", usuarioController.getComentariesUsersById);
-router.get("/usuario/:usuarioId/comentarios/:comentarioId", usuarioController.getUserByIdComentariesById);
-router.get("/usuario/:id", usuarioController.getUserById);
+router.get("/:limit?/:skip?", usuarioController.getAllUsers);
+router.get("/:id/comentarios", usuarioController.getComentariesUsersById);
+router.get("/:usuarioId/comentarios/:comentarioId", usuarioController.getUserByIdComentariesById);
+router.get("/:id", usuarioController.getUserById);
 router.post("/registro", validation.validateFormUsuarioRegister(), usuarioController.saveUser);
-router.put("/usuario/:id", usuarioController.updateUser);
-router.delete("/usuario/:id",usuarioController.deleteUser);
+router.put("/:id", usuarioController.updateUser);
+router.delete("/:id",usuarioController.deleteUser);
 router.post("/login", validation.validateFormUsuarioLogin(), usuarioController.getUsuarioLogin);
-//ruta test pagina
-router.get("/testPrueba", (req:Request,res:Response)=>{
-    res.send("hola mundo")
-});
 
-/* //ruta test pagina login
-router.get("/login", (req:Request,res:Response)=>{
-    res.sendFile(path.resolve(__dirname, '../../view','loginDemo.html'));
-}); */
+//RUTAs DE PRUEBA
+//!ELIINAR
 //ruta test pagina login
 router.get("/", (req:Request,res:Response)=>{
     res.sendFile(path.resolve(__dirname, '../../view','loginDemo.html'));

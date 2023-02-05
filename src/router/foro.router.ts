@@ -8,10 +8,10 @@ const router = Router()
 const foroController = new ForoController()
 
 // register Rutas
-router.get("/foro", foroController.getAllForo)
-router.get("/foro/:id", foroController.getForoById)
-router.post("/foro", foroController.saveForo)
-router.put("/foro/:id", foroController.updateForo)
-router.delete("/foro/:id", foroController.deleteForo)
+router.get("/", foroController.getAllForo)
+router.get("/:id", foroController.getForoById)
+router.post("/", foroController.saveForo)
+router.put("/:id", foroController.updateForo)
+router.delete("/:id", foroController.deleteForo)
 
 export default router

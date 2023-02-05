@@ -225,7 +225,7 @@ var UsuarioController = /** @class */ (function () {
                         return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).save(usuario)];
                     case 2:
                         results = _a.sent();
-                        return [2 /*return*/, res.status(200).send({ status: "Usuario guardado con exito", results: results })];
+                        return [2 /*return*/, res.status(201).send({ status: "Usuario guardado con exito", results: results })];
                     case 3:
                         error_6 = _a.sent();
                         res.json({ error: error_6 });
@@ -279,7 +279,7 @@ var UsuarioController = /** @class */ (function () {
                         return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).delete(req.params.id)];
                     case 1:
                         results = _a.sent();
-                        return [2 /*return*/, res.send(results)];
+                        return [2 /*return*/, res.send(200).json(results)];
                     case 2:
                         error_8 = _a.sent();
                         res.json({ error: error_8 });

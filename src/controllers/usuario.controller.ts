@@ -146,7 +146,7 @@ export class UsuarioController {
 
             const usuario = await myDataSource.getRepository(Usuario).create(req.body)
             const results = await myDataSource.getRepository(Usuario).save(usuario)
-            return res.status(200).send({ status: "Usuario guardado con exito", results })
+            return res.status(201).send({ status: "Usuario guardado con exito", results })
         } catch (error) {
             res.json({ error })
         }
@@ -182,7 +182,7 @@ export class UsuarioController {
     public deleteUser = async (req: Request, res: Response) => {
         try {
             const results = await myDataSource.getRepository(Usuario).delete(req.params.id)
-            return res.send(results)
+            return res.send(200).json(results)
         } catch (error) {
             res.json({ error })
         }

@@ -3,7 +3,7 @@ import { Router, Request, Response } from "express";
 const router = Router()
 const path = require('path');
 
-router.post("/upload", async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
     try {
         if (!req.files) {
             res.send({
