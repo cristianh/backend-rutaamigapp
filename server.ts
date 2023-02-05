@@ -28,7 +28,7 @@ class ServerApp {
         this.app = express()
 
         //DEFINIMOS UN PATH DE RUTA INICIAL
-        this.path='/app'
+        this.path='/api'
 
         //PASAMOS LA CONEXION DEL SERVER A EXPRESS
         this.PORT = process.env.PORT || 3000;
