@@ -23,6 +23,7 @@ class ServerApp {
     private app;
     private PORT;
     private path;
+    
 
     constructor() {
         // INICIAMOS E INICIAALIZAMOS EXPRESS
@@ -89,6 +90,7 @@ class ServerApp {
     routes() {
         //RUTAS DE LA APLICACION PASADAS A EXPRESS
         this.app.use(this.path, ROUTER)
+    
         //RUTAs DE PRUEBA
         //!ELIINAR
         //ruta test pagina login

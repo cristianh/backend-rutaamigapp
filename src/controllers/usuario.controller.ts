@@ -203,27 +203,6 @@ export class UsuarioController {
         } catch (error) {
             res.json({ error })
         }
-    }
-
-    /* Getting all the comments of a user by id. */
-    public getUsuarioLogin = async (req: Request, res: Response) => {
-        try {
-
-            let errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                
-                return res.status(400).json({ errors: errors.array() });
-            }
-
-            const usuario = await myDataSource.getRepository(Usuario).findOneBy({
-                password_usuario: req.body.password_usuario,
-                correo_usuario: req.body.correo_usuario
-            })
-
-            res.status(200).json({ 'nombre': usuario.nombre_usuario, 'apellido': usuario.apellido_usuario, 'estado': usuario.estado_usuario })
-        } catch (error) {
-            res.json({ error: 'Usuario no encontrado' })
-        }
-    }
+    }    
 }
 

@@ -301,33 +301,6 @@ var UsuarioController = /** @class */ (function () {
                 }
             });
         }); };
-        /* Getting all the comments of a user by id. */
-        this.getUsuarioLogin = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, usuario, error_9;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        errors = (0, express_validator_1.validationResult)(req);
-                        if (!errors.isEmpty()) {
-                            return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
-                        }
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).findOneBy({
-                                password_usuario: req.body.password_usuario,
-                                correo_usuario: req.body.correo_usuario
-                            })];
-                    case 1:
-                        usuario = _a.sent();
-                        res.status(200).json({ 'nombre': usuario.nombre_usuario, 'apellido': usuario.apellido_usuario, 'estado': usuario.estado_usuario });
-                        return [3 /*break*/, 3];
-                    case 2:
-                        error_9 = _a.sent();
-                        res.json({ error: 'Usuario no encontrado' });
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
-                }
-            });
-        }); };
     }
     return UsuarioController;
 }());
