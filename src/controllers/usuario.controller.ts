@@ -15,20 +15,36 @@ export class UsuarioController {
     public getAllUsers = async (req: Request, res: Response) => {
         try {
 
-            let limit: any = req.query['limit']
-            let skip: any = req.query['skip']
+            let limit: any = req.query['limit'] || 10
+            let skip: any = req.query['skip'] || 0
+            let all: any = req.query['all'] || false
 
-            let query = {
-                skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
-                take: req.query['limit'] == undefined ? 100 : parseInt(limit)
+            let query;
+
+            if(all){
+                const usuario = await myDataSource.getRepository(Usuario).find()
+                let data ={usuario,totalUsers:usuario.length}
+                
+                res.status(200).json(data)
+            }else{
+                query = {
+                    skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
+                    take: req.query['limit'] == undefined ? 10 : parseInt(limit)
+                }
+                const usuario = await myDataSource.getRepository(Usuario).find(query)
+                let data ={usuario,totalUsers:usuario.length,page:skip,limit:limit}
+                
+                res.status(200).json(data)
             }
-            const usuario = await myDataSource.getRepository(Usuario).find(query)
-            res.json(usuario)
+
+           
+           
         } catch (error) {
             res.json({ error })
         }
 
     }
+
 
 
     /**
@@ -181,8 +197,9 @@ export class UsuarioController {
      */
     public deleteUser = async (req: Request, res: Response) => {
         try {
-            const results = await myDataSource.getRepository(Usuario).delete(req.params.id)
-            return res.send(200).json(results)
+            const result = await myDataSource.getRepository(Usuario).delete(req.params.id)
+            console.log(result)
+            return res.status(200).json({result,mensaje:"ok"})
         } catch (error) {
             res.json({ error })
         }

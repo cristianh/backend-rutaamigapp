@@ -1,7 +1,6 @@
 
 import {Router} from 'express';
 
-
 /*RUTAS*/
 import routerUsuario from './usuario.router'
 import routerComentario from './comentario.router'

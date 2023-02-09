@@ -1,6 +1,7 @@
 /*CONEXION DB */
 import myDataSource from "./app-data-source"
 import * as express from "express"
+import { Response,Request} from "express";
 /* CARGA DE ARCHIVOS*/
 import * as fileUpload from 'express-fileupload'
 /* INFORMACON SALIDA Y ENTRADA DE PETICIONES*/
@@ -28,7 +29,7 @@ class ServerApp {
         this.app = express()
 
         //DEFINIMOS UN PATH DE RUTA INICIAL
-        this.path='/api'
+        this.path = '/api'
 
         //PASAMOS LA CONEXION DEL SERVER A EXPRESS
         this.PORT = process.env.PORT || 3000;
@@ -88,6 +89,33 @@ class ServerApp {
     routes() {
         //RUTAS DE LA APLICACION PASADAS A EXPRESS
         this.app.use(this.path, ROUTER)
+        //RUTAs DE PRUEBA
+        //!ELIINAR
+        //ruta test pagina login
+        this.app.get("/", (req: Request, res: Response) => {
+            res.sendFile(path.resolve(__dirname, '../../view', 'loginDemo.html'));
+        });
+
+        //ruta test notificacion.
+        this.app.get("/notificacion", (req: Request, res: Response) => {
+            res.sendFile(path.resolve(__dirname, '../../view', 'notificacionDemo.html'));
+        });
+
+        //ruta para el mapa de
+        this.app.get("/mapa", (req: Request, res: Response) => {
+            res.sendFile(path.resolve(__dirname, '../../public', 'mapa.html'));
+        });
+
+        //ruta para el mapa de
+        this.app.get("/tableromensajes", (req: Request, res: Response) => {
+            res.sendFile(path.resolve(__dirname, '../../view', 'tableroMensajeAdmin.html'));
+        });
+
+
+        //ruta test pagina listar usuarios
+        this.app.get("/listarusuarios", (req: Request, res: Response) => {
+            res.sendFile(path.resolve(__dirname, '../../view', 'listarUsuarioDemo.html'));
+        });
 
     }
 

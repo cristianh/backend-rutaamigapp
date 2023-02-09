@@ -22,7 +22,7 @@ var ServerApp = /** @class */ (function () {
         // INICIAMOS E INICIAALIZAMOS EXPRESS
         this.app = express();
         //DEFINIMOS UN PATH DE RUTA INICIAL
-        this.path = '/app';
+        this.path = '/api';
         //PASAMOS LA CONEXION DEL SERVER A EXPRESS
         this.PORT = process.env.PORT || 3000;
         this.configuracion();
@@ -69,6 +69,28 @@ var ServerApp = /** @class */ (function () {
     ServerApp.prototype.routes = function () {
         //RUTAS DE LA APLICACION PASADAS A EXPRESS
         this.app.use(this.path, index_1.default);
+        //RUTAs DE PRUEBA
+        //!ELIINAR
+        //ruta test pagina login
+        this.app.get("/", function (req, res) {
+            res.sendFile(path.resolve(__dirname, '../../view', 'loginDemo.html'));
+        });
+        //ruta test notificacion.
+        this.app.get("/notificacion", function (req, res) {
+            res.sendFile(path.resolve(__dirname, '../../view', 'notificacionDemo.html'));
+        });
+        //ruta para el mapa de
+        this.app.get("/mapa", function (req, res) {
+            res.sendFile(path.resolve(__dirname, '../../public', 'mapa.html'));
+        });
+        //ruta para el mapa de
+        this.app.get("/tableromensajes", function (req, res) {
+            res.sendFile(path.resolve(__dirname, '../../view', 'tableroMensajeAdmin.html'));
+        });
+        //ruta test pagina listar usuarios
+        this.app.get("/listarusuarios", function (req, res) {
+            res.sendFile(path.resolve(__dirname, '../../view', 'listarUsuarioDemo.html'));
+        });
     };
     ServerApp.prototype.listen = function () {
         this.app.listen(this.PORT);
