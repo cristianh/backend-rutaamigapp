@@ -27,11 +27,11 @@ var RutaUsuario = /** @class */ (function () {
         __metadata("design:type", Number)
     ], RutaUsuario.prototype, "idrutausuario", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "double", nullable: false }),
+        (0, typeorm_1.Column)({ type: "float", nullable: false }),
         __metadata("design:type", Number)
     ], RutaUsuario.prototype, "latitud", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "double", nullable: false }),
+        (0, typeorm_1.Column)({ type: "float", nullable: false }),
         __metadata("design:type", Number)
     ], RutaUsuario.prototype, "longitud", void 0);
     __decorate([

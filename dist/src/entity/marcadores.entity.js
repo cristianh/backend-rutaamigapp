@@ -32,7 +32,7 @@ var Marcador = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Marcador.prototype, "latitud", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "tinyint", nullable: false }),
+        (0, typeorm_1.Column)({ type: "smallint", nullable: false }),
         __metadata("design:type", Boolean)
     ], Marcador.prototype, "estado", void 0);
     __decorate([

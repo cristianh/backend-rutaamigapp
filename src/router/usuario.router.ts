@@ -1,21 +1,31 @@
-import { Router} from "express";
+import { Router,Response,Request} from "express";
 
+//path 
+const path = require('path');
 
 //Controllers
-import { getAllUsers, getComentariesUsers, getUserByIdComentariesById, getUserById, saveUser, updateUser,deleteUser } from '../controllers/usuario.controller'
+import {UsuarioController} from '../controllers/usuario.controller'
 
 //Middleware
-import validateFormUsuarioRegister from '../middleware/validateFormLogin'
+import { Validations,ValidatiteJWT } from '../middleware'
+
+//Inicializamos Validacion.
+const validation= new Validations()
+const validationJWT= new ValidatiteJWT()
 
 const router = Router()
+//Inicializamos el controlador.
+const usuarioController = new UsuarioController();
+
 
 // Usuarios
-router.get("/usuarios", getAllUsers)
-router.get("/usuario/comentarios", getComentariesUsers)
-router.get("/usuario/:usuarioId/comentarios/:comentarioId", getUserByIdComentariesById)
-router.get("/usuario/:id", getUserById)
-router.post("/usuario", validateFormUsuarioRegister(), saveUser)
-router.put("/usuario/:id", updateUser)
-router.delete("/usuario/:id",deleteUser)
+router.get("/:all?/:limit?/:skip?",validationJWT.validate,usuarioController.getAllUsers);
+router.get("/:id/comentarios", usuarioController.getComentariesUsersById);
+router.get("/:usuarioId/comentarios/:comentarioId", usuarioController.getUserByIdComentariesById);
+router.get("/:id", usuarioController.getUserById);
+router.post("/registro", validation.validateFormUsuarioRegister(), usuarioController.saveUser);
+router.put("/:id", usuarioController.updateUser);
+router.delete("/:id",usuarioController.deleteUser);
+
 
 export default router
