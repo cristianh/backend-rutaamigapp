@@ -2,6 +2,8 @@ import { Request, Response } from "express"
 import { Usuario } from "../entity/usuario.entity"
 import myDataSource from "../../app-data-source"
 import { validationResult } from 'express-validator';
+//bycripts.js
+import * as bcryptjs from 'bcryptjs'
 
 //Trae los metodos del ORM
 const userRepository = myDataSource.getRepository(Usuario);

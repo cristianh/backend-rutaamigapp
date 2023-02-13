@@ -15,16 +15,17 @@ import { DataSource } from "typeorm"
 }) */
 
 
-//postgres
+//postgres - remote
 const myDataSource = new DataSource({
     type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: "postgres",
-    password: "123",
-    database: "rutaamigapp",
+    url: "postgres://ekepjnzu:kZycIuuDLBKaeUQ5q-JexMg2Zdh07fEm@kashin.db.elephantsql.com/ekepjnzu",//Url pool conexion
+    /* port: 5432,
+    username: "ekepjnzu",
+    password: "kZycIuuDLBKaeUQ5q-JexMg2Zdh07fEm",
+    database: "ekepjnzu", */
     entities: ["dist/src/entity/*.js"],
     logging: false,
+    /* ssl: { rejectUnauthorized: false }, */
     synchronize: true,
 })
 
