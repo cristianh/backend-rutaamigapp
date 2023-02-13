@@ -69,6 +69,7 @@ var ServerApp = /** @class */ (function () {
     ServerApp.prototype.routes = function () {
         //RUTAS DE LA APLICACION PASADAS A EXPRESS
         this.app.use(this.path, index_1.default);
+        /*  this.app.use(express.static('public')) */
         //RUTAs DE PRUEBA
         //!ELIINAR
         //ruta test pagina login
@@ -81,7 +82,7 @@ var ServerApp = /** @class */ (function () {
         });
         //ruta para el mapa de
         this.app.get("/mapa", function (req, res) {
-            res.sendFile(path.resolve(__dirname, '../../public', 'mapa.html'));
+            res.sendFile(path.resolve(__dirname, './public/', 'mapa.html'));
         });
         //ruta para el mapa de
         this.app.get("/tableromensajes", function (req, res) {
