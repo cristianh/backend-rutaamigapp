@@ -2,7 +2,7 @@ import { DataSource } from "typeorm"
 
 
 //mysql
-const myDataSource = new DataSource({
+/* const myDataSource = new DataSource({
     type: "mysql",
     host: "localhost",
     port: 3306,
@@ -12,21 +12,21 @@ const myDataSource = new DataSource({
     entities: ["dist/src/entity/*.js"],
     logging: false,
     synchronize: true,
-})
+}) */
 
 
 //postgres
-/* const myDataSource = new DataSource({
+const myDataSource = new DataSource({
     type: "postgres",
     host: "localhost",
     port: 5432,
     username: "postgres",
-    password: "root",
-    database: "test",
+    password: "123",
+    database: "rutaamigapp",
     entities: ["dist/src/entity/*.js"],
     logging: false,
     synchronize: true,
-}) */
+})
 
 
 //Conexion remota.

@@ -30,19 +30,19 @@ var Usuario = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Usuario.prototype, "idusuario", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "varchar", length: 45, nullable: false }),
+        (0, typeorm_1.Column)({ type: String, length: 45, nullable: false }),
         __metadata("design:type", String)
     ], Usuario.prototype, "nombre_usuario", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "varchar", length: 45, nullable: false }),
+        (0, typeorm_1.Column)({ type: String, length: 45, nullable: false }),
         __metadata("design:type", String)
     ], Usuario.prototype, "apellido_usuario", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "varchar", length: 45, nullable: false }),
+        (0, typeorm_1.Column)({ type: String, length: 45, nullable: false }),
         __metadata("design:type", String)
     ], Usuario.prototype, "correo_usuario", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "varchar", length: 45, nullable: false }),
+        (0, typeorm_1.Column)({ type: String, length: 45, nullable: false }),
         __metadata("design:type", String)
     ], Usuario.prototype, "password_usuario", void 0);
     __decorate([

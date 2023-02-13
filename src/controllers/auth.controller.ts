@@ -4,6 +4,8 @@ import myDataSource from "../../app-data-source"
 import { validationResult } from 'express-validator';
 import generateToken from "../helpers/generateJWT";
 
+//Importar la libreria para encriptar la contraseña en express (npm install bcript)
+const bcrypt = require('bcrypt');
 
 export class AuthController {
     /* Getting all the comments of a user by id. */
@@ -31,6 +33,7 @@ export class AuthController {
             }
 
             // SECCION PARA VALIDAR LA CONTRASEÑA CON BYCRIPT:JS
+            
 
             //GENERAMOS JWT
             const token = await generateToken(usuario.idusuario);

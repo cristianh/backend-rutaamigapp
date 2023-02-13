@@ -40,6 +40,10 @@ exports.UsuarioController = void 0;
 var usuario_entity_1 = require("../entity/usuario.entity");
 var app_data_source_1 = require("../../app-data-source");
 var express_validator_1 = require("express-validator");
+//Trae los metodos del ORM
+var userRepository = app_data_source_1.default.getRepository(usuario_entity_1.Usuario);
+//Importar la libreria para encriptar la contraseña en express (npm install bcript)
+var bcrypt = require('bcrypt');
 var UsuarioController = /** @class */ (function () {
     function UsuarioController() {
         var _this = this;
@@ -222,24 +226,32 @@ var UsuarioController = /** @class */ (function () {
          *             "param": "email",
          */
         this.saveUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, usuario, results, error_6;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var errors, _a, nombre_usuario, apellido_usuario, correo_usuario, password_usuario, dbUser, usuario, error_6;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
+                        _b.trys.push([0, 3, , 4]);
                         errors = (0, express_validator_1.validationResult)(req);
                         if (!errors.isEmpty()) {
                             return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
                         }
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).create(req.body)];
+                        _a = req.body, nombre_usuario = _a.nombre_usuario, apellido_usuario = _a.apellido_usuario, correo_usuario = _a.correo_usuario, password_usuario = _a.password_usuario;
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).create({
+                                nombre_usuario: nombre_usuario,
+                                apellido_usuario: apellido_usuario,
+                                correo_usuario: correo_usuario,
+                                password_usuario: bcrypt.hashSync(password_usuario, 10)
+                            })
+                            //Se crea la solicitud del cuerpo
+                        ];
                     case 1:
-                        usuario = _a.sent();
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).save(usuario)];
+                        dbUser = _b.sent();
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).save(dbUser)];
                     case 2:
-                        results = _a.sent();
-                        return [2 /*return*/, res.status(201).send({ status: "Usuario guardado con exito", results: results })];
+                        usuario = _b.sent();
+                        return [2 /*return*/, res.status(201).send({ status: "Usuario guardado con exito", usuario: usuario })];
                     case 3:
-                        error_6 = _a.sent();
+                        error_6 = _b.sent();
                         res.json({ error: error_6 });
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
