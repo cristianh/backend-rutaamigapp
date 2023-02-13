@@ -3,13 +3,9 @@ import { Usuario } from "../entity/usuario.entity"
 import myDataSource from "../../app-data-source"
 import { validationResult } from 'express-validator';
 import generateToken from "../helpers/generateJWT";
-//bycripts.js
+//bycripts.js encrptacion contraseña
 import * as bcryptjs from 'bcryptjs'
 
-
-
-//Importar la libreria para encriptar la contraseña en express (npm install bcript)
-const bcrypt = require('bcrypt');
 
 export class AuthController {
     /* Getting all the comments of a user by id. */

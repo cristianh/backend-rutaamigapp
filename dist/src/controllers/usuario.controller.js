@@ -40,10 +40,10 @@ exports.UsuarioController = void 0;
 var usuario_entity_1 = require("../entity/usuario.entity");
 var app_data_source_1 = require("../../app-data-source");
 var express_validator_1 = require("express-validator");
+//bycripts.js
+var bcryptjs = require("bcryptjs");
 //Trae los metodos del ORM
 var userRepository = app_data_source_1.default.getRepository(usuario_entity_1.Usuario);
-//Importar la libreria para encriptar la contraseña en express (npm install bcript)
-var bcrypt = require('bcrypt');
 var UsuarioController = /** @class */ (function () {
     function UsuarioController() {
         var _this = this;
@@ -240,7 +240,7 @@ var UsuarioController = /** @class */ (function () {
                                 nombre_usuario: nombre_usuario,
                                 apellido_usuario: apellido_usuario,
                                 correo_usuario: correo_usuario,
-                                password_usuario: bcrypt.hashSync(password_usuario, 10)
+                                password_usuario: bcryptjs.hashSync(password_usuario, 10)
                             })
                             //Se crea la solicitud del cuerpo
                         ];

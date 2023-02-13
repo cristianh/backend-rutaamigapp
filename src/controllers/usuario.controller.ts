@@ -8,8 +8,7 @@ import * as bcryptjs from 'bcryptjs'
 //Trae los metodos del ORM
 const userRepository = myDataSource.getRepository(Usuario);
 
-//Importar la libreria para encriptar la contraseña en express (npm install bcript)
-const bcrypt = require('bcrypt');
+
 
 export class UsuarioController {
 
@@ -169,7 +168,7 @@ export class UsuarioController {
                 nombre_usuario: nombre_usuario,
                 apellido_usuario: apellido_usuario,
                 correo_usuario: correo_usuario,
-                password_usuario: bcrypt.hashSync(password_usuario, 10)
+                password_usuario: bcryptjs.hashSync(password_usuario, 10)
             })
             //Se crea la solicitud del cuerpo
             const usuario = await myDataSource.getRepository(Usuario).save(dbUser)
