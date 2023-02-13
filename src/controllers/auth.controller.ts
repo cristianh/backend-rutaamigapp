@@ -3,6 +3,10 @@ import { Usuario } from "../entity/usuario.entity"
 import myDataSource from "../../app-data-source"
 import { validationResult } from 'express-validator';
 import generateToken from "../helpers/generateJWT";
+//bycripts.js
+import * as bcryptjs from 'bcryptjs'
+
+
 
 
 export class AuthController {
@@ -16,14 +20,17 @@ export class AuthController {
                 return res.status(400).json({ errors: errors.array() });
             }
 
-            const usuario:Usuario = await myDataSource.getRepository(Usuario).findOneBy({
-                password_usuario: req.body.password_usuario,
+
+
+            const usuario: Usuario = await myDataSource.getRepository(Usuario).findOneBy({
                 correo_usuario: req.body.correo_usuario
             })
-            
+
+
+
             //VALIDAMOS SI EL USUARIO EXISTE.
-            if(!usuario){
-                return res.status(400).json({result:"Usuario no encontrado, por favor revise correo y contraseña"}) 
+            if (!usuario) {
+                return res.status(400).json({ result: "Usuario no encontrado, por favor revise correo y contraseña" })
             }
             //VALIDAMOS SI EL USUARIO SE ENCUENTRA ACTIVO.
             if(!usuario.estado_usuario){
@@ -31,22 +38,30 @@ export class AuthController {
             }
 
             // SECCION PARA VALIDAR LA CONTRASEÑA CON BYCRIPT:JS
+            const validatePassword = bcryptjs.compareSync(req.body.password_usuario, usuario.password_usuario)
+            
+            //SI EL PASSWORD ES CORRECTO
+            if (!validatePassword) {
+                return res.status(404).json({ result: "Usuario / Password no son correctos - password" })
+            }
+
 
             //GENERAMOS JWT
             const token = await generateToken(usuario.idusuario);
 
-            if(token){
+            if (token) {
                 /* res.json({
                     usuario,
                     token
                 }) */
+                
                 //SI EL USUARIO EXITE ENVIAMOS LA INFORMACION.
-                res.status(200).json({usuario:{ 'nombre': usuario.nombre_usuario, 'apellido': usuario.apellido_usuario, 'estado': usuario.estado_usuario },token})
+                return res.status(200).json({ usuario: { 'nombre': usuario.nombre_usuario, 'apellido': usuario.apellido_usuario, 'estado': usuario.estado_usuario }, token })
             }
-            
 
-            
-            
+
+
+
         } catch (error) {
             res.status(500).json({ error: error })
         }

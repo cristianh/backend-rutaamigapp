@@ -2,6 +2,8 @@ import { Request, Response } from "express"
 import { Usuario } from "../entity/usuario.entity"
 import myDataSource from "../../app-data-source"
 import { validationResult } from 'express-validator';
+//bycripts.js
+import * as bcryptjs from 'bcryptjs'
 
 
 export class UsuarioController {
@@ -21,24 +23,24 @@ export class UsuarioController {
 
             let query;
 
-            if(all){
+            if (all) {
                 const usuario = await myDataSource.getRepository(Usuario).find()
-                let data ={usuario,totalUsers:usuario.length}
-                
+                let data = { usuario, totalUsers: usuario.length }
+
                 res.status(200).json(data)
-            }else{
+            } else {
                 query = {
                     skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
                     take: req.query['limit'] == undefined ? 10 : parseInt(limit)
                 }
                 const usuario = await myDataSource.getRepository(Usuario).find(query)
-                let data ={usuario,totalUsers:usuario.length,page:skip,limit:limit}
-                
+                let data = { usuario, totalUsers: usuario.length, page: skip, limit: limit }
+
                 res.status(200).json(data)
             }
 
-           
-           
+
+
         } catch (error) {
             res.json({ error })
         }
@@ -156,11 +158,33 @@ export class UsuarioController {
         try {
             let errors = validationResult(req);
             if (!errors.isEmpty()) {
-                
+
                 return res.status(400).json({ errors: errors.array() });
             }
 
-            const usuario = await myDataSource.getRepository(Usuario).create(req.body)
+            const {idusuario,
+                nombre_usuario,
+                apellido_usuario,
+                correo_usuario,
+                password_usuario,
+                estado_usuario,
+                fecha_creacion,
+                fecha_actualizacion,
+                fecha_eliminacion } = req.body
+             
+            //INDICAMOS EL NUMERO DE VUELTAS    
+            const salt = bcryptjs.genSaltSync()
+            const usuario = myDataSource.getRepository(Usuario).create({
+                "idusuario": idusuario,
+                "nombre_usuario": nombre_usuario,
+                "apellido_usuario": apellido_usuario,
+                "correo_usuario": correo_usuario,
+                "password_usuario": bcryptjs.hashSync(password_usuario, salt),
+                "estado_usuario": estado_usuario,
+                "fecha_creacion": fecha_creacion,
+                "fecha_actualizacion": fecha_actualizacion,
+                "fecha_eliminacion": fecha_eliminacion
+            })
             const results = await myDataSource.getRepository(Usuario).save(usuario)
             return res.status(201).send({ status: "Usuario guardado con exito", results })
         } catch (error) {
@@ -199,10 +223,10 @@ export class UsuarioController {
         try {
             const result = await myDataSource.getRepository(Usuario).delete(req.params.id)
             console.log(result)
-            return res.status(200).json({result,mensaje:"ok"})
+            return res.status(200).json({ result, mensaje: "ok" })
         } catch (error) {
             res.json({ error })
         }
-    }    
+    }
 }
 

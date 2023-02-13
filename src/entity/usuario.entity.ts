@@ -27,7 +27,7 @@ export class Usuario {
     @Column({type: "varchar",length: 45,nullable:false})
     correo_usuario: string
 
-    @Column({type: "varchar",length: 45,nullable:false})
+    @Column({type: "varchar",length: 60,nullable:false})
     password_usuario: string
 
     @Column({type: "boolean",nullable:false})
