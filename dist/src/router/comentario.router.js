@@ -2,14 +2,30 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 //Controllers
-var comentario_controlles_1 = require("../controllers/comentario.controlles");
+var comentario_controller_1 = require("../controllers/comentario.controller");
 var router = (0, express_1.Router)();
+//Inicializamos controllador.
+var comentarioController = new comentario_controller_1.ComentarioController();
 // Comentarios
-router.get("/comentarios", comentario_controlles_1.getAllComentaries);
-router.get("/comentario/usuario", comentario_controlles_1.getAllComentariesUsuario);
-router.get("/comentario/:id", comentario_controlles_1.getComentariesById);
-router.post("/comentario", comentario_controlles_1.saveComentaries);
-router.put("/comentario/:id", comentario_controlles_1.updateComentaries);
-router.delete("/comentario/:id", comentario_controlles_1.deleteComentaries);
+/**
+ * A route that is listening to the path `/comentario` and when it is called it will execute the
+ * function `comentarioController.getAllComentaries`
+ **/
+router.get("/", comentarioController.getAllComentaries);
+/* Listening to the path `/comentario/usuario` and when it is called it will execute the function
+`comentarioController.getAllComentariesUsuario` */
+router.get("/usuario", comentarioController.getAllComentariesUsuario);
+/* Listening to the path `/comentario/:id` and when it is called it will execute the function
+`comentarioController.getComentariesById` */
+router.get("/:id", comentarioController.getComentariesById);
+/* Listening to the path `/comentario` and when it is called it will execute the function
+`comentarioController.saveComentaries` */
+router.post("/comentario", comentarioController.saveComentaries);
+/* Listening to the path `/comentario/:id` and when it is called it will execute the function
+`comentarioController.updateComentaries` */
+router.put("/:id", comentarioController.updateComentaries);
+/* Listening to the path `/comentario/:id` and when it is called it will execute the function
+`comentarioController.deleteComentaries` */
+router.delete("/:id", comentarioController.deleteComentaries);
 exports.default = router;
 //# sourceMappingURL=comentario.router.js.map

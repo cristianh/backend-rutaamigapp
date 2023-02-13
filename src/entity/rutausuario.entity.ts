@@ -15,10 +15,16 @@ export class RutaUsuario {
     @PrimaryGeneratedColumn()
     idrutausuario: number
 
-    @Column({ type: "double", nullable: false })
+    /* @Column({ type: "double", nullable: false })
     latitud: number
 
     @Column({ type: "double", nullable: false })
+    longitud: number */
+
+    @Column({ type: "float", nullable: false })
+    latitud: number
+
+    @Column({ type: "float", nullable: false })
     longitud: number
 
     @Column({ type: "boolean", nullable: false })

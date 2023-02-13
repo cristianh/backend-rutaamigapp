@@ -1,18 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
+//path 
+var path = require('path');
 //Controllers
 var usuario_controller_1 = require("../controllers/usuario.controller");
 //Middleware
-var validateFormLogin_1 = require("../middleware/validateFormLogin");
+var middleware_1 = require("../middleware");
+//Inicializamos Validacion.
+var validation = new middleware_1.Validations();
+var validationJWT = new middleware_1.ValidatiteJWT();
 var router = (0, express_1.Router)();
+//Inicializamos el controlador.
+var usuarioController = new usuario_controller_1.UsuarioController();
 // Usuarios
-router.get("/usuarios", usuario_controller_1.getAllUsers);
-router.get("/usuario/comentarios", usuario_controller_1.getComentariesUsers);
-router.get("/usuario/:usuarioId/comentarios/:comentarioId", usuario_controller_1.getUserByIdComentariesById);
-router.get("/usuario/:id", usuario_controller_1.getUserById);
-router.post("/usuario", (0, validateFormLogin_1.default)(), usuario_controller_1.saveUser);
-router.put("/usuario/:id", usuario_controller_1.updateUser);
-router.delete("/usuario/:id", usuario_controller_1.deleteUser);
+router.get("/:all?/:limit?/:skip?", validationJWT.validate, usuarioController.getAllUsers);
+router.get("/:id/comentarios", usuarioController.getComentariesUsersById);
+router.get("/:usuarioId/comentarios/:comentarioId", usuarioController.getUserByIdComentariesById);
+router.get("/:id", usuarioController.getUserById);
+router.post("/registro", validation.validateFormUsuarioRegister(), usuarioController.saveUser);
+router.put("/:id", usuarioController.updateUser);
+router.delete("/:id", usuarioController.deleteUser);
 exports.default = router;
 //# sourceMappingURL=usuario.router.js.map

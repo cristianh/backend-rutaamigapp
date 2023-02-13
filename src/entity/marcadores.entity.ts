@@ -21,7 +21,10 @@ export class Marcador {
     @Column({ type: "float", nullable: false })
     latitud: number
 
-    @Column({ type: "tinyint", nullable: false })
+    /* @Column({ type: "tinyint", nullable: false })
+    estado: boolean */
+
+    @Column({ type: "smallint", nullable: false })
     estado: boolean
 
     @Column({ type: "time", nullable: false })

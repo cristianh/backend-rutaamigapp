@@ -13,17 +13,20 @@ export class Foro {
     @PrimaryGeneratedColumn()
     idForo: number
 
-    @Column({ type: "float", nullable: false })
+   /*  @Column({ type: "float", nullable: false })
     longitud: number
 
     @Column({ type: "float", nullable: false })
-    latitud: number
+    latitud: number */
 
-    @Column({ type: "tinyint", nullable: false })
+   /*  @Column({ type: "tinyint", nullable: false })
+    estado: boolean */
+
+    @Column({ type: "smallint", nullable: false })
     estado: boolean
 
-    @Column({ type: "time", nullable: false })
-    tiempo_recorrido:string
+ /*    @Column({ type: "time", nullable: false })
+    tiempo_recorrido:string */
 
   /*   @ManyToMany(() => Comentario)
     comentario: Comentario[]
@@ -31,9 +34,9 @@ export class Foro {
     @ManyToMany(() => Usuario)
     usuario: Usuario[] */
 
-    @ManyToOne(() => Usuario, (usuario) => usuario.foro)
-    usuario!: Usuario
+   /*  @ManyToOne(() => Usuario, (usuario) => usuario.foro)
+    usuario!: Usuario */
 
-    @ManyToOne(() => Comentario, (comentario) => comentario.foro)
-    comentario!: Comentario
+   /*  @ManyToOne(() => Comentario, (comentario) => comentario.foro)
+    comentario!: Comentario */
 }
