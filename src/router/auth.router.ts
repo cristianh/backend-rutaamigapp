@@ -5,7 +5,7 @@ import {AuthController} from '../controllers/auth.controller'
 
 
 //Middleware
-import { Validations } from '../middleware/validations'
+import { Validations } from './../middleware';
 
 //Inicializamos Validacion.
 const validation= new Validations()

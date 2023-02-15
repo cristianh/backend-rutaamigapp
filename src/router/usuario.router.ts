@@ -1,5 +1,6 @@
 import { Router,Response,Request} from "express";
 
+
 //path 
 const path = require('path');
 
@@ -7,9 +8,9 @@ const path = require('path');
 import {UsuarioController} from '../controllers/usuario.controller'
 
 //Middleware
-import { Validations,ValidatiteJWT } from '../middleware'
+import { Validations, ValidatiteJWT } from './../middleware';
 
-//Inicializamos Validacion.
+
 const validation= new Validations()
 const validationJWT= new ValidatiteJWT()
 
