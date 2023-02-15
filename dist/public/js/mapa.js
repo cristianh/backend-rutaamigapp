@@ -12,9 +12,13 @@ window.addEventListener('DOMContentLoaded', () => {
     let point = 0;
     let pointBus;
     let popup;
+    //Variables para calcular la distancia entre puntos.
+
+    let to; //lng, lat
+    let from; //lng, lat 
 
     document.getElementById('selectRutas').addEventListener('change', (event) => {
-        
+
         point = 0
         loadPointTest(event.target.value)
         //LoadInfo(event.target.value)
@@ -34,9 +38,9 @@ window.addEventListener('DOMContentLoaded', () => {
         .catch(err => console.log(err))
         .finally(() => {
             let selectRutas = document.getElementById('selectRutas');
-            
+
             opcionesRuta.forEach(opcion => {
-                
+
                 let Op = document.createElement('option')
                 Op.value = opcion
                 Op.text = opcion
@@ -92,6 +96,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const loadMap = (lat, lng) => {
 
+        from = [lng,lat]
 
         mapboxgl.accessToken = 'pk.eyJ1IjoiY3J1c3RvMjAyMiIsImEiOiJjbDg3c3lmaTExNmg4M3BubGhyMThvMmhsIn0.AhcG868gRKbP-zDiccuMdA';
         const map = new mapboxgl.Map({
@@ -145,7 +150,7 @@ window.addEventListener('DOMContentLoaded', () => {
             pointBus.setPopup(
                 new mapboxgl.Popup({ offset: 25 }) // add popups
                     .setHTML(
-                        `<h3>${dataPointsBus.features[0].properties.title}</h3><p>${dataPointsBus.features[0].properties.description}</p><p id="velocidadRuta">${dataPointsBus.features[0].properties.velocidad}</p>`
+                        `<h3>${dataPointsBus.features[0].properties.title}</h3><span>${dataPointsBus.features[0].properties.description}</span><br><span id="velocidadRuta">Velocidad: ${dataPointsBus.features[0].properties.velocidad}</span>`
                     )
             )
 
@@ -173,17 +178,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function animation(map, point, pointMarket) {
         tiempoGeo = setInterval(() => {
-           
+
             //caramos el popup del bus.
             popup = document.querySelector('#velocidadRuta')
 
-            if (popup == null ) {
-                
-            }else{
-                if(dataPointsBus.features[point].properties.velocidad !== null || dataPointsBus.features[point].properties.velocidad !== undefined){
-                    popup.innerHTML = Math.round(dataPointsBus.features[point].properties.velocidad * 3.6) + 'km/h'
+            if (popup == null) {
+
+            } else {
+                if (dataPointsBus.features[point].properties.velocidad !== null || dataPointsBus.features[point].properties.velocidad !== undefined) {
+                    popup.innerHTML = `Velocidad:${Math.round(dataPointsBus.features[point].properties.velocidad * 3.6)} km/h <br>`
                 }
             }
+
+            let options = {
+                units: 'kilometers'
+            }; // units can be degrees, radians, miles, or kilometers, just be sure to change the units in the text box to match. 
+
+            to = [dataPointsBus.features[point].geometry.coordinates[0], dataPointsBus.features[point].geometry.coordinates[1]]
+
+            let distance = turf.distance(to, from, options);
+            distance= distance*1000
+
+            popup.innerHTML += `Distancia: ${(distance).toFixed([1])}  Metros`
 
             // make a marker for each feature and add to the map
             pointMarket.setLngLat(dataPointsBus.features[point].geometry.coordinates)
@@ -193,6 +209,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 speed: 0.5
             });
             point = point + 1
+
             if ((dataPointsBus.features.length - 1) == point) {
                 dataPointsBus.features.reverse()
                 point = 0
@@ -227,13 +244,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
                     let dataPoints = Object.values(data)
 
-                    
+
 
                     dataPoints.forEach(points => {
 
                         const { Latitude, Longitude, Speed } = points
 
-
+                       
 
 
                         dataPointsBus.features.push(

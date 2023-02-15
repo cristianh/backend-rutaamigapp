@@ -18,8 +18,6 @@ export class AuthController {
                 return res.status(400).json({ errors: errors.array() });
             }
 
-
-
             const usuario: Usuario = await myDataSource.getRepository(Usuario).findOneBy({
                 correo_usuario: req.body.correo_usuario
             })
@@ -32,7 +30,7 @@ export class AuthController {
             }
             //VALIDAMOS SI EL USUARIO SE ENCUENTRA ACTIVO.
             if(!usuario.estado_usuario){
-                res.status(400).json({result:"El usuario se encuentra inactivo, por favor contacte al administrador."})
+                return res.status(400).json({result:"El usuario se encuentra inactivo, por favor contacte al administrador."})
             }
 
             // SECCION PARA VALIDAR LA CONTRASEÑA CON BYCRIPT:JS

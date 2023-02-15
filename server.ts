@@ -90,6 +90,7 @@ class ServerApp {
     routes() {
         //RUTAS DE LA APLICACION PASADAS A EXPRESS
         this.app.use(this.path, ROUTER)
+       /*  this.app.use(express.static('public')) */
     
         //RUTAs DE PRUEBA
         //!ELIINAR
@@ -105,7 +106,7 @@ class ServerApp {
 
         //ruta para el mapa de
         this.app.get("/mapa", (req: Request, res: Response) => {
-            res.sendFile(path.resolve(__dirname, '../../public', 'mapa.html'));
+            res.sendFile(path.resolve(__dirname, './public/', 'mapa.html'));
         });
 
         //ruta para el mapa de

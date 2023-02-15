@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-//mysql
-/* const myDataSource = new DataSource({
+//mysql-conexion
+var myDataSource = new typeorm_1.DataSource({
     type: "mysql",
     host: "localhost",
     port: 3306,
@@ -12,20 +12,15 @@ var typeorm_1 = require("typeorm");
     entities: ["dist/src/entity/*.js"],
     logging: false,
     synchronize: true,
-}) */
+});
 //postgres - remote
-var myDataSource = new typeorm_1.DataSource({
+/* const myDataSource = new DataSource({
     type: "postgres",
-    url: "postgres://ekepjnzu:kZycIuuDLBKaeUQ5q-JexMg2Zdh07fEm@kashin.db.elephantsql.com/ekepjnzu",
-    /* port: 5432,
-    username: "ekepjnzu",
-    password: "kZycIuuDLBKaeUQ5q-JexMg2Zdh07fEm",
-    database: "ekepjnzu", */
+    url: "postgres://ekepjnzu:kZycIuuDLBKaeUQ5q-JexMg2Zdh07fEm@kashin.db.elephantsql.com/ekepjnzu",//Url pool conexion
     entities: ["dist/src/entity/*.js"],
     logging: false,
-    /* ssl: { rejectUnauthorized: false }, */
     synchronize: true,
-});
+}) */
 //Conexion remota.
 /*const myDataSource = new DataSource({
     type: "postgres",
