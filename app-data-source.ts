@@ -2,7 +2,7 @@ import { DataSource } from "typeorm"
 
 
 //mysql-conexion
-const myDataSource = new DataSource({
+/* const myDataSource = new DataSource({
     type: "mysql",
     host: "localhost",
     port: 3306,
@@ -12,17 +12,17 @@ const myDataSource = new DataSource({
     entities: ["dist/src/entity/*.js"],
     logging: false,
     synchronize: true,
-})
+}) */
 
 
 //postgres - remote
-/* const myDataSource = new DataSource({
+const myDataSource = new DataSource({
     type: "postgres",
     url: "postgres://ekepjnzu:kZycIuuDLBKaeUQ5q-JexMg2Zdh07fEm@kashin.db.elephantsql.com/ekepjnzu",//Url pool conexion
     entities: ["dist/src/entity/*.js"],
     logging: false,
     synchronize: true,
-}) */
+})
 
 
 //Conexion remota.
