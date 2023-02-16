@@ -46,7 +46,7 @@ var Usuario = /** @class */ (function () {
         __metadata("design:type", String)
     ], Usuario.prototype, "password_usuario", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "boolean", nullable: false }),
+        (0, typeorm_1.Column)({ type: "boolean", nullable: false, default: true }),
         __metadata("design:type", String)
     ], Usuario.prototype, "estado_usuario", void 0);
     __decorate([

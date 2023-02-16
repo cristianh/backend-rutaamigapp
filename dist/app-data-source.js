@@ -20,7 +20,8 @@ var myDataSource = new typeorm_1.DataSource({
     entities: ["dist/src/entity/*.js"],
     logging: false,
     synchronize: true,
-}) */
+})
+ */
 //Conexion remota.
 /*const myDataSource = new DataSource({
     type: "postgres",

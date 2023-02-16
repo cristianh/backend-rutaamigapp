@@ -8,7 +8,7 @@ const path = require('path');
 import {UsuarioController} from '../controllers/usuario.controller'
 
 //Middleware
-import { Validations, ValidatiteJWT } from './../middleware';
+import { Validations, ValidatiteJWT } from '../middleware';
 
 
 const validation= new Validations()
@@ -27,6 +27,7 @@ router.get("/:id", usuarioController.getUserById);
 router.post("/registro", validation.validateFormUsuarioRegister(), usuarioController.saveUser);
 router.put("/:id", usuarioController.updateUser);
 router.delete("/:id",usuarioController.deleteUser);
+
 
 
 export default router

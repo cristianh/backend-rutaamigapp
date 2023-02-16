@@ -158,27 +158,30 @@ export class UsuarioController {
             if (!errors.isEmpty()) {
 
                 return res.status(400).json({ errors: errors.array() });
+            } else {
+                //Se guarda el usuario
+                //Save in a var the atributes of the request body
+                let { nombre_usuario, apellido_usuario, correo_usuario, password_usuario } = req.body;
+
+                const dbUser = await myDataSource.getRepository(Usuario).create({
+                    nombre_usuario: nombre_usuario,
+                    apellido_usuario: apellido_usuario,
+                    correo_usuario: correo_usuario,
+                    password_usuario: bcryptjs.hashSync(password_usuario, 10)
+                })
+                //Se crea la solicitud del cuerpo
+                const usuario = await myDataSource.getRepository(Usuario).save(dbUser)
+                return res.status(201).send({ status: "Usuario guardado con exito", usuario })
+
             }
 
-            //Se guarda el usuario
-            //Save in a var the atributes of the request body
-            let { nombre_usuario, apellido_usuario, correo_usuario, password_usuario } = req.body;
-
-            const dbUser = await myDataSource.getRepository(Usuario).create({
-                nombre_usuario: nombre_usuario,
-                apellido_usuario: apellido_usuario,
-                correo_usuario: correo_usuario,
-                password_usuario: bcryptjs.hashSync(password_usuario, 10)
-            })
-            //Se crea la solicitud del cuerpo
-            const usuario = await myDataSource.getRepository(Usuario).save(dbUser)
-            return res.status(201).send({ status: "Usuario guardado con exito", usuario})
 
         } catch (error) {
-            res.json({ error })
+            return res.json({ error })
         }
     }
 
+    
     /**
      * It takes a request, finds a user by id, merges the request body with the user, and saves the user.
      * @param {Request} req - Request
@@ -192,11 +195,10 @@ export class UsuarioController {
             })
             myDataSource.getRepository(Usuario).merge(usuario, req.body)
             const results = await myDataSource.getRepository(Usuario).save(usuario)
-            return res.send(200).json({ res: "Usuario actualizado con exito", results })
+            return res.status(200).json({ res: "Usuario actualizado con exito", results })
         } catch (error) {
             res.json({ error })
         }
-
     }
 
     /**

@@ -7,7 +7,6 @@ var path = require('path');
 var usuario_controller_1 = require("../controllers/usuario.controller");
 //Middleware
 var middleware_1 = require("../middleware");
-//Inicializamos Validacion.
 var validation = new middleware_1.Validations();
 var validationJWT = new middleware_1.ValidatiteJWT();
 var router = (0, express_1.Router)();

@@ -61,9 +61,17 @@ class ServerApp {
 
     middleware() {
         // HABILITAR CONEXIONES LOCALES - cors
-        this.app.options('*', cors())//EL '*' INDICA QUE SE ACEPTAN TODAS LAS CONEXIONES DE CUALQUIER SERVIDOR.
+        var options = {
+            "origin": "*",
+            "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+            "preflightContinue": false
+          }
 
-        this.app.use(cors());//INDICAMOS A EXPRESS QUE UTILICE LOS CORS.
+        
+        //this.app.options('*', cors())//EL '*' INDICA QUE SE ACEPTAN TODAS LAS CONEXIONES DE CUALQUIER SERVIDOR.
+        
+
+        this.app.use(cors(options));//INDICAMOS A EXPRESS QUE UTILICE LOS CORS.
         this.app.use(morgan('dev'))
 
         // CONFIGURAMOS EL BODY DE LA PETICION POST PARA QUE SEA RECIBIDO EN LA PETICION.

@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import { Usuario } from "../entity/usuario.entity"
 import myDataSource from "../../app-data-source"
 import { validationResult } from 'express-validator';
-import generateToken from "../helpers/generateJWT";
+import {generateToken} from "../helpers/generateJWT";
 //bycripts.js encrptacion contraseña
 import * as bcryptjs from 'bcryptjs'
 
@@ -62,4 +62,6 @@ export class AuthController {
             res.status(500).json({ error: error })
         }
     }
+
+
 }

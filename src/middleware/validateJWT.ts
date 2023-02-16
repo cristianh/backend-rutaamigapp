@@ -14,11 +14,35 @@ export class ValidatiteJWT {
         try {
             console.log(token)
             const payload = jwt.verify(token, process.env.SECRETORPRIVATEKEY)
-            /* if(payload){
-                req.payload = payload
-            } */
+            if (payload) {
+                next()
+            }
 
-            next()
+
+        } catch (error) {
+            return res.status(401).json({
+                msg: "Token no valido."
+            })
+        }
+
+
+
+    }
+
+    public validateTimeToken = (req: Request, res: Response, next: NextFunction) => {
+
+        try {
+            console.log("token",req.body.token)
+            const payload = jwt.verify(req.body.token, process.env.SECRETORPRIVATEKEY)
+            if (payload) {
+                next()
+            }else{
+                return res.status(401).json({
+                    msg: "Lo sentimos el token ya no es valido"
+                })
+            }
+
+           
         } catch (error) {
             return res.status(401).json({
                 msg: "Token no valido."

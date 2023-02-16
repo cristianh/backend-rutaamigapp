@@ -30,7 +30,7 @@ export class Usuario {
     @Column({type: "varchar",length: 60,nullable:false})
     password_usuario: string
 
-    @Column({type: "boolean",nullable:false})
+    @Column({type: "boolean",nullable:false,default: true})
     estado_usuario: string
 
     /* @OneToMany(() => Foro, (foro) => foro.comentario)
