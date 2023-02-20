@@ -42,6 +42,7 @@ var app_data_source_1 = require("../../app-data-source");
 var ForoController = /** @class */ (function () {
     function ForoController() {
         var _this = this;
+        /* A function that is going to get all the foros from the database. */
         this.getAllForo = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var foros, error_1;
             return __generator(this, function (_a) {
@@ -61,6 +62,7 @@ var ForoController = /** @class */ (function () {
                 }
             });
         }); };
+        /* Getting the foro by id. */
         this.getForoById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var results, error_2;
             return __generator(this, function (_a) {
@@ -72,7 +74,7 @@ var ForoController = /** @class */ (function () {
                             })];
                     case 1:
                         results = _a.sent();
-                        return [2 /*return*/, res.send(results)];
+                        return [2 /*return*/, res.status(200).send(results)];
                     case 2:
                         error_2 = _a.sent();
                         res.json({ error: error_2 });
@@ -81,6 +83,7 @@ var ForoController = /** @class */ (function () {
                 }
             });
         }); };
+        /* Saving the foro in the database. */
         this.saveForo = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var foro, results, error_3;
             return __generator(this, function (_a) {
@@ -94,7 +97,7 @@ var ForoController = /** @class */ (function () {
                         return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).save(foro)];
                     case 2:
                         results = _a.sent();
-                        return [2 /*return*/, res.status(200).send({ status: "Ruta guardadad", results: results })];
+                        return [2 /*return*/, res.status(202).send({ status: "Ruta guardadad", results: results })];
                     case 3:
                         error_3 = _a.sent();
                         res.json({ error: error_3 });
@@ -103,6 +106,7 @@ var ForoController = /** @class */ (function () {
                 }
             });
         }); };
+        /* Updating the foro in the database. */
         this.updateForo = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var foro, results, error_4;
             return __generator(this, function (_a) {
@@ -118,7 +122,7 @@ var ForoController = /** @class */ (function () {
                         return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).save(foro)];
                     case 2:
                         results = _a.sent();
-                        return [2 /*return*/, res.send(200).json({ status: 'ok', results: results })];
+                        return [2 /*return*/, res.status(200).send(200).json({ status: 'ok', results: results })];
                     case 3:
                         error_4 = _a.sent();
                         res.json({ error: error_4 });
@@ -127,6 +131,7 @@ var ForoController = /** @class */ (function () {
                 }
             });
         }); };
+        /* Deleting the foro from the database. */
         this.deleteForo = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var results, error_5;
             return __generator(this, function (_a) {

@@ -137,18 +137,7 @@ export class UsuarioController {
      * It takes a request, validates it, and then saves it to the database.
      * @param {Request} req - Request - The request object.
      * @param {Response} res - Response
-     * @returns {
-     *     "errors": [
-     *         {
-     *             "value": "",
-     *             "msg": "A value is required",
-     *             "param": "nome",
-     *             "location": "body"
-     *         },
-     *         {
-     *             "value": "",
-     *             "msg": "A value is required",
-     *             "param": "email",
+     * @returns  An Usuario object
      */
 
     public saveUser = async (req: Request, res: Response) => {
@@ -181,7 +170,7 @@ export class UsuarioController {
         }
     }
 
-    
+
     /**
      * It takes a request, finds a user by id, merges the request body with the user, and saves the user.
      * @param {Request} req - Request

@@ -212,18 +212,7 @@ var UsuarioController = /** @class */ (function () {
          * It takes a request, validates it, and then saves it to the database.
          * @param {Request} req - Request - The request object.
          * @param {Response} res - Response
-         * @returns {
-         *     "errors": [
-         *         {
-         *             "value": "",
-         *             "msg": "A value is required",
-         *             "param": "nome",
-         *             "location": "body"
-         *         },
-         *         {
-         *             "value": "",
-         *             "msg": "A value is required",
-         *             "param": "email",
+         * @returns  An Usuario object
          */
         this.saveUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var errors, _a, nombre_usuario, apellido_usuario, correo_usuario, password_usuario, dbUser, usuario, error_6;

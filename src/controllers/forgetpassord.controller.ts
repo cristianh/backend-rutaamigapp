@@ -2,34 +2,29 @@ import { Request, Response } from "express"
 import { Usuario } from "../entity/usuario.entity"
 import myDataSource from "../../app-data-source"
 import { validationResult } from 'express-validator';
-import { generateToken, generateTokenForgetPassword } from "../helpers/generateJWT";
-//bycripts.js encrptacion contraseña
-import * as bcryptjs from 'bcryptjs'
-//nodemial for send email from node
+import { generateTokenForgetPassword } from "../helpers/generateJWT";
 import * as nodemailer from 'nodemailer';
-import * as jwt from 'jsonwebtoken';
-
+import { bcrypGenerateEncript } from "../helpers/bcryptHelper";
 export class ForgetPasswordController {
 
+    /* The above code is sending an email to the user with a link to reset the password. */
     public sendEmail = async (req: Request, res: Response) => {
 
         try {
-            
-
             //FIND USER BY ID IN DB 
-            const usuario: Usuario = await myDataSource.getRepository(Usuario).findOne({
+            const user: Usuario = await myDataSource.getRepository(Usuario).findOne({
                 where:
                     { correo_usuario: req.body.correo_usuario }
             })
-
-            //VALIDAMOS SI EL USUARIO EXISTE.
-            if (!usuario) {
+            // We validate if the user exists.
+            if (!user) {
                 return res.status(200).json({ result: "Usuario no encontrado, por favor revise correo.", status: "not-find" })
             }
 
             //GENERATE JWT 1h RECOVERY TIME
-            const token = await generateTokenForgetPassword(usuario.idusuario);
+            const token = await generateTokenForgetPassword(user.idusuario, '1h');
 
+            // We create the channel to link the mail where the mail and the password recovery link will be sent.
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
@@ -38,17 +33,18 @@ export class ForgetPasswordController {
                 }
             })
 
+            // We specify the port from where the message is going to be sent
             const emailPort = process.env.URLDESARROLLOFRONT || 3000
 
-            console.log(usuario.correo_usuario)
-
+            // We configure the body of the mail.
             const mailOptions = {
                 from: "rutaamigapp@gmial.com",
-                to: `${usuario.correo_usuario}`,
+                to: `${user.correo_usuario}`,
                 subject: "Restablecer contraseña - RutaAmigapp",
-                text: `${emailPort}/new-password/${usuario.idusuario}/${token}`
+                text: `${emailPort}/new-password/${user.idusuario}/${token}`
             }
 
+            // Send the mail with the message options.
             transporter.sendMail(mailOptions, (error, response) => {
                 if (error) {
                     return res.status(500).json({ result: `Ha ocurrido un error al tratar de enviar el correo: ${error}`, status: "ok" })
@@ -62,29 +58,26 @@ export class ForgetPasswordController {
 
     }
 
+    /* The above code is updating the password of a user. */
     public updatePasswordUser = async (req: Request, res: Response) => {
 
         try {
-
+            // We verify if there are error in the validated fields with Express-Validate
             let errors = validationResult(req);
             if (!errors.isEmpty()) {
 
                 return res.status(400).json({ errors: errors.array() });
             } else {
-                let password_usuario = bcryptjs.hashSync(req.body.password_usuario, 10)
-
+                // We encrypt the new user password.
+                let password_usuario = bcrypGenerateEncript(req.body.password_usuario)
+                // We update user with the new password.
                 const results = await myDataSource.getRepository(Usuario).update(req.body.id, { password_usuario: password_usuario });
-                if(results){
-                    return res.status(200).json({ result: "Contraseña actualizada con exito.", results })                    
-                }else{
-                    return res.status(500).json({ error: "Error al actualizar el usuario." })    
+                if (results) {
+                    return res.status(200).json({ result: "Contraseña actualizada con exito.", results })
+                } else {
+                    return res.status(500).json({ error: "Error al actualizar el usuario." })
                 }
             }
-
-
-
-
-
         } catch (error) {
             return res.status(500).json({ error })
         }
