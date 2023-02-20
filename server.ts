@@ -1,7 +1,7 @@
 /*CONEXION DB */
 import myDataSource from "./app-data-source"
 import * as express from "express"
-import { Response,Request} from "express";
+import { Response, Request } from "express";
 /* CARGA DE ARCHIVOS*/
 import * as fileUpload from 'express-fileupload'
 /* INFORMACON SALIDA Y ENTRADA DE PETICIONES*/
@@ -23,7 +23,7 @@ class ServerApp {
     private app;
     private PORT;
     private path;
-    
+
 
     constructor() {
         // INICIAMOS E INICIAALIZAMOS EXPRESS
@@ -60,16 +60,17 @@ class ServerApp {
     }
 
     middleware() {
-        // HABILITAR CONEXIONES LOCALES - cors
+
+        // enable local connections - Cors
         var options = {
             "origin": "*",
             "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
             "preflightContinue": false
-          }
+        }
 
-        
+
         //this.app.options('*', cors())//EL '*' INDICA QUE SE ACEPTAN TODAS LAS CONEXIONES DE CUALQUIER SERVIDOR.
-        
+
 
         this.app.use(cors(options));//INDICAMOS A EXPRESS QUE UTILICE LOS CORS.
         this.app.use(morgan('dev'))
@@ -98,8 +99,8 @@ class ServerApp {
     routes() {
         //RUTAS DE LA APLICACION PASADAS A EXPRESS
         this.app.use(this.path, ROUTER)
-       /*  this.app.use(express.static('public')) */
-    
+        /*  this.app.use(express.static('public')) */
+
         //RUTAs DE PRUEBA
         //!ELIINAR
         //ruta test pagina login
