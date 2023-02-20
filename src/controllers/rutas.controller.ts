@@ -4,6 +4,7 @@ import myDataSource from "../../app-data-source"
 
 export class RutaController {
 
+    /* A function that is going to get all the rutas from the database. */
     public getAllRutas = async (req: Request, res: Response) => {
         try {
             const rutas = await myDataSource.getRepository(Ruta).find()
@@ -14,6 +15,7 @@ export class RutaController {
     }
 
 
+   /* Getting the id of the ruta and returning the results. */
     public getAllRutaById = async (req: Request, res: Response) => {
 
         try {
@@ -26,6 +28,7 @@ export class RutaController {
         }
     }
 
+   /* Saving the ruta in the database. */
     public saveRuta = async (req: Request, res: Response) => {
         try {
             console.log(req.body)
@@ -37,6 +40,7 @@ export class RutaController {
         }
     }
 
+   /* Updating the ruta in the database. */
     public updateRuta = async (req: Request, res: Response) => {
         try {
             const usuario = await myDataSource.getRepository(Ruta).findOneBy({
@@ -48,9 +52,9 @@ export class RutaController {
         } catch (error) {
             res.json({ error })
         }
-
     }
 
+    /* Deleting the ruta from the database. */
     public deleteRuta = async (req: Request, res: Response) => {
         try {
             const results = await myDataSource.getRepository(Ruta).delete(req.params.id)
@@ -58,6 +62,5 @@ export class RutaController {
         } catch (error) {
             res.json({ error })
         }
-
     }
 }

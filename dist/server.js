@@ -47,8 +47,13 @@ var ServerApp = /** @class */ (function () {
     };
     ServerApp.prototype.middleware = function () {
         // HABILITAR CONEXIONES LOCALES - cors
-        this.app.options('*', cors()); //EL '*' INDICA QUE SE ACEPTAN TODAS LAS CONEXIONES DE CUALQUIER SERVIDOR.
-        this.app.use(cors()); //INDICAMOS A EXPRESS QUE UTILICE LOS CORS.
+        var options = {
+            "origin": "*",
+            "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+            "preflightContinue": false
+        };
+        //this.app.options('*', cors())//EL '*' INDICA QUE SE ACEPTAN TODAS LAS CONEXIONES DE CUALQUIER SERVIDOR.
+        this.app.use(cors(options)); //INDICAMOS A EXPRESS QUE UTILICE LOS CORS.
         this.app.use(morgan('dev'));
         // CONFIGURAMOS EL BODY DE LA PETICION POST PARA QUE SEA RECIBIDO EN LA PETICION.
         this.app.use(bodyParser.urlencoded({ extended: true })); //INDICAMOS A EXPRESS QUE TULICE BODIBANSER.
@@ -69,6 +74,29 @@ var ServerApp = /** @class */ (function () {
     ServerApp.prototype.routes = function () {
         //RUTAS DE LA APLICACION PASADAS A EXPRESS
         this.app.use(this.path, index_1.default);
+        /*  this.app.use(express.static('public')) */
+        //RUTAs DE PRUEBA
+        //!ELIINAR
+        //ruta test pagina login
+        this.app.get("/", function (req, res) {
+            res.sendFile(path.resolve(__dirname, '../../view', 'loginDemo.html'));
+        });
+        //ruta test notificacion.
+        this.app.get("/notificacion", function (req, res) {
+            res.sendFile(path.resolve(__dirname, '../../view', 'notificacionDemo.html'));
+        });
+        //ruta para el mapa de
+        this.app.get("/mapa", function (req, res) {
+            res.sendFile(path.resolve(__dirname, './public/', 'mapa.html'));
+        });
+        //ruta para el mapa de
+        this.app.get("/tableromensajes", function (req, res) {
+            res.sendFile(path.resolve(__dirname, '../../view', 'tableroMensajeAdmin.html'));
+        });
+        //ruta test pagina listar usuarios
+        this.app.get("/listarusuarios", function (req, res) {
+            res.sendFile(path.resolve(__dirname, '../../view', 'listarUsuarioDemo.html'));
+        });
     };
     ServerApp.prototype.listen = function () {
         this.app.listen(this.PORT);

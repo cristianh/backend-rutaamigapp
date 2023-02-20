@@ -2,10 +2,15 @@ import { Request, Response } from "express"
 import { Usuario } from "../entity/usuario.entity"
 import myDataSource from "../../app-data-source"
 import { validationResult } from 'express-validator';
+//bycripts.js
+import * as bcryptjs from 'bcryptjs'
+
+//Trae los metodos del ORM
+const userRepository = myDataSource.getRepository(Usuario);
+
 
 
 export class UsuarioController {
-
 
     /**
  * This function gets all the users from the database and returns them in a JSON format.
@@ -15,21 +20,32 @@ export class UsuarioController {
     public getAllUsers = async (req: Request, res: Response) => {
         try {
 
-            let limit: any = req.query['limit']
-            let skip: any = req.query['skip']
+            let limit: any = req.query['limit'] || 10
+            let skip: any = req.query['skip'] || 0
+            let all: any = req.query['all'] || false
 
-            let query = {
-                skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
-                take: req.query['limit'] == undefined ? 100 : parseInt(limit)
+            let query;
+
+            if (all) {
+                const usuario = await myDataSource.getRepository(Usuario).find()
+                let data = { usuario, totalUsers: usuario.length }
+
+                res.status(200).json(data)
+            } else {
+                query = {
+                    skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
+                    take: req.query['limit'] == undefined ? 10 : parseInt(limit)
+                }
+                const usuario = await myDataSource.getRepository(Usuario).find(query)
+                let data = { usuario, totalUsers: usuario.length, page: skip, limit: limit }
+
+                res.status(200).json(data)
             }
-            const usuario = await myDataSource.getRepository(Usuario).find(query)
-            res.json(usuario)
+
         } catch (error) {
             res.json({ error })
         }
-
     }
-
 
     /**
      * It gets all the users and their comments.
@@ -114,7 +130,6 @@ export class UsuarioController {
         } catch (error) {
             res.json({ error })
         }
-
     }
 
 
@@ -122,36 +137,39 @@ export class UsuarioController {
      * It takes a request, validates it, and then saves it to the database.
      * @param {Request} req - Request - The request object.
      * @param {Response} res - Response
-     * @returns {
-     *     "errors": [
-     *         {
-     *             "value": "",
-     *             "msg": "A value is required",
-     *             "param": "nome",
-     *             "location": "body"
-     *         },
-     *         {
-     *             "value": "",
-     *             "msg": "A value is required",
-     *             "param": "email",
+     * @returns  An Usuario object
      */
+
     public saveUser = async (req: Request, res: Response) => {
 
         try {
             let errors = validationResult(req);
             if (!errors.isEmpty()) {
-                
+
                 return res.status(400).json({ errors: errors.array() });
+            } else {
+                //Se guarda el usuario
+                //Save in a var the atributes of the request body
+                let { nombre_usuario, apellido_usuario, correo_usuario, password_usuario } = req.body;
+
+                const dbUser = await myDataSource.getRepository(Usuario).create({
+                    nombre_usuario: nombre_usuario,
+                    apellido_usuario: apellido_usuario,
+                    correo_usuario: correo_usuario,
+                    password_usuario: bcryptjs.hashSync(password_usuario, 10)
+                })
+                //Se crea la solicitud del cuerpo
+                const usuario = await myDataSource.getRepository(Usuario).save(dbUser)
+                return res.status(201).send({ status: "Usuario guardado con exito", usuario })
+
             }
 
-            const usuario = await myDataSource.getRepository(Usuario).create(req.body)
-            const results = await myDataSource.getRepository(Usuario).save(usuario)
-            return res.status(201).send({ status: "Usuario guardado con exito", results })
-        } catch (error) {
-            res.json({ error })
-        }
 
+        } catch (error) {
+            return res.json({ error })
+        }
     }
+
 
     /**
      * It takes a request, finds a user by id, merges the request body with the user, and saves the user.
@@ -166,11 +184,10 @@ export class UsuarioController {
             })
             myDataSource.getRepository(Usuario).merge(usuario, req.body)
             const results = await myDataSource.getRepository(Usuario).save(usuario)
-            return res.send(200).json({ res: "Usuario actualizado con exito", results })
+            return res.status(200).json({ res: "Usuario actualizado con exito", results })
         } catch (error) {
             res.json({ error })
         }
-
     }
 
     /**
@@ -181,31 +198,11 @@ export class UsuarioController {
      */
     public deleteUser = async (req: Request, res: Response) => {
         try {
-            const results = await myDataSource.getRepository(Usuario).delete(req.params.id)
-            return res.send(200).json(results)
+            const result = await myDataSource.getRepository(Usuario).delete(req.params.id)
+            console.log(result)
+            return res.status(200).json({ result, mensaje: "ok" })
         } catch (error) {
             res.json({ error })
-        }
-    }
-
-    /* Getting all the comments of a user by id. */
-    public getUsuarioLogin = async (req: Request, res: Response) => {
-        try {
-
-            let errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                
-                return res.status(400).json({ errors: errors.array() });
-            }
-
-            const usuario = await myDataSource.getRepository(Usuario).findOneBy({
-                password_usuario: req.body.password_usuario,
-                correo_usuario: req.body.correo_usuario
-            })
-
-            res.status(200).json({ 'nombre': usuario.nombre_usuario, 'apellido': usuario.apellido_usuario, 'estado': usuario.estado_usuario })
-        } catch (error) {
-            res.json({ error: 'Usuario no encontrado' })
         }
     }
 }

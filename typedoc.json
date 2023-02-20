@@ -1,14 +1,11 @@
 /* {
     // Comments are supported, like tsconfig.json
     "entryPoints": [
-        "./src/controllers/comentario.controller.ts",
-        "./src/controllers/foro.controller.ts",
-        "./src/controllers/rutas.controller.ts",
-        "./src/controllers/usuario.controller.ts",
-        "./src/router/comentario.router.ts",
-        "./src/router/foro.router.ts",
-        "./src/router/ruta.router.ts",
-        "./src/router/usuario.router.ts",
+        "src/controllers/*.ts",
+        "src/entity/*.ts",
+        "src/helpers/*.ts",
+        "src/middleware/*.ts",
+        "src/router/*.ts"
     ],
     "out": "docs"
 } */

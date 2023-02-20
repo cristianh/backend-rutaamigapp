@@ -27,6 +27,7 @@ export class Validations {
                 }).then(user => {
 
                     if (user.length >= 1) {
+                        console.log("El correo ya existe")
                         return Promise.reject('Este correo ya se encuentra registrado');
                     }
                 })
@@ -44,6 +45,15 @@ export class Validations {
             validator.body('correo_usuario').not().isEmpty().trim().escape().withMessage('El campo correo es requerido'),
             //varifica que el correo tenga un formato valido.
             validator.body('correo_usuario').isEmail().withMessage('El correo no es valido.')
+        ]
+    }
+
+    public validateFormNewPassword = () => {
+        //.matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/)
+        return [
+            //Verifica que el campo password_usuario tenga como minimo 8 caracteres y que tenga al menos una letra, un número y un carácter especial.
+            validator.body('password_usuario').isLength({ min: 8 }).withMessage('La contraseña debe tener como minimo 8 caracteres.')                
+                .withMessage('La contraseña debe contener al menos una letra, un número y un carácter especial (.$@$!%*?&).')
         ]
     }
 }

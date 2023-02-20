@@ -42,6 +42,7 @@ var app_data_source_1 = require("../../app-data-source");
 var RutaController = /** @class */ (function () {
     function RutaController() {
         var _this = this;
+        /* A function that is going to get all the rutas from the database. */
         this.getAllRutas = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var rutas, error_1;
             return __generator(this, function (_a) {
@@ -61,6 +62,7 @@ var RutaController = /** @class */ (function () {
                 }
             });
         }); };
+        /* Getting the id of the ruta and returning the results. */
         this.getAllRutaById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var results, error_2;
             return __generator(this, function (_a) {
@@ -81,6 +83,7 @@ var RutaController = /** @class */ (function () {
                 }
             });
         }); };
+        /* Saving the ruta in the database. */
         this.saveRuta = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var ruta, results, error_3;
             return __generator(this, function (_a) {
@@ -103,6 +106,7 @@ var RutaController = /** @class */ (function () {
                 }
             });
         }); };
+        /* Updating the ruta in the database. */
         this.updateRuta = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var usuario, results, error_4;
             return __generator(this, function (_a) {
@@ -127,6 +131,7 @@ var RutaController = /** @class */ (function () {
                 }
             });
         }); };
+        /* Deleting the ruta from the database. */
         this.deleteRuta = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var results, error_5;
             return __generator(this, function (_a) {
