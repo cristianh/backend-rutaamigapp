@@ -1,8 +1,8 @@
-import { DataSource } from "typeorm"
-
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var typeorm_1 = require("typeorm");
 //mysql-conexion
-const myDataSource = new DataSource({
+var myDataSource = new typeorm_1.DataSource({
     type: "mysql",
     host: "localhost",
     port: 3306,
@@ -12,9 +12,7 @@ const myDataSource = new DataSource({
     entities: ["dist/src/entity/*.ts"],
     logging: false,
     synchronize: true,
-})
-
-
+});
 //postgres - remote
 /* const myDataSource = new DataSource({
     type: "postgres",
@@ -24,7 +22,6 @@ const myDataSource = new DataSource({
     synchronize: true,
 })
  */
-
 //Conexion remota.
 /*const myDataSource = new DataSource({
     type: "postgres",
@@ -38,5 +35,5 @@ const myDataSource = new DataSource({
     logging: false,
     synchronize: true,
 })*/
-
-export default myDataSource
+exports.default = myDataSource;
+//# sourceMappingURL=app-data-source.js.map

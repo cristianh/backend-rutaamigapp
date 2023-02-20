@@ -8,7 +8,7 @@
             "runOptions": {
                 "runOn": "folderOpen"
             },
-            "dependsOrder": "parallel", // or parallel
+            "dependsOrder": "parallel", // or parallel,sequence
             "dependsOn": [
                 "typescript",
                 "servidor",
