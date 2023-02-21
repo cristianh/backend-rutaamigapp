@@ -1,10 +1,10 @@
-
+//Import the dependence of express
 import {Router} from 'express';
 
-/*RUTAS*/
-import routerUsuario from './usuario.router'
-import routerComentario from './comentario.router'
-import routerRuta from './ruta.router'
+/*Import router routes*/
+import routerUsuario from './user.router'
+import routerComentario from './comment.router'
+import routerRuta from './route.router'
 import routerAuth from './auth.router'
 import routerUploadFile from './uploadFile.roter'
 

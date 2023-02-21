@@ -36,16 +36,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsuarioController = void 0;
-var usuario_entity_1 = require("../entity/usuario.entity");
+exports.UserController = void 0;
 var app_data_source_1 = require("../../app-data-source");
+//Import express valitador this is like a regex code
 var express_validator_1 = require("express-validator");
-//bycripts.js
-var bcryptjs = require("bcryptjs");
-//Trae los metodos del ORM
-var userRepository = app_data_source_1.default.getRepository(usuario_entity_1.Usuario);
-var UsuarioController = /** @class */ (function () {
-    function UsuarioController() {
+//Import database of user entity 
+var user_entity_1 = require("../entity/user.entity");
+//Import the library to encrypt password
+var bcryptHelper_1 = require("src/helpers/bcryptHelper");
+//Take ORM methods
+var userRepository = app_data_source_1.default.getRepository(user_entity_1.User);
+var UserController = /** @class */ (function () {
+    function UserController() {
         var _this = this;
         /**
      * This function gets all the users from the database and returns them in a JSON format.
@@ -53,7 +55,7 @@ var UsuarioController = /** @class */ (function () {
      * @param {Response} res - Response - The response object
      */
         this.getAllUsers = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var limit, skip, all, query, usuario, data, usuario, data, error_1;
+            var limit, skip, all, query, user, data, usuario, data, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -63,10 +65,10 @@ var UsuarioController = /** @class */ (function () {
                         all = req.query['all'] || false;
                         query = void 0;
                         if (!all) return [3 /*break*/, 2];
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).find()];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find()];
                     case 1:
-                        usuario = _a.sent();
-                        data = { usuario: usuario, totalUsers: usuario.length };
+                        user = _a.sent();
+                        data = { user: user, totalUsers: user.length };
                         res.status(200).json(data);
                         return [3 /*break*/, 4];
                     case 2:
@@ -74,7 +76,7 @@ var UsuarioController = /** @class */ (function () {
                             skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
                             take: req.query['limit'] == undefined ? 10 : parseInt(limit)
                         };
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).find(query)];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find(query)];
                     case 3:
                         usuario = _a.sent();
                         data = { usuario: usuario, totalUsers: usuario.length, page: skip, limit: limit };
@@ -95,22 +97,22 @@ var UsuarioController = /** @class */ (function () {
          * @param {Response} res - Response - The response object.
          */
         this.getComentariesUsers = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var usuario, error_2;
+            var user, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).find({
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find({
                                 relations: {
-                                    comentario: true,
+                                    comment: true,
                                 },
                                 where: {
-                                    idusuario: parseInt(req.params.usuarioId)
+                                    user_id: parseInt(req.params.user_id)
                                 }
                             })];
                     case 1:
-                        usuario = _a.sent();
-                        res.json(usuario);
+                        user = _a.sent();
+                        res.json(user);
                         return [3 /*break*/, 3];
                     case 2:
                         error_2 = _a.sent();
@@ -127,25 +129,25 @@ var UsuarioController = /** @class */ (function () {
          * @param {Response} res - Response
          */
         this.getUserByIdComentariesById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var usuario, error_3;
+            var user, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).find({
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find({
                                 relations: {
-                                    comentario: true,
+                                    comment: true,
                                 },
                                 where: {
-                                    idusuario: parseInt(req.params.usuarioId),
-                                    comentario: {
-                                        idComentarios: parseInt(req.params.comentarioId)
+                                    user_id: parseInt(req.params.user_id),
+                                    comment: {
+                                        comment_id: parseInt(req.params.comment_id)
                                     }
                                 },
                             })];
                     case 1:
-                        usuario = _a.sent();
-                        res.json(usuario);
+                        user = _a.sent();
+                        res.json(user);
                         return [3 /*break*/, 3];
                     case 2:
                         error_3 = _a.sent();
@@ -157,22 +159,22 @@ var UsuarioController = /** @class */ (function () {
         }); };
         /* Getting all the comments of a user by id. */
         this.getComentariesUsersById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var usuario, error_4;
+            var user, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).find({
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find({
                                 relations: {
-                                    comentario: true,
+                                    comment: true,
                                 },
                                 where: {
-                                    idusuario: parseInt(req.params.id),
+                                    user_id: parseInt(req.params.id),
                                 },
                             })];
                     case 1:
-                        usuario = _a.sent();
-                        res.json(usuario);
+                        user = _a.sent();
+                        res.json(user);
                         return [3 /*break*/, 3];
                     case 2:
                         error_4 = _a.sent();
@@ -194,8 +196,8 @@ var UsuarioController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).findOneBy({
-                                idusuario: parseInt(req.params.id),
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).findOneBy({
+                                user_id: parseInt(req.params.id),
                             })];
                     case 1:
                         results = _a.sent();
@@ -215,7 +217,7 @@ var UsuarioController = /** @class */ (function () {
          * @returns  An Usuario object
          */
         this.saveUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, _a, nombre_usuario, apellido_usuario, correo_usuario, password_usuario, dbUser, usuario, error_6;
+            var errors, _a, user_name, user_lastname, user_email, user_password, dbUser, user, error_6;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -224,21 +226,21 @@ var UsuarioController = /** @class */ (function () {
                         if (!!errors.isEmpty()) return [3 /*break*/, 1];
                         return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
                     case 1:
-                        _a = req.body, nombre_usuario = _a.nombre_usuario, apellido_usuario = _a.apellido_usuario, correo_usuario = _a.correo_usuario, password_usuario = _a.password_usuario;
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).create({
-                                nombre_usuario: nombre_usuario,
-                                apellido_usuario: apellido_usuario,
-                                correo_usuario: correo_usuario,
-                                password_usuario: bcryptjs.hashSync(password_usuario, 10)
+                        _a = req.body, user_name = _a.user_name, user_lastname = _a.user_lastname, user_email = _a.user_email, user_password = _a.user_password;
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).create({
+                                user_name: user_name,
+                                user_lastname: user_lastname,
+                                user_email: user_email,
+                                user_password: (0, bcryptHelper_1.bcrypGenerateEncript)(user_password)
                             })
-                            //Se crea la solicitud del cuerpo
+                            //Create the request body
                         ];
                     case 2:
                         dbUser = _b.sent();
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).save(dbUser)];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).save(dbUser)];
                     case 3:
-                        usuario = _b.sent();
-                        return [2 /*return*/, res.status(201).send({ status: "Usuario guardado con exito", usuario: usuario })];
+                        user = _b.sent();
+                        return [2 /*return*/, res.status(201).send({ status: "Usuario guardado con exito", user: user })];
                     case 4: return [3 /*break*/, 6];
                     case 5:
                         error_6 = _b.sent();
@@ -254,26 +256,42 @@ var UsuarioController = /** @class */ (function () {
          * @returns The updated user.
          */
         this.updateUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var usuario, results, error_7;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var errors, searchUser, _a, user_name, user_lastname, user_email, user_password, dbUser, user, error_7;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).findOneBy({
-                                idusuario: parseInt(req.params.id),
-                            })];
+                        _b.trys.push([0, 4, , 5]);
+                        errors = (0, express_validator_1.validationResult)(req);
+                        if (!errors.isEmpty()) {
+                            return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
+                        }
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).findOneBy({
+                                user_id: parseInt(req.params.id),
+                            })
+                            //Save in var the atributes of the request body
+                        ];
                     case 1:
-                        usuario = _a.sent();
-                        app_data_source_1.default.getRepository(usuario_entity_1.Usuario).merge(usuario, req.body);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).save(usuario)];
+                        searchUser = _b.sent();
+                        _a = req.body, user_name = _a.user_name, user_lastname = _a.user_lastname, user_email = _a.user_email, user_password = _a.user_password;
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).create({
+                                user_name: user_name,
+                                user_lastname: user_lastname,
+                                user_email: user_email,
+                                user_password: (0, bcryptHelper_1.bcrypGenerateEncript)(user_password)
+                            })
+                            //Create the request body
+                        ];
                     case 2:
-                        results = _a.sent();
-                        return [2 /*return*/, res.status(200).json({ res: "Usuario actualizado con exito", results: results })];
+                        dbUser = _b.sent();
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).save(dbUser)];
                     case 3:
-                        error_7 = _a.sent();
+                        user = _b.sent();
+                        return [2 /*return*/, res.status(201).send({ status: "Usuario guardado con exito", user: user })];
+                    case 4:
+                        error_7 = _b.sent();
                         res.json({ error: error_7 });
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
             });
         }); };
@@ -289,7 +307,7 @@ var UsuarioController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).delete(req.params.id)];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).delete(req.params.id)];
                     case 1:
                         result = _a.sent();
                         console.log(result);
@@ -303,7 +321,7 @@ var UsuarioController = /** @class */ (function () {
             });
         }); };
     }
-    return UsuarioController;
+    return UserController;
 }());
-exports.UsuarioController = UsuarioController;
+exports.UserController = UserController;
 //# sourceMappingURL=usuario.controller.js.map

@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn,  OneToOne,JoinColumn} from "typeorm"
-import { Usuario } from "../entity/usuario.entity"
+import { User } from "../entity/user.entity"
 
 @Entity()
 export class Rol {
@@ -12,7 +12,7 @@ export class Rol {
     @Column({ type: "int", nullable: false })
     nivel: number
 
-    @OneToOne(()=>Usuario)
+    @OneToOne(()=>User)
     @JoinColumn()
-    usuario: Usuario;
+    user: User;
 }

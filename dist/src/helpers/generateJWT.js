@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateTokenForgetPassword = exports.generateToken = void 0;
+//Import token library
 var jwt = require("jsonwebtoken");
 /**
  * It takes a user id, creates a payload with that id, signs the payload with a secret key, and returns

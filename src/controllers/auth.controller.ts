@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { Usuario } from "../entity/usuario.entity"
+import { User } from "../entity/user.entity"
 import myDataSource from "../../app-data-source"
 import { validationResult } from 'express-validator';
 import { generateToken } from "../helpers/generateJWT";
@@ -8,8 +8,8 @@ import { bcrypCheck } from "../helpers/bcryptHelper";
 
 /* The above code is a function that is used to validate the user's login. */
 export class AuthController {
-   
-   /* The above code is a function that is used to validate the user's login. */
+
+    /* The above code is a function that is used to validate the user's login. */
     public getUsuarioLogin = async (req: Request, res: Response) => {
         try {
             // We verify if there are error in the validated fields with Express-Validate
@@ -20,22 +20,22 @@ export class AuthController {
             }
 
             // We look for the user in the database.
-            const usuario: Usuario = await myDataSource.getRepository(Usuario).findOneBy({
-                correo_usuario: req.body.correo_usuario
+            const user: User = await myDataSource.getRepository(User).findOneBy({
+                user_email: req.body.user_email
             })
 
             // We validate if the user exists.
-            if (!usuario) {
+            if (!user) {
                 return res.status(400).json({ result: "Usuario no encontrado, por favor revise correo y contraseña" })
             }
             // We validate if the user is active.
-            if (!usuario.estado_usuario) {
+            if (!user.user_status) {
                 return res.status(400).json({ result: "El usuario se encuentra inactivo, por favor contacte al administrador." })
             }
 
 
             // We validate the password with bcrypt: JS
-            const validatePassword = bcrypCheck(req.body.password_usuario, usuario.password_usuario)
+            const validatePassword = bcrypCheck(req.body.password_usuario, user.user_password)
 
             // If the password is incorrect
             if (!validatePassword) {
@@ -43,17 +43,15 @@ export class AuthController {
             }
 
             // We generate JWT
-            const token = await generateToken(usuario.idusuario);
+            const token = await generateToken(user.user_id);
 
             if (token) {
-            // If the user Exit we send the information.
-                return res.status(200).json({ usuario: { 'nombre': usuario.nombre_usuario, 'apellido': usuario.apellido_usuario, 'estado': usuario.estado_usuario }, token })
+                // If the user Exit we send the information.
+                return res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status }, token })
             }
 
         } catch (error) {
             res.status(500).json({ error: error })
         }
     }
-
-
 }

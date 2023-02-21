@@ -1,16 +1,22 @@
+//Import require libraries
 import { Request, Response } from "express"
-import { Usuario } from "../entity/usuario.entity"
 import myDataSource from "../../app-data-source"
+
+//Import express valitador this is like a regex code
 import { validationResult } from 'express-validator';
-//bycripts.js
-import * as bcryptjs from 'bcryptjs'
 
-//Trae los metodos del ORM
-const userRepository = myDataSource.getRepository(Usuario);
+//Import database of user entity 
+import { User } from "../entity/user.entity"
+
+//Import the library to encrypt password
+import { bcrypGenerateEncript } from "../helpers/bcryptHelper";
+
+//Take ORM methods
+const userRepository = myDataSource.getRepository(User);
 
 
 
-export class UsuarioController {
+export class UserController {
 
     /**
  * This function gets all the users from the database and returns them in a JSON format.
@@ -27,8 +33,8 @@ export class UsuarioController {
             let query;
 
             if (all) {
-                const usuario = await myDataSource.getRepository(Usuario).find()
-                let data = { usuario, totalUsers: usuario.length }
+                const user = await myDataSource.getRepository(User).find()
+                let data = { user, totalUsers: user.length }
 
                 res.status(200).json(data)
             } else {
@@ -36,7 +42,7 @@ export class UsuarioController {
                     skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
                     take: req.query['limit'] == undefined ? 10 : parseInt(limit)
                 }
-                const usuario = await myDataSource.getRepository(Usuario).find(query)
+                const usuario = await myDataSource.getRepository(User).find(query)
                 let data = { usuario, totalUsers: usuario.length, page: skip, limit: limit }
 
                 res.status(200).json(data)
@@ -55,20 +61,18 @@ export class UsuarioController {
     public getComentariesUsers = async (req: Request, res: Response) => {
 
         try {
-            const usuario = await myDataSource.getRepository(Usuario).find({
+            const user = await myDataSource.getRepository(User).find({
                 relations: {
-                    comentario: true,
+                    comment: true,
                 },
                 where: {
-                    idusuario: parseInt(req.params.usuarioId)
+                    user_id: parseInt(req.params.user_id)
                 }
             })
-            res.json(usuario)
+            res.json(user)
         } catch (error) {
             res.json({ error })
         }
-
-
     }
 
 
@@ -80,18 +84,18 @@ export class UsuarioController {
      */
     public getUserByIdComentariesById = async (req: Request, res: Response) => {
         try {
-            const usuario = await myDataSource.getRepository(Usuario).find({
+            const user = await myDataSource.getRepository(User).find({
                 relations: {
-                    comentario: true,
+                    comment: true,
                 },
                 where: {
-                    idusuario: parseInt(req.params.usuarioId),
-                    comentario: {
-                        idComentarios: parseInt(req.params.comentarioId)
+                    user_id: parseInt(req.params.user_id),
+                    comment: {
+                        comment_id: parseInt(req.params.comment_id)
                     }
                 },
             })
-            res.json(usuario)
+            res.json(user)
         } catch (error) {
             res.json({ error })
         }
@@ -100,15 +104,15 @@ export class UsuarioController {
     /* Getting all the comments of a user by id. */
     public getComentariesUsersById = async (req: Request, res: Response) => {
         try {
-            const usuario = await myDataSource.getRepository(Usuario).find({
+            const user = await myDataSource.getRepository(User).find({
                 relations: {
-                    comentario: true,
+                    comment: true,
                 },
                 where: {
-                    idusuario: parseInt(req.params.id),
+                    user_id: parseInt(req.params.id),
                 },
             })
-            res.json(usuario)
+            res.json(user)
         } catch (error) {
             res.json({ error })
         }
@@ -123,8 +127,8 @@ export class UsuarioController {
      */
     public getUserById = async (req: Request, res: Response) => {
         try {
-            const results = await myDataSource.getRepository(Usuario).findOneBy({
-                idusuario: parseInt(req.params.id),
+            const results = await myDataSource.getRepository(User).findOneBy({
+                user_id: parseInt(req.params.id),
             })
             return res.send(results)
         } catch (error) {
@@ -148,29 +152,24 @@ export class UsuarioController {
 
                 return res.status(400).json({ errors: errors.array() });
             } else {
-                //Se guarda el usuario
-                //Save in a var the atributes of the request body
-                let { nombre_usuario, apellido_usuario, correo_usuario, password_usuario } = req.body;
+                //Save in var the atributes of the request body
+                let { user_name, user_lastname, user_email, user_password } = req.body;
 
-                const dbUser = await myDataSource.getRepository(Usuario).create({
-                    nombre_usuario: nombre_usuario,
-                    apellido_usuario: apellido_usuario,
-                    correo_usuario: correo_usuario,
-                    password_usuario: bcryptjs.hashSync(password_usuario, 10)
+                const dbUser = await myDataSource.getRepository(User).create({
+                    user_name: user_name,
+                    user_lastname: user_lastname,
+                    user_email: user_email,
+                    user_password: bcrypGenerateEncript(user_password)
                 })
-                //Se crea la solicitud del cuerpo
-                const usuario = await myDataSource.getRepository(Usuario).save(dbUser)
-                return res.status(201).send({ status: "Usuario guardado con exito", usuario })
-
+                //Create the request body
+                const user = await myDataSource.getRepository(User).save(dbUser)
+                return res.status(201).send({ status: "Usuario guardado con exito", user })
             }
-
 
         } catch (error) {
             return res.json({ error })
         }
     }
-
-
     /**
      * It takes a request, finds a user by id, merges the request body with the user, and saves the user.
      * @param {Request} req - Request
@@ -179,12 +178,26 @@ export class UsuarioController {
      */
     public updateUser = async (req: Request, res: Response) => {
         try {
-            const usuario = await myDataSource.getRepository(Usuario).findOneBy({
-                idusuario: parseInt(req.params.id),
+            let errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+            const searchUser = await myDataSource.getRepository(User).findOneBy({
+                user_id: parseInt(req.params.id),
             })
-            myDataSource.getRepository(Usuario).merge(usuario, req.body)
-            const results = await myDataSource.getRepository(Usuario).save(usuario)
-            return res.status(200).json({ res: "Usuario actualizado con exito", results })
+
+            //Save in var the atributes of the request body
+            let { user_name, user_lastname, user_email, user_password } = req.body;
+
+            const dbUser = await myDataSource.getRepository(User).create({
+                user_name: user_name,
+                user_lastname: user_lastname,
+                user_email: user_email,
+                user_password: bcrypGenerateEncript(user_password)
+            })
+            //Create the request body
+            const user = await myDataSource.getRepository(User).save(dbUser)
+            return res.status(201).send({ status: "Usuario guardado con exito", user })
         } catch (error) {
             res.json({ error })
         }
@@ -198,7 +211,7 @@ export class UsuarioController {
      */
     public deleteUser = async (req: Request, res: Response) => {
         try {
-            const result = await myDataSource.getRepository(Usuario).delete(req.params.id)
+            const result = await myDataSource.getRepository(User).delete(req.params.id)
             console.log(result)
             return res.status(200).json({ result, mensaje: "ok" })
         } catch (error) {
@@ -206,4 +219,3 @@ export class UsuarioController {
         }
     }
 }
-

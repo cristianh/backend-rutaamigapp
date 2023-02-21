@@ -6,16 +6,16 @@ descripcion VARCHAR(45),
 sentido VARCHAR(45) not null*/
 
 @Entity()
-export class Ruta {
+export class Route {
     @PrimaryGeneratedColumn()
-    idRutas: number
+    route_id: number
 
     @Column({ type: "varchar", nullable: false })
-    nombre: string
+    route_name: string
 
     @Column({ type: "varchar", nullable: false })
-    descripcion: string
+    route_content: string
 
     @Column({ type: "varchar", nullable: false })
-    sentido: string
+    orientation_route: string
 }

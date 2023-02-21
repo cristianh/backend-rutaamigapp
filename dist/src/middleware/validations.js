@@ -2,8 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Validations = void 0;
 var validator = require("express-validator");
-var usuario_entity_1 = require("../entity/usuario.entity");
 var app_data_source_1 = require("../../app-data-source");
+//Import database user entity
+var user_entity_1 = require("../entity/user.entity");
 var Validations = /** @class */ (function () {
     function Validations() {
         this.validateFormUsuarioRegister = function () {
@@ -20,9 +21,9 @@ var Validations = /** @class */ (function () {
                 validator.body('correo_usuario').isEmail().withMessage('El correo no es valido.'),
                 //validamos que el correo del usuario no es encuentre ya resgistrado.
                 validator.body('correo_usuario').custom(function (value) {
-                    return app_data_source_1.default.getRepository(usuario_entity_1.Usuario).find({
+                    return app_data_source_1.default.getRepository(user_entity_1.User).find({
                         where: {
-                            correo_usuario: value
+                            user_email: value
                         }
                     }).then(function (user) {
                         if (user.length >= 1) {

@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { Usuario } from "../entity/usuario.entity"
+import { User } from "../entity/user.entity"
 import myDataSource from "../../app-data-source"
 import { validationResult } from 'express-validator';
 import { generateTokenForgetPassword } from "../helpers/generateJWT";
@@ -12,9 +12,9 @@ export class ForgetPasswordController {
 
         try {
             //FIND USER BY ID IN DB 
-            const user: Usuario = await myDataSource.getRepository(Usuario).findOne({
+            const user: User = await myDataSource.getRepository(User).findOne({
                 where:
-                    { correo_usuario: req.body.correo_usuario }
+                    { user_email: req.body.user_email }
             })
             // We validate if the user exists.
             if (!user) {
@@ -22,7 +22,7 @@ export class ForgetPasswordController {
             }
 
             //GENERATE JWT 1h RECOVERY TIME
-            const token = await generateTokenForgetPassword(user.idusuario, '1h');
+            const token = await generateTokenForgetPassword(user.user_id, '1h');
 
             // We create the channel to link the mail where the mail and the password recovery link will be sent.
             const transporter = nodemailer.createTransport({
@@ -39,9 +39,9 @@ export class ForgetPasswordController {
             // We configure the body of the mail.
             const mailOptions = {
                 from: "rutaamigapp@gmial.com",
-                to: `${user.correo_usuario}`,
+                to: `${user.user_email}`,
                 subject: "Restablecer contraseña - RutaAmigapp",
-                text: `${emailPort}/new-password/${user.idusuario}/${token}`
+                text: `${emailPort}/new-password/${user.user_id}/${token}`
             }
 
             // Send the mail with the message options.
@@ -69,9 +69,9 @@ export class ForgetPasswordController {
                 return res.status(400).json({ errors: errors.array() });
             } else {
                 // We encrypt the new user password.
-                let password_usuario = bcrypGenerateEncript(req.body.password_usuario)
+                let password_user = bcrypGenerateEncript(req.body.password_usuario)
                 // We update user with the new password.
-                const results = await myDataSource.getRepository(Usuario).update(req.body.id, { password_usuario: password_usuario });
+                const results = await myDataSource.getRepository(User).update(req.body.id, { user_password: password_user });
                 if (results) {
                     return res.status(200).json({ result: "Contraseña actualizada con exito.", results })
                 } else {

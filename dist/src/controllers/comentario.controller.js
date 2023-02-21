@@ -37,8 +37,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ComentarioController = void 0;
-var comentario_entity_1 = require("../entity/comentario.entity");
 var app_data_source_1 = require("../../app-data-source");
+//Import database entities
+var comment_entity_1 = require("../entity/comment.entity");
 var ComentarioController = /** @class */ (function () {
     function ComentarioController() {
         var _this = this;
@@ -51,7 +52,7 @@ var ComentarioController = /** @class */ (function () {
             var comentario;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).find()];
+                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comment_entity_1.Comment).find()];
                     case 1:
                         comentario = _a.sent();
                         res.json(comentario);
@@ -68,9 +69,9 @@ var ComentarioController = /** @class */ (function () {
             var comentario;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).find({
+                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comment_entity_1.Comment).find({
                             relations: {
-                                usuario: true,
+                                user: true,
                             },
                         })];
                     case 1:
@@ -90,8 +91,8 @@ var ComentarioController = /** @class */ (function () {
             var results;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).findOneBy({
-                            idComentarios: parseInt(req.params.id),
+                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comment_entity_1.Comment).findOneBy({
+                            comment_id: parseInt(req.params.id),
                         })];
                     case 1:
                         results = _a.sent();
@@ -113,15 +114,15 @@ var ComentarioController = /** @class */ (function () {
          *         "email": "teste@teste.com
          */
         this.saveComentaries = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var comentario, results, error_1;
+            var comment, results, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).create(req.body)];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(comment_entity_1.Comment).create(req.body)];
                     case 1:
-                        comentario = _a.sent();
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).save(comentario)];
+                        comment = _a.sent();
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(comment_entity_1.Comment).save(comment)];
                     case 2:
                         results = _a.sent();
                         return [2 /*return*/, res.status(200).send({ status: "Comentario guardado con exito", results: results })];
@@ -141,16 +142,16 @@ var ComentarioController = /** @class */ (function () {
          * @returns The updated object.
          */
         this.updateComentaries = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var comentario, results;
+            var comment, results;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).findOneBy({
-                            idComentarios: parseInt(req.params.id),
+                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comment_entity_1.Comment).findOneBy({
+                            comment_id: parseInt(req.params.id),
                         })];
                     case 1:
-                        comentario = _a.sent();
-                        app_data_source_1.default.getRepository(comentario_entity_1.Comentario).merge(comentario, req.body);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).save(comentario)];
+                        comment = _a.sent();
+                        app_data_source_1.default.getRepository(comment_entity_1.Comment).merge(comment, req.body);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(comment_entity_1.Comment).save(comment)];
                     case 2:
                         results = _a.sent();
                         return [2 /*return*/, res.send(results)];
@@ -167,7 +168,7 @@ var ComentarioController = /** @class */ (function () {
             var results;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comentario_entity_1.Comentario).delete(req.params.id)];
+                    case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comment_entity_1.Comment).delete(req.params.id)];
                     case 1:
                         results = _a.sent();
                         return [2 /*return*/, res.send(results)];

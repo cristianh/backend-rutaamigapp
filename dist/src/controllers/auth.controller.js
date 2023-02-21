@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
-var usuario_entity_1 = require("../entity/usuario.entity");
+var user_entity_1 = require("../entity/user.entity");
 var app_data_source_1 = require("../../app-data-source");
 var express_validator_1 = require("express-validator");
 var generateJWT_1 = require("../helpers/generateJWT");
@@ -48,7 +48,7 @@ var AuthController = /** @class */ (function () {
         var _this = this;
         /* The above code is a function that is used to validate the user's login. */
         this.getUsuarioLogin = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, usuario, validatePassword, token, error_1;
+            var errors, user, validatePassword, token, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -57,32 +57,32 @@ var AuthController = /** @class */ (function () {
                         if (!errors.isEmpty()) {
                             return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
                         }
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).findOneBy({
-                                correo_usuario: req.body.correo_usuario
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).findOneBy({
+                                user_email: req.body.user_email
                             })
                             // We validate if the user exists.
                         ];
                     case 1:
-                        usuario = _a.sent();
+                        user = _a.sent();
                         // We validate if the user exists.
-                        if (!usuario) {
+                        if (!user) {
                             return [2 /*return*/, res.status(400).json({ result: "Usuario no encontrado, por favor revise correo y contraseña" })];
                         }
                         // We validate if the user is active.
-                        if (!usuario.estado_usuario) {
+                        if (!user.user_status) {
                             return [2 /*return*/, res.status(400).json({ result: "El usuario se encuentra inactivo, por favor contacte al administrador." })];
                         }
-                        validatePassword = (0, bcryptHelper_1.bcrypCheck)(req.body.password_usuario, usuario.password_usuario);
+                        validatePassword = (0, bcryptHelper_1.bcrypCheck)(req.body.password_usuario, user.user_password);
                         // If the password is incorrect
                         if (!validatePassword) {
                             return [2 /*return*/, res.status(404).json({ result: "Usuario / Password no son correctos - password" })];
                         }
-                        return [4 /*yield*/, (0, generateJWT_1.generateToken)(usuario.idusuario)];
+                        return [4 /*yield*/, (0, generateJWT_1.generateToken)(user.user_id)];
                     case 2:
                         token = _a.sent();
                         if (token) {
                             // If the user Exit we send the information.
-                            return [2 /*return*/, res.status(200).json({ usuario: { 'nombre': usuario.nombre_usuario, 'apellido': usuario.apellido_usuario, 'estado': usuario.estado_usuario }, token: token })];
+                            return [2 /*return*/, res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status }, token: token })];
                         }
                         return [3 /*break*/, 4];
                     case 3:
