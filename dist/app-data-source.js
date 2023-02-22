@@ -21,7 +21,7 @@ var myDataSource = new typeorm_1.DataSource({
     username: "admin",
     password: "gRtzTZxC",
     database: "test",
-    entities: ["dist/src/entity/*.js"],
+    entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
 });
