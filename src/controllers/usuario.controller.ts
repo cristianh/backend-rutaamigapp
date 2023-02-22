@@ -147,22 +147,23 @@ export class UsuarioController {
             if (!errors.isEmpty()) {
 
                 return res.status(400).json({ errors: errors.array() });
-            } else {
-                //Se guarda el usuario
-                //Save in a var the atributes of the request body
-                let { nombre_usuario, apellido_usuario, correo_usuario, password_usuario } = req.body;
-
-                const dbUser = await myDataSource.getRepository(Usuario).create({
-                    nombre_usuario: nombre_usuario,
-                    apellido_usuario: apellido_usuario,
-                    correo_usuario: correo_usuario,
-                    password_usuario: bcryptjs.hashSync(password_usuario, 10)
-                })
-                //Se crea la solicitud del cuerpo
-                const usuario = await myDataSource.getRepository(Usuario).save(dbUser)
-                return res.status(201).send({ status: "Usuario guardado con exito", usuario })
-
             }
+
+            //Se guarda el usuario
+            //Save in a var the atributes of the request body
+            let { nombre_usuario, apellido_usuario, correo_usuario, password_usuario } = req.body;
+
+            const dbUser = await myDataSource.getRepository(Usuario).create({
+                nombre_usuario: nombre_usuario,
+                apellido_usuario: apellido_usuario,
+                correo_usuario: correo_usuario,
+                password_usuario: bcryptjs.hashSync(password_usuario, 10)
+            })
+            //Se crea la solicitud del cuerpo
+            const usuario = await myDataSource.getRepository(Usuario).save(dbUser)
+            return res.status(201).send({ status: "Usuario guardado con exito", usuario })
+
+
 
 
         } catch (error) {

@@ -219,11 +219,11 @@ var UsuarioController = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _b.trys.push([0, 5, , 6]);
+                        _b.trys.push([0, 3, , 4]);
                         errors = (0, express_validator_1.validationResult)(req);
-                        if (!!errors.isEmpty()) return [3 /*break*/, 1];
-                        return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
-                    case 1:
+                        if (!errors.isEmpty()) {
+                            return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
+                        }
                         _a = req.body, nombre_usuario = _a.nombre_usuario, apellido_usuario = _a.apellido_usuario, correo_usuario = _a.correo_usuario, password_usuario = _a.password_usuario;
                         return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).create({
                                 nombre_usuario: nombre_usuario,
@@ -233,17 +233,16 @@ var UsuarioController = /** @class */ (function () {
                             })
                             //Se crea la solicitud del cuerpo
                         ];
-                    case 2:
+                    case 1:
                         dbUser = _b.sent();
                         return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).save(dbUser)];
-                    case 3:
+                    case 2:
                         usuario = _b.sent();
                         return [2 /*return*/, res.status(201).send({ status: "Usuario guardado con exito", usuario: usuario })];
-                    case 4: return [3 /*break*/, 6];
-                    case 5:
+                    case 3:
                         error_6 = _b.sent();
                         return [2 /*return*/, res.json({ error: error_6 })];
-                    case 6: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         }); };

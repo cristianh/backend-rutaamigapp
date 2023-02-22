@@ -1,15 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-//mysql-conexion
-var myDataSource = new typeorm_1.DataSource({
+//mysql-conexion - local
+/* const myDataSource = new DataSource({
     type: "mysql",
     host: "localhost",
     port: 3306,
     username: "root",
     password: "",
     database: "test",
-    entities: ["dist/src/entity/*.ts"],
+    entities: ["dist/src/entity/*.js"],
+    logging: false,
+    synchronize: true,
+}) */
+//mysql-conexion - remota
+var myDataSource = new typeorm_1.DataSource({
+    type: "mysql",
+    host: "mysql-112287-0.cloudclusters.net",
+    port: 19674,
+    username: "admin",
+    password: "gRtzTZxC",
+    database: "test",
+    entities: ["dist/src/entity/*.js"],
     logging: false,
     synchronize: true,
 });
