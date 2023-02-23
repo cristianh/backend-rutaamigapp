@@ -6,14 +6,12 @@ var ValidatiteJWT = /** @class */ (function () {
     function ValidatiteJWT() {
         this.validate = function (req, res, next) {
             var token = req.header('api-token');
-            console.log("token", req.header('api-token'));
             if (!token) {
                 return res.status(401).json({
                     msg: "No hay token en la peticion"
                 });
             }
             try {
-                console.log(token);
                 var payload = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
                 if (payload) {
                     next();

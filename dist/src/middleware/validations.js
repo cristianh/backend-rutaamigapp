@@ -49,9 +49,9 @@ var Validations = /** @class */ (function () {
         };
         this.validateFormNewPassword = function () {
             return [
+                /* .matches(/^(?=.*[A-Z])(?=.*[$%&()._])(?=.*[0-9])[A-Za-z0-9$%&()._]{8}$/gm) */
                 //Verifica que el campo password_usuario tenga como minimo 8 caracteres y que tenga al menos una letra, un número y un carácter especial.
                 validator.body('password_usuario').isLength({ min: 8 }).withMessage('La contraseña debe tener como minimo 8 caracteres.')
-                    .matches(/^(?=.*[A-Z])(?=.*[$%&()._])(?=.*[0-9])[A-Za-z0-9$%&()._]{8}$/gm)
                     .withMessage('La contraseña debe contener al menos una letra, un número y un carácter especial (.$@$!%*?&).')
             ];
         };

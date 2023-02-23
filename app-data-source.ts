@@ -2,20 +2,20 @@ import { DataSource } from "typeorm"
 
 
 //mysql-conexion - local
-/* const myDataSource = new DataSource({
+const myDataSource = new DataSource({
     type: "mysql",
     host: "localhost",
     port: 3306,
     username: "root",
     password: "",
     database: "test",
-    entities: ["dist/src/entity/*.js"],
+    entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
-}) */
+})
 
 //mysql-conexion - remota
-const myDataSource = new DataSource({
+/* const myDataSource = new DataSource({
     type: "mysql",
     host: "mysql-112287-0.cloudclusters.net",
     port: 19674,
@@ -25,7 +25,7 @@ const myDataSource = new DataSource({
     entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
-})
+}) */
 
 
 //postgres - remote
