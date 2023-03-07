@@ -34,7 +34,7 @@ export class RutaController {
             console.log(req.body)
             const ruta = await myDataSource.getRepository(Ruta).create(req.body)
             const results = await myDataSource.getRepository(Ruta).save(ruta)
-            return res.status(200).send({ status: "Ruta guardadad", results })
+            return res.status(200).send({ status: "Ruta guardada", results })
         } catch (error) {
             res.json({ error })
         }

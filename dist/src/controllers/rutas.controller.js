@@ -14,7 +14,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -97,7 +97,7 @@ var RutaController = /** @class */ (function () {
                         return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).save(ruta)];
                     case 2:
                         results = _a.sent();
-                        return [2 /*return*/, res.status(200).send({ status: "Ruta guardadad", results: results })];
+                        return [2 /*return*/, res.status(200).send({ status: "Ruta guardada", results: results })];
                     case 3:
                         error_3 = _a.sent();
                         res.json({ error: error_3 });
