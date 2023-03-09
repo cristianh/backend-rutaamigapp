@@ -97,6 +97,10 @@ var ServerApp = /** @class */ (function () {
         this.app.get("/listarusuarios", function (req, res) {
             res.sendFile(path.resolve(__dirname, '../../view', 'listarUsuarioDemo.html'));
         });
+        //ruta test pagina para enviar notificaciones push
+        this.app.get("/notificaciones", function (req, res) {
+            res.sendFile(path.resolve(__dirname, './public/', 'notificacionDemo.html'));
+        });
     };
     ServerApp.prototype.listen = function () {
         this.app.listen(this.PORT);

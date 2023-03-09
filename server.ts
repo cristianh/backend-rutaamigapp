@@ -130,6 +130,11 @@ class ServerApp {
             res.sendFile(path.resolve(__dirname, '../../view', 'listarUsuarioDemo.html'));
         });
 
+         //ruta test pagina para enviar notificaciones push
+         this.app.get("/notificaciones", (req: Request, res: Response) => {
+            res.sendFile(path.resolve(__dirname, './public/', 'notificacionDemo.html'));
+        });
+
     }
 
     listen() {
