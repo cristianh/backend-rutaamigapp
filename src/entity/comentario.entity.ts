@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn,ManyToOne,OneToMany} from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn,ManyToOne} from "typeorm"
 
 import { Foro } from "../entity/foro.entity"
 import { Usuario } from "../entity/usuario.entity"
@@ -23,8 +23,8 @@ export class Comentario{
     @Column({ type: "varchar", nullable: false })
     comentario: string
     
-    @OneToMany(() => Foro, (foro) => foro.comentario)
-    foro:Foro
+    /* @OneToMany(() => Foro, (foro) => foro.comentario)
+    foro:Foro */
 
     @ManyToOne(() => Usuario, (usuario) => usuario.comentario)
     usuario:Usuario[]

@@ -12,7 +12,10 @@ export class Notificacion {
     @Column({ type: "int", nullable: false })
     intervalo: number
 
-    @Column({ type: "datetime", nullable: false })
+  /*   @Column({ type: "datetime", nullable: false })
+    fecha_hora: string */
+
+    @Column({ type: "timestamp", nullable: false })
     fecha_hora: string
 
     @OneToOne(()=>Ruta)

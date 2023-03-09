@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <title>Login</title>
+    <style>
+        .hidden {
+            display: none
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container center" style="border:2px solid silver;padding:30px 30px;position: absolute; top:50%;left:50%;transform: translate(-50%,-50%);">
+        <div>
+            <h1>LOGIN</h1>
+            <hr>
+        </div>
+        <div>
+            <form onSubmit="ingresar(event)">
+                <div class="field">
+                    <label class="label">Correo</label>
+                    <div class="control">
+                        <input class="input" type="text" name="correo_usuario" id="correo_usuario" placeholder="Correo">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control">
+                        <input class="input" type="password" name="password_usuario" id="password_usuario"
+                            placeholder="Password">
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link">INGRESAR</button>
+                    </div>
+                    <div class="control">
+                        <button class="button is-link is-light">CANCELAR</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <article class="message is-danger hidden" id="mensaje">
+        <div class="message-header">
+            <p>Danger</p>
+            <button class="delete" aria-label="delete"></button>
+        </div>
+        <br>
+        <div class="message-body">
+            <div id="mensaje-error">
+
+            </div>
+        </div>
+    </article>
+
+
+    <script>
+        function ingresar(e) {
+
+            e.preventDefault();
+
+            let data = {
+                correo_usuario: document.getElementById('correo_usuario').value,
+                password_usuario: document.getElementById('password_usuario').value
+            }
+
+            fetch('http://localhost:6060/app/login', {
+                method: 'POST', // or 'PUT'
+                body: JSON.stringify(data), // data can be `string` or {object}!
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => res.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => {
+                    if (response.estado) {
+                        console.log(response)
+                        document.getElementById('mensaje').classList.add('hidden')
+                        document.getElementById('mensaje-error').innerHTML = ''
+                      
+                        window.location = './mapa';
+
+                    } else {
+                        
+                        if (response.errors) {
+                            document.getElementById('mensaje').classList.remove('hidden')
+                            let errorMessague = []
+                            response.errors.forEach(element => {
+                                errorMessague.push(element.msg)
+
+                            });
+                            document.getElementById('mensaje-error').innerHTML = ''
+                            errorMessague.forEach(element => {
+                                document.getElementById('mensaje-error').innerHTML += `${element}<br>`
+                            });
+                        }
+                        if (response.error) {
+                            document.getElementById('mensaje').classList.remove('hidden')
+                            document.getElementById('mensaje-error').innerHTML += `${response.error} <a href="registroDemo.html">Registrar</a>`
+                        }
+                    }
+
+                });
+        }
+    </script>
+</body>
+
+</html>

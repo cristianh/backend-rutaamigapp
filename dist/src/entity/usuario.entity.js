@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Usuario = void 0;
 var typeorm_1 = require("typeorm");
 var comentario_entity_1 = require("../entity/comentario.entity");
-var foro_entity_1 = require("../entity/foro.entity");
 /*idusuario           INT PRIMARY KEY auto_increment,
 nombre_usuario      VARCHAR(45) NOT NULL,
 apellido_usuario    VARCHAR(45) NOT NULL,
@@ -31,29 +30,25 @@ var Usuario = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Usuario.prototype, "idusuario", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "varchar", length: 45, nullable: false }),
+        (0, typeorm_1.Column)({ type: String, length: 45, nullable: false }),
         __metadata("design:type", String)
     ], Usuario.prototype, "nombre_usuario", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "varchar", length: 45, nullable: false }),
+        (0, typeorm_1.Column)({ type: String, length: 45, nullable: false }),
         __metadata("design:type", String)
     ], Usuario.prototype, "apellido_usuario", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "varchar", length: 45, nullable: false }),
+        (0, typeorm_1.Column)({ type: String, length: 45, nullable: false }),
         __metadata("design:type", String)
     ], Usuario.prototype, "correo_usuario", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "varchar", length: 45, nullable: false }),
+        (0, typeorm_1.Column)({ type: "varchar", length: 60, nullable: false }),
         __metadata("design:type", String)
     ], Usuario.prototype, "password_usuario", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "boolean", nullable: false }),
+        (0, typeorm_1.Column)({ type: "boolean", nullable: false, default: true }),
         __metadata("design:type", String)
     ], Usuario.prototype, "estado_usuario", void 0);
-    __decorate([
-        (0, typeorm_1.OneToMany)(function () { return foro_entity_1.Foro; }, function (foro) { return foro.comentario; }),
-        __metadata("design:type", foro_entity_1.Foro)
-    ], Usuario.prototype, "foro", void 0);
     __decorate([
         (0, typeorm_1.OneToMany)(function () { return comentario_entity_1.Comentario; }, function (comentario) { return comentario.usuario; }),
         __metadata("design:type", comentario_entity_1.Comentario)
