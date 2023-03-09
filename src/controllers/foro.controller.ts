@@ -1,4 +1,4 @@
-import { Request, Response } from "express"
+import { Router,Request, Response } from "express"
 import { Foro } from "../entity/foro.entity"
 import myDataSource from "../../app-data-source"
 
@@ -19,7 +19,7 @@ export class ForoController {
     public getForoById = async (req: Request, res: Response) => {
 
         try {
-            const results = await myDataSource.getRepository(Foro).findOneBy({
+           const results = await myDataSource.getRepository(Foro).findOneBy({
                 idForo: parseInt(req.params.id),
             })
             return res.status(200).send(results)
@@ -28,13 +28,15 @@ export class ForoController {
         }
     }
 
+
+
     /* Saving the foro in the database. */
     public saveForo = async (req: Request, res: Response) => {
         try {
             console.log(req.body)
             const foro = await myDataSource.getRepository(Foro).create(req.body)
             const results = await myDataSource.getRepository(Foro).save(foro)
-            return res.status(202).send({ status: "Ruta guardadad", results })
+            return res.status(202).send({ status: "Ruta guardada", results })
         } catch (error) {
             res.json({ error })
         }
@@ -65,3 +67,4 @@ export class ForoController {
         }
     }
 }
+
