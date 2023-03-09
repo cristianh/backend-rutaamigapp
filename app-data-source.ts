@@ -9,7 +9,7 @@ const myDataSource = new DataSource({
     username: "root",
     password: "",
     database: "test",
-    entities: ["dist/src/entity/*.ts"],
+    entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
 })
