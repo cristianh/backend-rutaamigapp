@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express"
-import { Ruta } from "../entity/ruta.entity"
+import { RutaUsuario } from "../entity/rutausuario.entity"
 import myDataSource from "../../app-data-source"
 
 export class RutaController {
@@ -7,7 +7,7 @@ export class RutaController {
     /* A function that is going to get all the rutas from the database. */
     public getAllRutas = async (req: Request, res: Response) => {
         try {
-            const rutas = await myDataSource.getRepository(Ruta).find()
+            const rutas = await myDataSource.getRepository(RutaUsuario).find()
             res.json(rutas)
         } catch (error) {
             res.json({ error })
@@ -19,8 +19,8 @@ export class RutaController {
     public getAllRutaById = async (req: Request, res: Response) => {
 
         try {
-            const results = await myDataSource.getRepository(Ruta).findOneBy({
-                idRutas: parseInt(req.params.id),
+            const results = await myDataSource.getRepository(RutaUsuario).findOneBy({
+                idrutausuario: parseInt(req.params.id),
             })
             return res.send(results)
         } catch (error) {
@@ -32,8 +32,8 @@ export class RutaController {
     public saveRuta = async (req: Request, res: Response) => {
         try {
             console.log(req.body)
-            const ruta = await myDataSource.getRepository(Ruta).create(req.body)
-            const results = await myDataSource.getRepository(Ruta).save(ruta)
+            const ruta = await myDataSource.getRepository(RutaUsuario).create(req.body)
+            const results = await myDataSource.getRepository(RutaUsuario).save(ruta)
             return res.status(200).send({ status: "Ruta guardada", results })
         } catch (error) {
             res.json({ error })
@@ -43,11 +43,11 @@ export class RutaController {
    /* Updating the ruta in the database. */
     public updateRuta = async (req: Request, res: Response) => {
         try {
-            const usuario = await myDataSource.getRepository(Ruta).findOneBy({
-                idRutas: parseInt(req.params.id),
+            const usuario = await myDataSource.getRepository(RutaUsuario).findOneBy({
+                idrutausuario: parseInt(req.params.id),
             })
-            myDataSource.getRepository(Ruta).merge(usuario, req.body)
-            const results = await myDataSource.getRepository(Ruta).save(usuario)
+            myDataSource.getRepository(RutaUsuario).merge(usuario, req.body)
+            const results = await myDataSource.getRepository(RutaUsuario).save(usuario)
             return res.send(200).json({ status: 'ok', results })
         } catch (error) {
             res.json({ error })
@@ -57,7 +57,7 @@ export class RutaController {
     /* Deleting the ruta from the database. */
     public deleteRuta = async (req: Request, res: Response) => {
         try {
-            const results = await myDataSource.getRepository(Ruta).delete(req.params.id)
+            const results = await myDataSource.getRepository(RutaUsuario).delete(req.params.id)
             return res.send(results)
         } catch (error) {
             res.json({ error })

@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RutaController = void 0;
-var ruta_entity_1 = require("../entity/ruta.entity");
+var rutausuario_entity_1 = require("../entity/rutausuario.entity");
 var app_data_source_1 = require("../../app-data-source");
 var RutaController = /** @class */ (function () {
     function RutaController() {
@@ -49,7 +49,7 @@ var RutaController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).find()];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(rutausuario_entity_1.RutaUsuario).find()];
                     case 1:
                         rutas = _a.sent();
                         res.json(rutas);
@@ -69,8 +69,8 @@ var RutaController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).findOneBy({
-                                idRutas: parseInt(req.params.id),
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(rutausuario_entity_1.RutaUsuario).findOneBy({
+                                idrutausuario: parseInt(req.params.id),
                             })];
                     case 1:
                         results = _a.sent();
@@ -91,10 +91,10 @@ var RutaController = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
                         console.log(req.body);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).create(req.body)];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(rutausuario_entity_1.RutaUsuario).create(req.body)];
                     case 1:
                         ruta = _a.sent();
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).save(ruta)];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(rutausuario_entity_1.RutaUsuario).save(ruta)];
                     case 2:
                         results = _a.sent();
                         return [2 /*return*/, res.status(200).send({ status: "Ruta guardada", results: results })];
@@ -113,13 +113,13 @@ var RutaController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).findOneBy({
-                                idRutas: parseInt(req.params.id),
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(rutausuario_entity_1.RutaUsuario).findOneBy({
+                                idrutausuario: parseInt(req.params.id),
                             })];
                     case 1:
                         usuario = _a.sent();
-                        app_data_source_1.default.getRepository(ruta_entity_1.Ruta).merge(usuario, req.body);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).save(usuario)];
+                        app_data_source_1.default.getRepository(rutausuario_entity_1.RutaUsuario).merge(usuario, req.body);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(rutausuario_entity_1.RutaUsuario).save(usuario)];
                     case 2:
                         results = _a.sent();
                         return [2 /*return*/, res.send(200).json({ status: 'ok', results: results })];
@@ -138,7 +138,7 @@ var RutaController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(ruta_entity_1.Ruta).delete(req.params.id)];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(rutausuario_entity_1.RutaUsuario).delete(req.params.id)];
                     case 1:
                         results = _a.sent();
                         return [2 /*return*/, res.send(results)];
