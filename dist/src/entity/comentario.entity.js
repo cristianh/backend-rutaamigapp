@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Comentario = void 0;
 var typeorm_1 = require("typeorm");
-var usuario_entity_1 = require("../entity/usuario.entity");
 /*idComentarios INT PRIMARY KEY auto_increment,
 fecha DATE not null,
 hora TIME not null,
@@ -37,7 +36,7 @@ var Comentario = /** @class */ (function () {
         __metadata("design:type", String)
     ], Comentario.prototype, "comentario", void 0);
     __decorate([
-        (0, typeorm_1.ManyToOne)(function () { return usuario_entity_1.Usuario; }, function (usuario) { return usuario.comentario; }),
+        (0, typeorm_1.ManyToOne)(function () { return Usuario; }, function (usuario) { return usuario.comentario; }),
         __metadata("design:type", Array)
     ], Comentario.prototype, "usuario", void 0);
     Comentario = __decorate([

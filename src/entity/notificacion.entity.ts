@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn,OneToOne,JoinColumn} from "typeorm"
-import { Ruta } from "../entity/ruta.entity"
+import { Route } from "../entity/route.entity"
 /*idNotificaciones INT primary key auto_increment,
 intervalo INT  not null,
 fecha_hora DATETIME not null,
@@ -18,9 +18,9 @@ export class Notificacion {
     @Column({ type: "timestamp", nullable: false })
     fecha_hora: string
 
-    @OneToOne(()=>Ruta)
+    @OneToOne(()=>Route)
     @JoinColumn()
-    ruta:Ruta
+    route:Route
 
    
 }

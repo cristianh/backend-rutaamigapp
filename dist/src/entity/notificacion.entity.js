@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Notificacion = void 0;
 var typeorm_1 = require("typeorm");
-var ruta_entity_1 = require("../entity/ruta.entity");
+var route_entity_1 = require("../entity/route.entity");
 /*idNotificaciones INT primary key auto_increment,
 intervalo INT  not null,
 fecha_hora DATETIME not null,
@@ -32,10 +32,10 @@ var Notificacion = /** @class */ (function () {
         __metadata("design:type", String)
     ], Notificacion.prototype, "fecha_hora", void 0);
     __decorate([
-        (0, typeorm_1.OneToOne)(function () { return ruta_entity_1.Ruta; }),
+        (0, typeorm_1.OneToOne)(function () { return route_entity_1.Route; }),
         (0, typeorm_1.JoinColumn)(),
-        __metadata("design:type", ruta_entity_1.Ruta)
-    ], Notificacion.prototype, "ruta", void 0);
+        __metadata("design:type", route_entity_1.Route)
+    ], Notificacion.prototype, "route", void 0);
     Notificacion = __decorate([
         (0, typeorm_1.Entity)()
     ], Notificacion);

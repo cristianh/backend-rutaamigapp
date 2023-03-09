@@ -1,6 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany,CreateDateColumn,UpdateDateColumn,DeleteDateColumn} from "typeorm"
-import { Comentario } from "../entity/comentario.entity"
-import { Foro } from "../entity/foro.entity"
+
+//Import needed entyties
+import { Comment } from "./comment.entity"
+import { Forum } from "./forum.entity"
 /*idusuario           INT PRIMARY KEY auto_increment,
 nombre_usuario      VARCHAR(45) NOT NULL,
 apellido_usuario    VARCHAR(45) NOT NULL,
@@ -14,37 +16,37 @@ fecha_eliminacion   DATETIME,
 
 
 @Entity()
-export class Usuario {
+export class User {
     @PrimaryGeneratedColumn()
-    idusuario: number
+    user_id: number
 
     @Column({type: String,length: 45,nullable:false})
-    nombre_usuario: string
+    user_name: string
 
     @Column({type: String,length: 45,nullable:false})
-    apellido_usuario: string
+    user_lastname: string
 
     @Column({type: String,length: 45,nullable:false})
-    correo_usuario: string
+    user_email: string
 
     @Column({type: "varchar",length: 60,nullable:false})
-    password_usuario: string
+    user_password: string
 
     @Column({type: "boolean",nullable:false,default: true})
-    estado_usuario: string
+    user_status: string
 
     /* @OneToMany(() => Foro, (foro) => foro.comentario)
     foro:Foro */
 
-    @OneToMany(() => Comentario, (comentario) => comentario.usuario)
-    comentario:Comentario
+    @OneToMany(() => Comment, (comment) => comment.user)
+    comment:Comment
 
     @CreateDateColumn()
-    fecha_creacion : string
+    create_date : string
 
     @UpdateDateColumn()
-    fecha_actualizacion : string
+    update_date : string
 
     @DeleteDateColumn()
-    fecha_eliminacion : string
+    removal_date : string
 }

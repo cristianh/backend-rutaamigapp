@@ -9,13 +9,13 @@ const path = require('path');
 //Middleware
 import { Validations, ValidatiteJWT } from './../middleware';
 
-//Inicializamos Validacion.
+//Inicialize validation.
 const validation = new Validations()
 const validationJWT = new ValidatiteJWT()
 
 const router = Router()
 
-//Inicializamos el controlador.
+//Inicialize the controller.
 const authController = new AuthController();
 const forgetPasswordController = new ForgetPasswordController();
 

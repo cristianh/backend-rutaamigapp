@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForgetPasswordController = void 0;
-var usuario_entity_1 = require("../entity/usuario.entity");
+var user_entity_1 = require("../entity/user.entity");
 var app_data_source_1 = require("../../app-data-source");
 var express_validator_1 = require("express-validator");
 var generateJWT_1 = require("../helpers/generateJWT");
@@ -53,8 +53,8 @@ var ForgetPasswordController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).findOne({
-                                where: { correo_usuario: req.body.correo_usuario }
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).findOne({
+                                where: { user_email: req.body.user_email }
                             })
                             // We validate if the user exists.
                         ];
@@ -64,7 +64,7 @@ var ForgetPasswordController = /** @class */ (function () {
                         if (!user) {
                             return [2 /*return*/, res.status(200).json({ result: "Usuario no encontrado, por favor revise correo.", status: "not-find" })];
                         }
-                        return [4 /*yield*/, (0, generateJWT_1.generateTokenForgetPassword)(user.idusuario, '1h')];
+                        return [4 /*yield*/, (0, generateJWT_1.generateTokenForgetPassword)(user.user_id, '1h')];
                     case 2:
                         token = _a.sent();
                         transporter = nodemailer.createTransport({
@@ -77,9 +77,9 @@ var ForgetPasswordController = /** @class */ (function () {
                         emailPort = process.env.URLDESARROLLOFRONT || 3000;
                         mailOptions = {
                             from: "rutaamigapp@gmial.com",
-                            to: "".concat(user.correo_usuario),
+                            to: "".concat(user.user_email),
                             subject: "Restablecer contraseña - RutaAmigapp",
-                            text: "".concat(emailPort, "/new-password/").concat(user.idusuario, "/").concat(token)
+                            text: "".concat(emailPort, "/new-password/").concat(user.user_id, "/").concat(token)
                         };
                         // Send the mail with the message options.
                         transporter.sendMail(mailOptions, function (error, response) {
@@ -100,7 +100,7 @@ var ForgetPasswordController = /** @class */ (function () {
         }); };
         /* The above code is updating the password of a user. */
         this.updatePasswordUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, password_usuario, results, error_2;
+            var errors, password_user, results, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -109,8 +109,8 @@ var ForgetPasswordController = /** @class */ (function () {
                         if (!!errors.isEmpty()) return [3 /*break*/, 1];
                         return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
                     case 1:
-                        password_usuario = (0, bcryptHelper_1.bcrypGenerateEncript)(req.body.password_usuario);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(usuario_entity_1.Usuario).update(req.body.id, { password_usuario: password_usuario })];
+                        password_user = (0, bcryptHelper_1.bcrypGenerateEncript)(req.body.password_usuario);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).update(req.body.id, { user_password: password_user })];
                     case 2:
                         results = _a.sent();
                         if (results) {

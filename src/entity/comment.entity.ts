@@ -1,7 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn,ManyToOne} from "typeorm"
 
-import { Foro } from "../entity/foro.entity"
-import { Usuario } from "../entity/usuario.entity"
+//Import needed entyties
+import { Forum } from "./forum.entity"
+import { User} from "./user.entity"
 
 /*idComentarios INT PRIMARY KEY auto_increment,
 fecha DATE not null,
@@ -10,22 +11,22 @@ comentario VARCHAR (45) not null,
 usuario_idusuario int*/
 
 @Entity()
-export class Comentario{
+export class Comment{
     @PrimaryGeneratedColumn()
-    idComentarios: number
+    comment_id: number
 
     @Column({ type: "date", nullable: false })
-    fecha: string
+    date_comment: string
 
     @Column({ type: "time", nullable: false })
-    hora: string
+    time_comment: string
 
     @Column({ type: "varchar", nullable: false })
-    comentario: string
+    content_comment: string
     
     /* @OneToMany(() => Foro, (foro) => foro.comentario)
     foro:Foro */
 
-    @ManyToOne(() => Usuario, (usuario) => usuario.comentario)
-    usuario:Usuario[]
+    @ManyToOne(() => User, (user) => user.comment)
+    user:User[]
 }

@@ -7,11 +7,11 @@ var forgetpassord_controller_1 = require("../controllers/forgetpassord.controlle
 var path = require('path');
 //Middleware
 var middleware_1 = require("./../middleware");
-//Inicializamos Validacion.
+//Inicialize validation.
 var validation = new middleware_1.Validations();
 var validationJWT = new middleware_1.ValidatiteJWT();
 var router = (0, express_1.Router)();
-//Inicializamos el controlador.
+//Inicialize the controller.
 var authController = new auth_controller_1.AuthController();
 var forgetPasswordController = new forgetpassord_controller_1.ForgetPasswordController();
 router.post("/login", validation.validateFormUsuarioLogin(), authController.getUsuarioLogin);

@@ -1,7 +1,10 @@
+//Import dependences
 import { Request, Response } from "express"
-import { Comentario } from "../entity/comentario.entity"
-import { Usuario } from "../entity/usuario.entity"
 import myDataSource from "../../app-data-source"
+
+//Import database entities
+import { Comment } from "../entity/comment.entity"
+import { User } from "../entity/user.entity"
 
 export class ComentarioController {
     /**
@@ -10,7 +13,7 @@ export class ComentarioController {
  * @param {Response} res - Response - The response object that will be sent back to the client.
  */
     public getAllComentaries = async (req: Request, res: Response) => {
-        const comentario = await myDataSource.getRepository(Comentario).find()
+        const comentario = await myDataSource.getRepository(Comment).find()
         res.json(comentario)
     }
 
@@ -20,9 +23,9 @@ export class ComentarioController {
      * @param {Response} res - Response - the response object
      */
     public getAllComentariesUsuario = async (req: Request, res: Response) => {
-        const comentario = await myDataSource.getRepository(Comentario).find({
+        const comentario = await myDataSource.getRepository(Comment).find({
             relations: {
-                usuario: true,
+                user: true,
             },
         })
         res.json(comentario)
@@ -35,8 +38,8 @@ export class ComentarioController {
      * @returns An array of objects.
      */
     public getComentariesById = async (req: Request, res: Response) => {
-        const results = await myDataSource.getRepository(Comentario).findOneBy({
-            idComentarios: parseInt(req.params.id),
+        const results = await myDataSource.getRepository(Comment    ).findOneBy({
+            comment_id: parseInt(req.params.id),
         })
         return res.send(results)
     }
@@ -56,8 +59,8 @@ export class ComentarioController {
      */
     public saveComentaries = async (req: Request, res: Response) => {
         try {
-            const comentario = await myDataSource.getRepository(Comentario).create(req.body)
-            const results = await myDataSource.getRepository(Comentario).save(comentario)
+            const comment = await myDataSource.getRepository(Comment).create(req.body)
+            const results = await myDataSource.getRepository(Comment).save(comment)
             return res.status(200).send({ status: "Comentario guardado con exito", results })
         } catch (error) {
             res.json({ error })
@@ -73,11 +76,11 @@ export class ComentarioController {
      * @returns The updated object.
      */
     public updateComentaries = async (req: Request, res: Response) => {
-        const comentario = await myDataSource.getRepository(Comentario).findOneBy({
-            idComentarios: parseInt(req.params.id),
+        const comment = await myDataSource.getRepository(Comment).findOneBy({
+            comment_id: parseInt(req.params.id),
         })
-        myDataSource.getRepository(Comentario).merge(comentario, req.body)
-        const results = await myDataSource.getRepository(Comentario).save(comentario)
+        myDataSource.getRepository(Comment).merge(comment, req.body)
+        const results = await myDataSource.getRepository(Comment).save(comment)
         return res.send(results)
     }
 
@@ -88,7 +91,7 @@ export class ComentarioController {
      * @returns The result of the delete operation.
      */
     public deleteComentaries = async (req: Request, res: Response) => {
-        const results = await myDataSource.getRepository(Comentario).delete(req.params.id)
+        const results = await myDataSource.getRepository(Comment).delete(req.params.id)
         return res.send(results)
     }
 }

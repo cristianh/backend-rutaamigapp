@@ -1,7 +1,9 @@
 import * as validator from 'express-validator';
 import { validationResult } from 'express-validator';
-import { Usuario } from "../entity/usuario.entity"
 import myDataSource from "../../app-data-source"
+
+//Import database user entity
+import { User} from "../entity/user.entity"
 
 export class Validations {
 
@@ -23,9 +25,9 @@ export class Validations {
             validator.body('correo_usuario').isEmail().withMessage('El correo no es valido.'),
             //validamos que el correo del usuario no es encuentre ya resgistrado.
             validator.body('correo_usuario').custom(value => {
-                return myDataSource.getRepository(Usuario).find({
+                return myDataSource.getRepository(User).find({
                     where: {
-                        correo_usuario: value
+                        user_email: value
                     }
 
                 }).then(user => {

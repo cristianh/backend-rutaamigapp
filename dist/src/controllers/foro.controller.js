@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForoController = void 0;
-var foro_entity_1 = require("../entity/foro.entity");
+var forum_entity_1 = require("../entity/forum.entity");
 var app_data_source_1 = require("../../app-data-source");
 var ForoController = /** @class */ (function () {
     function ForoController() {
@@ -49,7 +49,7 @@ var ForoController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).find()];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(forum_entity_1.Forum).find()];
                     case 1:
                         foros = _a.sent();
                         res.json(foros);
@@ -69,8 +69,8 @@ var ForoController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).findOneBy({
-                                idForo: parseInt(req.params.id),
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(forum_entity_1.Forum).findOneBy({
+                                forum_id: parseInt(req.params.id),
                             })];
                     case 1:
                         results = _a.sent();
@@ -85,19 +85,19 @@ var ForoController = /** @class */ (function () {
         }); };
         /* Saving the foro in the database. */
         this.saveForo = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var foro, results, error_3;
+            var forum, results, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
                         console.log(req.body);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).create(req.body)];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(forum_entity_1.Forum).create(req.body)];
                     case 1:
-                        foro = _a.sent();
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).save(foro)];
+                        forum = _a.sent();
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(forum_entity_1.Forum).save(forum)];
                     case 2:
                         results = _a.sent();
-                        return [2 /*return*/, res.status(202).send({ status: "Ruta guardada", results: results })];
+                        return [2 /*return*/, res.status(202).send({ status: "Ruta guardadad", results: results })];
                     case 3:
                         error_3 = _a.sent();
                         res.json({ error: error_3 });
@@ -113,13 +113,13 @@ var ForoController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).findOneBy({
-                                idForo: parseInt(req.params.id),
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(forum_entity_1.Forum).findOneBy({
+                                forum_id: parseInt(req.params.id),
                             })];
                     case 1:
                         foro = _a.sent();
-                        app_data_source_1.default.getRepository(foro_entity_1.Foro).merge(foro, req.body);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).save(foro)];
+                        app_data_source_1.default.getRepository(forum_entity_1.Forum).merge(foro, req.body);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(forum_entity_1.Forum).save(foro)];
                     case 2:
                         results = _a.sent();
                         return [2 /*return*/, res.status(200).send(200).json({ status: 'ok', results: results })];
@@ -138,7 +138,7 @@ var ForoController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(foro_entity_1.Foro).delete(req.params.id)];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(forum_entity_1.Forum).delete(req.params.id)];
                     case 1:
                         results = _a.sent();
                         return [2 /*return*/, res.send(results)];
