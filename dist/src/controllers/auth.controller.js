@@ -59,20 +59,19 @@ var AuthController = /** @class */ (function () {
                         }
                         return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).findOneBy({
                                 user_email: req.body.user_email
-                            })
-                            // We validate if the user exists.
-                        ];
+                            })];
                     case 1:
                         user = _a.sent();
+                        console.log(user);
                         // We validate if the user exists.
                         if (!user) {
                             return [2 /*return*/, res.status(400).json({ result: "Usuario no encontrado, por favor revise correo y contraseña" })];
                         }
                         // We validate if the user is active.
-                        if (!user.user_status) {
+                        if (user.user_status == "0") {
                             return [2 /*return*/, res.status(400).json({ result: "El usuario se encuentra inactivo, por favor contacte al administrador." })];
                         }
-                        validatePassword = (0, bcryptHelper_1.bcrypCheck)(req.body.password_usuario, user.user_password);
+                        validatePassword = (0, bcryptHelper_1.bcrypCheck)(req.body.user_password, user.user_password);
                         // If the password is incorrect
                         if (!validatePassword) {
                             return [2 /*return*/, res.status(404).json({ result: "Usuario / Password no son correctos - password" })];

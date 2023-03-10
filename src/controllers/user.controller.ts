@@ -187,17 +187,18 @@ export class UserController {
             })
 
             //Save in var the atributes of the request body
-            let { user_name, user_lastname, user_email, user_password } = req.body;
+            //let { user_name, user_lastname, user_email, user_password } = req.body;
 
-            const dbUser = await myDataSource.getRepository(User).create({
+            /* const dbUser = await myDataSource.getRepository(User).create({
                 user_name: user_name,
                 user_lastname: user_lastname,
                 user_email: user_email,
                 user_password: bcrypGenerateEncript(user_password)
-            })
+            }) */
             //Create the request body
-            const user = await myDataSource.getRepository(User).save(dbUser)
-            return res.status(201).send({ status: "Usuario guardado con exito", user })
+            myDataSource.getRepository(User).merge(searchUser, req.body)
+            const user = await myDataSource.getRepository(User).update(searchUser.user_id,searchUser)
+            return res.status(201).send({ status: "Usuario actualizado con exito", user })
         } catch (error) {
             res.json({ error })
         }
@@ -213,7 +214,7 @@ export class UserController {
         try {
             const result = await myDataSource.getRepository(User).delete(req.params.id)
             console.log(result)
-            return res.status(200).json({ result, mensaje: "ok" })
+            return res.status(200).json({ status: "Usuario eliminado con exito", result})
         } catch (error) {
             res.json({ error })
         }

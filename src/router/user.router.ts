@@ -20,7 +20,7 @@ const userController = new UserController();
 
 
 // Usuarios
-router.get("/:all?/:limit?/:skip?",validationJWT.validate,userController.getAllUsers);
+router.get("/allusers/:all?/:limit?/:skip?",validationJWT.validate,userController.getAllUsers);
 router.get("/:id/comentarios", userController.getComentariesUsersById);
 router.get("/:usuarioId/comentarios/:comentarioId", userController.getUserByIdComentariesById);
 router.get("/:id", userController.getUserById);

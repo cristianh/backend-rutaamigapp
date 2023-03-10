@@ -151,10 +151,10 @@ var ComentarioController = /** @class */ (function () {
                     case 1:
                         comment = _a.sent();
                         app_data_source_1.default.getRepository(comment_entity_1.Comment).merge(comment, req.body);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(comment_entity_1.Comment).save(comment)];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(comment_entity_1.Comment).update(comment.comment_id, comment)];
                     case 2:
                         results = _a.sent();
-                        return [2 /*return*/, res.send(results)];
+                        return [2 /*return*/, res.status(201).send({ status: "Comentario actualizado con exito", results: results })];
                 }
             });
         }); };
@@ -171,7 +171,7 @@ var ComentarioController = /** @class */ (function () {
                     case 0: return [4 /*yield*/, app_data_source_1.default.getRepository(comment_entity_1.Comment).delete(req.params.id)];
                     case 1:
                         results = _a.sent();
-                        return [2 /*return*/, res.send(results)];
+                        return [2 /*return*/, res.status(200).json({ status: "Comentario eliminado con exito", results: results })];
                 }
             });
         }); };

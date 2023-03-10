@@ -13,7 +13,7 @@ var router = (0, express_1.Router)();
 //Inicializamos el controlador.
 var userController = new user_controller_1.UserController();
 // Usuarios
-router.get("/:all?/:limit?/:skip?", validationJWT.validate, userController.getAllUsers);
+router.get("/allusers/:all?/:limit?/:skip?", validationJWT.validate, userController.getAllUsers);
 router.get("/:id/comentarios", userController.getComentariesUsersById);
 router.get("/:usuarioId/comentarios/:comentarioId", userController.getUserByIdComentariesById);
 router.get("/:id", userController.getUserById);

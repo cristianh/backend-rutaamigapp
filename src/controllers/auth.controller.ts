@@ -24,18 +24,19 @@ export class AuthController {
                 user_email: req.body.user_email
             })
 
+            console.log(user)
             // We validate if the user exists.
             if (!user) {
                 return res.status(400).json({ result: "Usuario no encontrado, por favor revise correo y contraseña" })
             }
             // We validate if the user is active.
-            if (!user.user_status) {
+            if (user.user_status=="0") {
                 return res.status(400).json({ result: "El usuario se encuentra inactivo, por favor contacte al administrador." })
             }
 
 
             // We validate the password with bcrypt: JS
-            const validatePassword = bcrypCheck(req.body.password_usuario, user.user_password)
+            const validatePassword = bcrypCheck(req.body.user_password, user.user_password)
 
             // If the password is incorrect
             if (!validatePassword) {

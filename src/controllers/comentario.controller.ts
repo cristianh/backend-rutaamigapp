@@ -80,8 +80,8 @@ export class ComentarioController {
             comment_id: parseInt(req.params.id),
         })
         myDataSource.getRepository(Comment).merge(comment, req.body)
-        const results = await myDataSource.getRepository(Comment).save(comment)
-        return res.send(results)
+        const results = await myDataSource.getRepository(Comment).update(comment.comment_id,comment)
+        return res.status(201).send({ status: "Comentario actualizado con exito", results })
     }
 
     /**
@@ -92,7 +92,7 @@ export class ComentarioController {
      */
     public deleteComentaries = async (req: Request, res: Response) => {
         const results = await myDataSource.getRepository(Comment).delete(req.params.id)
-        return res.send(results)
+        return res.status(200).json({ status: "Comentario eliminado con exito", results})
     }
 }
 

@@ -256,11 +256,11 @@ var UserController = /** @class */ (function () {
          * @returns The updated user.
          */
         this.updateUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, searchUser, _a, user_name, user_lastname, user_email, user_password, dbUser, user, error_7;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var errors, searchUser, user, error_7;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
-                        _b.trys.push([0, 4, , 5]);
+                        _a.trys.push([0, 3, , 4]);
                         errors = (0, express_validator_1.validationResult)(req);
                         if (!errors.isEmpty()) {
                             return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
@@ -269,29 +269,36 @@ var UserController = /** @class */ (function () {
                                 user_id: parseInt(req.params.id),
                             })
                             //Save in var the atributes of the request body
-                        ];
-                    case 1:
-                        searchUser = _b.sent();
-                        _a = req.body, user_name = _a.user_name, user_lastname = _a.user_lastname, user_email = _a.user_email, user_password = _a.user_password;
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).create({
+                            //let { user_name, user_lastname, user_email, user_password } = req.body;
+                            /* const dbUser = await myDataSource.getRepository(User).create({
                                 user_name: user_name,
                                 user_lastname: user_lastname,
                                 user_email: user_email,
-                                user_password: (0, bcryptHelper_1.bcrypGenerateEncript)(user_password)
-                            })
+                                user_password: bcrypGenerateEncript(user_password)
+                            }) */
                             //Create the request body
                         ];
+                    case 1:
+                        searchUser = _a.sent();
+                        //Save in var the atributes of the request body
+                        //let { user_name, user_lastname, user_email, user_password } = req.body;
+                        /* const dbUser = await myDataSource.getRepository(User).create({
+                            user_name: user_name,
+                            user_lastname: user_lastname,
+                            user_email: user_email,
+                            user_password: bcrypGenerateEncript(user_password)
+                        }) */
+                        //Create the request body
+                        app_data_source_1.default.getRepository(user_entity_1.User).merge(searchUser, req.body);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).update(searchUser.user_id, searchUser)];
                     case 2:
-                        dbUser = _b.sent();
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).save(dbUser)];
+                        user = _a.sent();
+                        return [2 /*return*/, res.status(201).send({ status: "Usuario actualizado con exito", user: user })];
                     case 3:
-                        user = _b.sent();
-                        return [2 /*return*/, res.status(201).send({ status: "Usuario guardado con exito", user: user })];
-                    case 4:
-                        error_7 = _b.sent();
+                        error_7 = _a.sent();
                         res.json({ error: error_7 });
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         }); };
@@ -311,7 +318,7 @@ var UserController = /** @class */ (function () {
                     case 1:
                         result = _a.sent();
                         console.log(result);
-                        return [2 /*return*/, res.status(200).json({ result: result, mensaje: "ok" })];
+                        return [2 /*return*/, res.status(200).json({ status: "Usuario eliminado con exito", result: result })];
                     case 2:
                         error_8 = _a.sent();
                         res.json({ error: error_8 });
