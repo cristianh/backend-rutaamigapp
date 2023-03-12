@@ -1,16 +1,31 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var express = require("express");
-var http_1 = require("http");
-var socket_io_1 = require("socket.io");
+var express = require('express');
 var app = express();
-var httpServer = (0, http_1.createServer)(app);
-var io = new socket_io_1.Server(httpServer, { /* options */});
-io.on("connection", function (socket) {
-    // test conexion
-    console.log("cliente conectado");
-    /* socket.disconnect() */
+var http = require('http');
+var path = require('path');
+var server = http.createServer(app);
+//socket 
+var Server = require("socket.io").Server;
+var io = new Server(server, { cors: true, origin: true, allowEIO3: true });
+//SOCKET.io
+io.on('connection', function (socket) {
+    console.log('a user connected');
+    socket.on('disconnect', function () {
+        console.log('user disconnected');
+    });
+    socket.on('chat message', function (msg) {
+        console.log('message: ' + msg);
+        //socket.broadcast.emit('hi');
+        io.emit('chat send server message', msg);
+    });
+    socket.emit('text', 'wow. such event. very real time.');
+    //EVENTO PARA ENVIAR INFORMACION DE LAS RUTAS.
+    socket.on('geo_posicion', function (msg) {
+        console.log('objectposition: ' + msg);
+        //socket.broadcast.emit('hi');
+        io.emit('chat send server message', msg);
+    });
 });
-httpServer.listen(4000);
-console.log("servidor corriendo en el puerto 4000");
+server.listen(process.env.PORT || 5000, function () {
+    console.log('listening on http://localhost:5000');
+});
 //# sourceMappingURL=servermap.js.map
