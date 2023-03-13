@@ -40,10 +40,10 @@ exports.UserController = void 0;
 var app_data_source_1 = require("../../app-data-source");
 //Import express valitador this is like a regex code
 var express_validator_1 = require("express-validator");
-//Import database of user entity 
-var user_entity_1 = require("../entity/user.entity");
 //Import the library to encrypt password
 var bcryptHelper_1 = require("../helpers/bcryptHelper");
+//Import database of user entity 
+var user_entity_1 = require("../entity/user.entity");
 //Take ORM methods
 var userRepository = app_data_source_1.default.getRepository(user_entity_1.User);
 var UserController = /** @class */ (function () {
