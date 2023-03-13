@@ -5,14 +5,19 @@ import myDataSource from "../../app-data-source"
 //Import express valitador this is like a regex code
 import { validationResult } from 'express-validator';
 
-//Import database of user entity 
-import { User } from "../entity/user.entity"
-
 //Import the library to encrypt password
 import { bcrypGenerateEncript } from "../helpers/bcryptHelper";
 
+//Import database of user entity 
+import { User } from "../entity/user.entity"
+
 //Take ORM methods
 const userRepository = myDataSource.getRepository(User);
+
+
+
+
+
 
 
 
@@ -219,4 +224,5 @@ export class UserController {
             res.json({ error })
         }
     }
+
 }
