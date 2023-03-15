@@ -12,6 +12,7 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function () {
         console.log('user disconnected');
     });
+    socket.emit('mensaje_bienvenida', "bienvenido usuario");
     socket.on('chat message', function (msg) {
         console.log('message: ' + msg);
         //socket.broadcast.emit('hi');
@@ -23,6 +24,7 @@ io.on('connection', function (socket) {
         console.log('objectposition: ' + msg);
         //socket.broadcast.emit('hi');
         io.emit('chat send server message', msg);
+        io.emit('chat_send_server_message', msg);
     });
 });
 server.listen(process.env.PORT || 5000, function () {

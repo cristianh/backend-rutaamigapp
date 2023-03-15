@@ -47,13 +47,20 @@ var ServerApp = /** @class */ (function () {
     };
     ServerApp.prototype.middleware = function () {
         // enable local connections - Cors
-        var options = {
-            "origin": "*",
-            "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-            "preflightContinue": false
-        };
+        this.app.all('*', function (req, res, next) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
+            res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+            //...
+            next();
+        });
+        /*  var options = {
+             "origin": "http://localhost:4200",
+             "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+             "preflightContinue": false
+         } */
         //this.app.options('*', cors())//EL '*' INDICA QUE SE ACEPTAN TODAS LAS CONEXIONES DE CUALQUIER SERVIDOR.
-        this.app.use(cors(options)); //INDICAMOS A EXPRESS QUE UTILICE LOS CORS.
+        this.app.use(cors()); //INDICAMOS A EXPRESS QUE UTILICE LOS CORS.
         this.app.use(morgan('dev'));
         // CONFIGURAMOS EL BODY DE LA PETICION POST PARA QUE SEA RECIBIDO EN LA PETICION.
         this.app.use(bodyParser.urlencoded({ extended: true })); //INDICAMOS A EXPRESS QUE TULICE BODIBANSER.
