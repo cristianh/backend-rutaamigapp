@@ -65,7 +65,11 @@ var UserController = /** @class */ (function () {
                         all = req.query['all'] || false;
                         query = void 0;
                         if (!all) return [3 /*break*/, 2];
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find()];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find({
+                                relations: {
+                                    user_file: true,
+                                },
+                            })];
                     case 1:
                         user = _a.sent();
                         data = { user: user, totalUsers: user.length };
@@ -85,7 +89,7 @@ var UserController = /** @class */ (function () {
                     case 4: return [3 /*break*/, 6];
                     case 5:
                         error_1 = _a.sent();
-                        res.json({ error: error_1 });
+                        res.json({ error: error_1.message });
                         return [3 /*break*/, 6];
                     case 6: return [2 /*return*/];
                 }

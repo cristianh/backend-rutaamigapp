@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var app_data_source_1 = require("./app-data-source");
 var express = require("express");
 /* CARGA DE ARCHIVOS*/
-var fileUpload = require("express-fileupload");
+/* import * as fileUpload from 'express-fileupload' */
 /* INFORMACON SALIDA Y ENTRADA DE PETICIONES*/
 var dotenv = require("dotenv"); // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 /* POLITICAS DE SEGURIDAD DE HOTS */
@@ -71,12 +71,12 @@ var ServerApp = /** @class */ (function () {
         this.app.use(express.static(path.join(__dirname, './public')));
         this.app.use(express.static(path.join(__dirname, './uploads')));
         //Habilitando subida de archivos
-        this.app.use(fileUpload({
-            createParentPath: true,
-            limits: {
-                fileSize: 2 * 1024 * 1024 * 1024 // Limitamos el  peso del archivo.
-            }
-        }));
+        /*  this.app.use(fileUpload({
+             createParentPath: true,
+             limits: {
+                 fileSize: 2 * 1024 * 1024 * 1024// Limitamos el  peso del archivo.
+             }
+         })) */
     };
     ServerApp.prototype.routes = function () {
         //RUTAS DE LA APLICACION PASADAS A EXPRESS
@@ -107,6 +107,10 @@ var ServerApp = /** @class */ (function () {
         //ruta test pagina para enviar notificaciones push
         this.app.get("/notificaciones", function (req, res) {
             res.sendFile(path.resolve(__dirname, './public/', 'notificacionDemo.html'));
+        });
+        //ruta test pagina para subir archivos
+        this.app.get("/cargarImagen", function (req, res) {
+            res.sendFile(path.resolve(__dirname, './view/', 'subirArchivo.html'));
         });
     };
     ServerApp.prototype.listen = function () {

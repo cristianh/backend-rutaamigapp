@@ -20,8 +20,14 @@ export class AuthController {
             }
 
             // We look for the user in the database.
-            const user: User = await myDataSource.getRepository(User).findOneBy({
-                user_email: req.body.user_email
+            const user: User = await myDataSource.getRepository(User).findOne({
+                
+                where: {
+                    user_email: req.body.user_email
+                },
+                relations: {
+                    user_file: true
+                },
             })
 
             console.log(user)
@@ -48,11 +54,11 @@ export class AuthController {
 
             if (token) {
                 // If the user Exit we send the information.
-                return res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status }, token })
+                return res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img':user.user_file.cloudinary_url }, token })
             }
 
         } catch (error) {
-            res.status(500).json({ error: error })
+            res.status(500).json({ error: error.message });
         }
     }
 }

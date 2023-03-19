@@ -1,37 +1,23 @@
 import { Router, Request, Response } from "express";
+//WE IMPORT THE MULTER AND CLOUDINARY LIBRARIES.
+import * as multer from 'multer';
+
+//Controllers
+import {FileController} from '../controllers/file.controller'
+
+/* import * as cloudinary from 'cloudinary'; */
+
 
 const router = Router()
 const path = require('path');
 
-router.post("/", async (req: Request, res: Response) => {
-    try {
-        if (!req.files) {
-            res.send({
-                status: false,
-                message: "Archivo no cargado."
-            })
-        } else {
-            //Info file
+// We configure the folder where the images are uploaded
+const upload = multer({ dest: __dirname + '../../uploads' })
 
 
-            let imagenUpload: any = req.files.imagen;
-            //Implementar el sanitizador para evitar archivos indeseados
-            imagenUpload.mv( path.resolve(__dirname, '../../uploads',imagenUpload.name))
-           
+//Inicializamos el controlador.
+const fileUserController = new FileController();
 
-            res.send({
-                status: 200,
-                message: "Archivo Cargado",
-                data: {
-                    name:imagenUpload.name,
-                    mimetype: imagenUpload.mimetype,
-                    size:imagenUpload.size
-                }
-            })
-        }
-    } catch (error) {
-        res.status(500).send({ error })
-    }
-});
+router.post("/upload", upload.single('file'),fileUserController.saveFile);
 
 export default router

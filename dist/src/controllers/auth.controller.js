@@ -57,8 +57,13 @@ var AuthController = /** @class */ (function () {
                         if (!errors.isEmpty()) {
                             return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
                         }
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).findOneBy({
-                                user_email: req.body.user_email
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).findOne({
+                                where: {
+                                    user_email: req.body.user_email
+                                },
+                                relations: {
+                                    user_file: true
+                                },
                             })];
                     case 1:
                         user = _a.sent();
@@ -81,12 +86,12 @@ var AuthController = /** @class */ (function () {
                         token = _a.sent();
                         if (token) {
                             // If the user Exit we send the information.
-                            return [2 /*return*/, res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status }, token: token })];
+                            return [2 /*return*/, res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img': user.user_file.cloudinary_url }, token: token })];
                         }
                         return [3 /*break*/, 4];
                     case 3:
                         error_1 = _a.sent();
-                        res.status(500).json({ error: error_1 });
+                        res.status(500).json({ error: error_1.message });
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
                 }
