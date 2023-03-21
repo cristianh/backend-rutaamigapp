@@ -163,6 +163,8 @@ export class UserController {
                     user_email: user_email,
                     user_password: bcrypGenerateEncript(user_password)
                 })
+
+                
                 //Create the request body
                 const user = await myDataSource.getRepository(User).save(dbUser)
                 return res.status(201).send({ status: "Usuario guardado con exito", user })

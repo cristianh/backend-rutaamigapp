@@ -34,7 +34,9 @@ var File = /** @class */ (function () {
         __metadata("design:type", String)
     ], File.prototype, "cloudinary_url", void 0);
     __decorate([
-        (0, typeorm_1.OneToOne)(function () { return user_entity_1.User; }, function (user) { return user.user_file; }),
+        (0, typeorm_1.OneToOne)(function () { return user_entity_1.User; }, function (user) { return user.user_file; }, {
+            cascade: true
+        }),
         (0, typeorm_1.JoinColumn)(),
         __metadata("design:type", user_entity_1.User)
     ], File.prototype, "user", void 0);

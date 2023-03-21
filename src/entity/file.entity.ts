@@ -20,7 +20,9 @@ export class File {
     @Column({type: String,length: 100,nullable:false})
     cloudinary_url: string
 
-    @OneToOne(()=>User,(user)=>user.user_file)
+    @OneToOne(()=>User,(user)=>user.user_file,{
+      cascade:true
+    })
     @JoinColumn()
     user: User;
 
