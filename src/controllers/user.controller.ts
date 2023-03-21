@@ -14,13 +14,6 @@ import { User } from "../entity/user.entity"
 //Take ORM methods
 const userRepository = myDataSource.getRepository(User);
 
-
-
-
-
-
-
-
 export class UserController {
 
     /**
@@ -38,7 +31,11 @@ export class UserController {
             let query;
 
             if (all) {
-                const user = await myDataSource.getRepository(User).find()
+                const user = await myDataSource.getRepository(User).find({
+                    relations: {
+                        user_file: true,
+                    },  
+                })
                 let data = { user, totalUsers: user.length }
 
                 res.status(200).json(data)
@@ -54,7 +51,7 @@ export class UserController {
             }
 
         } catch (error) {
-            res.json({ error })
+            res.json({ error:error.message })
         }
     }
 
@@ -166,6 +163,8 @@ export class UserController {
                     user_email: user_email,
                     user_password: bcrypGenerateEncript(user_password)
                 })
+
+                
                 //Create the request body
                 const user = await myDataSource.getRepository(User).save(dbUser)
                 return res.status(201).send({ status: "Usuario guardado con exito", user })

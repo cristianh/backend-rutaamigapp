@@ -3,7 +3,7 @@ import myDataSource from "./app-data-source"
 import * as express from "express"
 import { Response, Request } from "express";
 /* CARGA DE ARCHIVOS*/
-import * as fileUpload from 'express-fileupload'
+/* import * as fileUpload from 'express-fileupload' */
 /* INFORMACON SALIDA Y ENTRADA DE PETICIONES*/
 import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 /* POLITICAS DE SEGURIDAD DE HOTS */
@@ -96,12 +96,12 @@ class ServerApp {
         this.app.use(express.static(path.join(__dirname, './uploads')));
 
         //Habilitando subida de archivos
-        this.app.use(fileUpload({
+       /*  this.app.use(fileUpload({
             createParentPath: true,
             limits: {
                 fileSize: 2 * 1024 * 1024 * 1024// Limitamos el  peso del archivo.
             }
-        }))
+        })) */
     }
 
     routes() {
@@ -141,6 +141,12 @@ class ServerApp {
         this.app.get("/notificaciones", (req: Request, res: Response) => {
             res.sendFile(path.resolve(__dirname, './public/', 'notificacionDemo.html'));
         });
+
+        //ruta test pagina para subir archivos
+        this.app.get("/cargarImagen", (req: Request, res: Response) => {
+            res.sendFile(path.resolve(__dirname, './view/', 'subirArchivo.html'));
+        });
+
 
     }
 

@@ -49,19 +49,25 @@ var AuthController = /** @class */ (function () {
         /* The above code is a function that is used to validate the user's login. */
         this.getUsuarioLogin = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var errors, user, validatePassword, token, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
+                        _c.trys.push([0, 3, , 4]);
                         errors = (0, express_validator_1.validationResult)(req);
                         if (!errors.isEmpty()) {
                             return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
                         }
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).findOneBy({
-                                user_email: req.body.user_email
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).findOne({
+                                where: {
+                                    user_email: req.body.user_email
+                                },
+                                relations: {
+                                    user_file: true
+                                },
                             })];
                     case 1:
-                        user = _a.sent();
+                        user = _c.sent();
                         console.log(user);
                         // We validate if the user exists.
                         if (!user) {
@@ -78,15 +84,15 @@ var AuthController = /** @class */ (function () {
                         }
                         return [4 /*yield*/, (0, generateJWT_1.generateToken)(user.user_id)];
                     case 2:
-                        token = _a.sent();
+                        token = _c.sent();
                         if (token) {
                             // If the user Exit we send the information.
-                            return [2 /*return*/, res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status }, token: token })];
+                            return [2 /*return*/, res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img': (_b = (_a = user.user_file) === null || _a === void 0 ? void 0 : _a.cloudinary_url) !== null && _b !== void 0 ? _b : "" }, token: token })];
                         }
                         return [3 /*break*/, 4];
                     case 3:
-                        error_1 = _a.sent();
-                        res.status(500).json({ error: error_1 });
+                        error_1 = _c.sent();
+                        res.status(500).json({ error: error_1.message });
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
                 }

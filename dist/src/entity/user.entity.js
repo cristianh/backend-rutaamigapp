@@ -13,6 +13,7 @@ exports.User = void 0;
 var typeorm_1 = require("typeorm");
 //Import needed entyties
 var comment_entity_1 = require("./comment.entity");
+var file_entity_1 = require("./file.entity");
 /*idusuario           INT PRIMARY KEY auto_increment,
 nombre_usuario      VARCHAR(45) NOT NULL,
 apellido_usuario    VARCHAR(45) NOT NULL,
@@ -54,6 +55,11 @@ var User = /** @class */ (function () {
         (0, typeorm_1.OneToMany)(function () { return comment_entity_1.Comment; }, function (comment) { return comment.user; }),
         __metadata("design:type", comment_entity_1.Comment)
     ], User.prototype, "comment", void 0);
+    __decorate([
+        (0, typeorm_1.OneToOne)(function () { return file_entity_1.File; }, function (file) { return file.user; }) // specify inverse side as a second parameter
+        ,
+        __metadata("design:type", file_entity_1.File)
+    ], User.prototype, "user_file", void 0);
     __decorate([
         (0, typeorm_1.CreateDateColumn)(),
         __metadata("design:type", String)

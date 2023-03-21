@@ -1,8 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany,CreateDateColumn,UpdateDateColumn,DeleteDateColumn} from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany,CreateDateColumn,UpdateDateColumn,DeleteDateColumn, OneToOne, JoinColumn} from "typeorm"
 
 //Import needed entyties
 import { Comment } from "./comment.entity"
 import { Forum } from "./forum.entity"
+import { File } from "./file.entity"
 /*idusuario           INT PRIMARY KEY auto_increment,
 nombre_usuario      VARCHAR(45) NOT NULL,
 apellido_usuario    VARCHAR(45) NOT NULL,
@@ -40,6 +41,9 @@ export class User {
 
     @OneToMany(() => Comment, (comment) => comment.user)
     comment:Comment
+
+    @OneToOne(() => File, (file) => file.user) // specify inverse side as a second parameter
+    user_file: File
 
     @CreateDateColumn()
     create_date : string

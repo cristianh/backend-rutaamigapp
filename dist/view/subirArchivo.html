@@ -11,12 +11,12 @@
 
 <body>
 
-
-    <form action="https://backendrutamiappbackservice.onrender.com/app/upload" method="post"
-        enctype="multipart/form-data">
+    <!-- https://backendrutamiappbackservice.onrender.com -->
+    <form action="api/uploadFile/upload" method="post" enctype="multipart/form-data">
         <div class="file has-name">
             <label class="file-label">
-                <input class="file-input" type="file" name="imagen">
+                <!-- <input class="file-input" type="file" name="imagen"> -->
+                <input type="file" name="file" accept=".jpg,.jpeg,.png">
                 <span class="file-cta">
                     <span class="file-icon">
                         <i class="fas fa-upload"></i>

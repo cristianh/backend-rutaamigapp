@@ -1,4 +1,5 @@
 import { User } from "../entity/user.entity"
+import { File } from "../entity/file.entity"
 
 //Import require libraries
 import { Request, Response } from "express"
@@ -16,31 +17,67 @@ export class UserSeeder {
 
         try {
 
+            
+
+            
             //Save in var the atributes of the request body
 
             let users = Array();
+            /* let files = Array(); */
 
             let cantidad_usuarios = req.query['nusuarios'] ?? 3
+            
+            // Validate if users are greater than 10.
+            if(cantidad_usuarios>10){
+                return res.status(501).send({ status: "Solo se pueden generar 10 usuario." })
+            }
+            else{
+                for (let step = 0; step < cantidad_usuarios; step++) {
+                    // Runs 5 times, with values of step 0 through 4.
+                    console.log("Walking east one step");
+                    let file = new File()
+                    let user = new User()
+    
+                    file.file_name = "Filedummi",
+                        file.cloudinary_url = faker.image.avatar(),
+                        file.create_date = new Date().toISOString()
+                    
+    
+                    await myDataSource.getRepository(File).save(file)
+    
+                    user.user_name = faker.name.firstName('male'),
+                        user.user_lastname = faker.name.lastName('male'),
+                        user.user_email = faker.internet.email(),
+                        user.user_password = bcrypGenerateEncript("A123bb9%")
+                        user.user_file = file
+    
+                    await myDataSource.getRepository(User).save(user)
+    
+                    
+    
+    
+                    /*   users.push(user)
+      
+                      files.push(file) */
+    
+                }
+            }
 
-            for (let step = 0; step < cantidad_usuarios; step++) {
-                // Runs 5 times, with values of step 0 through 4.
-                console.log("Walking east one step");
-                users.push({
-                    user_name: faker.name.firstName('male'),
-                    user_lastname: faker.name.lastName('male'),
-                    user_email: faker.internet.email(),
-                    user_password: bcrypGenerateEncript("A123bb9%")
-                })
-              }
+            console.log("cantidad de usuarios generados", users.length)
 
+            /*  const dbUser = await myDataSource.getRepository(User).create(users)
+ 
+             //Create the request body
+             const user = await myDataSource.getRepository(User).insert(dbUser) */
 
-            console.log("cantidad de usuarios generados",users.length)
-
-            const dbUser = await myDataSource.getRepository(User).create(users)
+            //--------------------
+            /* const dbFile = await myDataSource.getRepository(File).create(files) */
 
             //Create the request body
-            const user = await myDataSource.getRepository(User).insert(dbUser)
-            return res.status(201).send({ status: "Usuarios creados con exito", user })
+            /* const file = await myDataSource.getRepository(File).insert(dbFile) */
+
+
+            return res.status(201).send({ status: "Usuarios creados con exito",cantidad_usuarios_creados:cantidad_usuarios})
 
 
         } catch (error) {
