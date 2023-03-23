@@ -2,7 +2,7 @@ import { DataSource } from "typeorm"
 
 
 //mysql-conexion - local
-const myDataSource = new DataSource({
+/* const myDataSource = new DataSource({
     type: "mysql",
     host: "localhost",
     port: 3306,
@@ -12,7 +12,7 @@ const myDataSource = new DataSource({
     entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
-})
+}) */
 
 //mysql-conexion - remota
 /* const myDataSource = new DataSource({
@@ -38,18 +38,18 @@ const myDataSource = new DataSource({
 })
  */
 
-//Conexion remota.
-/*const myDataSource = new DataSource({
+//Conexion remota a base postgress render.
+const myDataSource = new DataSource({
     type: "postgres",
-    url: "postgres://root:6lEuAC2VJErRMWCwRxHzCiwrGJGPAEQg@dpg-cdkod8cgqg43pc4c83ig-a.oregon-postgres.render.com/test_37ws",
+    url: "postgres://rootadmin:P5ADBol1DUa9EABHn6nUAQGipZ6ZgEjE@dpg-cge7qgceoognlfmioigg-a.oregon-postgres.render.com/test_n67h",
     port: 5432,
-   username: "root",
-    password: "crusto2009",
-    database: "test",
+  /*  username: "root",
+    password: "P5ADBol1DUa9EABHn6nUAQGipZ6ZgEjE",
+    database: "test", */
     ssl: { rejectUnauthorized: false },
     entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
-})*/
+})
 
 export default myDataSource
