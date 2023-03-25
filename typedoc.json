@@ -1,4 +1,4 @@
-/* {
+{
     // Comments are supported, like tsconfig.json
     "entryPoints": [
         "src/controllers/*.ts",
@@ -8,4 +8,4 @@
         "src/router/*.ts"
     ],
     "out": "docs"
-} */
+}

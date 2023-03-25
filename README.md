@@ -6,7 +6,7 @@ Configuracion inicial:
 
 ## Instalar Todas las dependencias:
 ```bash
-  npm run install
+  npm install
 ```
 
 <strong>NOTA:</strong> Antes de correr el proyecto verificar tener instalado las siguientes dependencias:
@@ -23,7 +23,7 @@ npm install -g nodemon
 
 ## Deployment:
 
-Verificar que la aplicación xampp este corriendo, en el puerto '3006', si no tienen xampp utilicen cualquier otro gestor de db.
+Verificar que la aplicación xampp este corriendo, en el puerto '3306', si no tienen xampp utilicen cualquier otro gestor de db.
 
 El archivo de configuracion de la base de datos es 'app-data-source.ts'
 
