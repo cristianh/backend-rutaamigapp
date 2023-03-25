@@ -53,7 +53,7 @@ import { DataSource } from "typeorm"
 })*/
 
 //Conexion remota azure db.
-/*const myDataSource = new DataSource({
+const myDataSource = new DataSource({
     type: "postgres",
     url: "ppostgres://adminrootdb:A1234567&@dbrutaamigaapp.postgres.database.azure.com/postgres?sslmode=require",
     port: 5432,
@@ -61,6 +61,6 @@ import { DataSource } from "typeorm"
     entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true
-})*/
+})
 
 export default myDataSource
