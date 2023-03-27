@@ -1,11 +1,11 @@
 import { Router } from "express"
 
 //Controllers
-import { ForoController } from '../controllers/foro.controller'
+import { ForumController } from '../controllers/forum.controller'
 
 const router = Router()
 //Iniciamos ruta controller
-const foroController = new ForoController()
+const foroController = new ForumController()
 
 // register Rutas
 router.get("/", foroController.getAllForo)

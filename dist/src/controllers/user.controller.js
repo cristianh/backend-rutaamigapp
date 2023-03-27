@@ -313,21 +313,27 @@ var UserController = /** @class */ (function () {
          * @returns The number of rows affected by the delete operation.
          */
         this.deleteUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var result, error_8;
+            var searchUser, result, error_8;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).delete(req.params.id)];
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).findOneBy({
+                                user_id: parseInt(req.params.id),
+                            })];
                     case 1:
+                        searchUser = _a.sent();
+                        searchUser.user_status = "0";
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).update(searchUser.user_id, searchUser)];
+                    case 2:
                         result = _a.sent();
                         console.log(result);
                         return [2 /*return*/, res.status(200).json({ status: "Usuario eliminado con exito", result: result })];
-                    case 2:
+                    case 3:
                         error_8 = _a.sent();
                         res.json({ error: error_8 });
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         }); };

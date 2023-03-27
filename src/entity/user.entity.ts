@@ -36,8 +36,8 @@ export class User {
     @Column({type: "boolean",nullable:false,default: true})
     user_status: string
 
-    /* @OneToMany(() => Foro, (foro) => foro.comentario)
-    foro:Foro */
+    @OneToMany(() => Forum, (foro) => foro.user)
+    forum:Forum
 
     @OneToMany(() => Comment, (comment) => comment.user)
     comment:Comment

@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Forum = void 0;
 var typeorm_1 = require("typeorm");
+var user_entity_1 = require("./user.entity");
 /*idForo int primary key auto_increment,
 usuarios_idusuario int,
 comentarios_idcomentarios int,
@@ -23,9 +24,20 @@ var Forum = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Forum.prototype, "forum_id", void 0);
     __decorate([
+        (0, typeorm_1.Column)({ type: "varchar", length: 80, nullable: false }),
+        __metadata("design:type", String)
+    ], Forum.prototype, "message", void 0);
+    __decorate([
         (0, typeorm_1.Column)({ type: "smallint", nullable: false }),
         __metadata("design:type", Boolean)
     ], Forum.prototype, "estado", void 0);
+    __decorate([
+        (0, typeorm_1.ManyToOne)(function () { return user_entity_1.User; }, function (usuario) { return usuario.forum; }),
+        __metadata("design:type", user_entity_1.User
+        /*  @ManyToOne(() => Comentario, (comentario) => comentario.foro)
+         comentario!: Comentario */
+        )
+    ], Forum.prototype, "user", void 0);
     Forum = __decorate([
         (0, typeorm_1.Entity)()
     ], Forum);

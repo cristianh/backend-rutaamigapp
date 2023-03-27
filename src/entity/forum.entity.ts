@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne} from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm"
 
 import { User } from "./user.entity"
 import { Comment } from "./comment.entity"
@@ -9,23 +9,19 @@ comentarios_idcomentarios int,
 estado tinyint not null*/
 @Entity()
 export class Forum {
-    @PrimaryGeneratedColumn()
-    forum_id: number
+  @PrimaryGeneratedColumn()
+  forum_id: number
 
-   /*  @Column({ type: "float", nullable: false })
-    longitud: number
+  @Column({ type: "varchar", length: 80, nullable: false })
+  message: string
 
-    @Column({ type: "float", nullable: false })
-    latitud: number */
 
-   /*  @Column({ type: "tinyint", nullable: false })
-    estado: boolean */
 
-    @Column({ type: "smallint", nullable: false })
-    estado: boolean
+  @Column({ type: "smallint", nullable: false })
+  estado: boolean
 
- /*    @Column({ type: "time", nullable: false })
-    tiempo_recorrido:string */
+  /*    @Column({ type: "time", nullable: false })
+     tiempo_recorrido:string */
 
   /*   @ManyToMany(() => Comentario)
     comentario: Comentario[]
@@ -33,9 +29,9 @@ export class Forum {
     @ManyToMany(() => Usuario)
     usuario: Usuario[] */
 
-   /*  @ManyToOne(() => Usuario, (usuario) => usuario.foro)
-    usuario!: Usuario */
+  @ManyToOne(() => User, (usuario) => usuario.forum)
+  user!: User
 
-   /*  @ManyToOne(() => Comentario, (comentario) => comentario.foro)
-    comentario!: Comentario */
+  /*  @ManyToOne(() => Comentario, (comentario) => comentario.foro)
+   comentario!: Comentario */
 }

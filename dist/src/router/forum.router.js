@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 //Controllers
-var foro_controller_1 = require("../controllers/foro.controller");
+var forum_controller_1 = require("../controllers/forum.controller");
 var router = (0, express_1.Router)();
 //Iniciamos ruta controller
-var foroController = new foro_controller_1.ForoController();
+var foroController = new forum_controller_1.ForumController();
 // register Rutas
 router.get("/", foroController.getAllForo);
 router.get("/:id", foroController.getForoById);

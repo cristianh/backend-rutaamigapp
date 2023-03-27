@@ -215,8 +215,14 @@ export class UserController {
      * @returns The number of rows affected by the delete operation.
      */
     public deleteUser = async (req: Request, res: Response) => {
+        //LOGIC DELETE USER ACOUNT.
         try {
-            const result = await myDataSource.getRepository(User).delete(req.params.id)
+            const searchUser = await myDataSource.getRepository(User).findOneBy({
+                user_id: parseInt(req.params.id),
+            })
+            
+            searchUser.user_status="0"
+            const result = await myDataSource.getRepository(User).update(searchUser.user_id,searchUser)
             console.log(result)
             return res.status(200).json({ status: "Usuario eliminado con exito", result})
         } catch (error) {
