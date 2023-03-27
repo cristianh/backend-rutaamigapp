@@ -2,17 +2,17 @@ import { DataSource } from "typeorm"
 
 
 //mysql-conexion - local
-/* const myDataSource = new DataSource({
+const myDataSource = new DataSource({
     type: "mysql",
     host: "localhost",
-    port: 3306,
+    port: 3308,
     username: "root",
     password: "",
     database: "test",
     entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
-}) */
+})
 
 //mysql-conexion - remota
 /* const myDataSource = new DataSource({
@@ -53,7 +53,7 @@ import { DataSource } from "typeorm"
 })*/
 
 //Conexion remota azure db.
-const myDataSource = new DataSource({
+/* const myDataSource = new DataSource({
     type: "postgres",
     url: "postgres://adminrootdb:A1234567&@dbrutaamigaapp.postgres.database.azure.com/postgres?sslmode=require",
     port: 5432,
@@ -61,6 +61,6 @@ const myDataSource = new DataSource({
     entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true
-})
+}) */
 
 export default myDataSource

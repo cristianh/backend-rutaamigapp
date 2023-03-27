@@ -34,7 +34,7 @@ export class ForumController {
     /* Saving the foro in the database. */
     public saveForo = async (req: Request, res: Response) => {
         try {
-            
+
 
             //Save in var the atributes of the request body
             let { estado, message, user_id } = req.body;
@@ -43,18 +43,18 @@ export class ForumController {
                 user_id: parseInt(user_id),
             })
 
-          
 
-            const dbForo = await myDataSource.getRepository(Forum).create({
+
+            /* const dbForo = await myDataSource.getRepository(Forum).create({
                 estado:estado,
                 message: message,
                 user: searchUser
-            })
+            }) */
 
 
             //const forum = await myDataSource.getRepository(Forum).create(req.body)
-            const results = await myDataSource.getRepository(Forum).save(dbForo)
-            return res.status(202).send({ status: "Foro guardado", results })
+            /* const results = await myDataSource.getRepository(Forum).save(dbForo)
+             */return res.status(202).send({ status: "Foro guardado", msg:"" })
         } catch (error) {
             res.json({ error })
         }

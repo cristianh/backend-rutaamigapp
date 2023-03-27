@@ -2,17 +2,17 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 //mysql-conexion - local
-/* const myDataSource = new DataSource({
+var myDataSource = new typeorm_1.DataSource({
     type: "mysql",
     host: "localhost",
-    port: 3306,
+    port: 3308,
     username: "root",
     password: "",
     database: "test",
     entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
-}) */
+});
 //mysql-conexion - remota
 /* const myDataSource = new DataSource({
     type: "mysql",
@@ -48,7 +48,7 @@ var typeorm_1 = require("typeorm");
     synchronize: true,
 })*/
 //Conexion remota azure db.
-var myDataSource = new typeorm_1.DataSource({
+/* const myDataSource = new DataSource({
     type: "postgres",
     url: "postgres://adminrootdb:A1234567&@dbrutaamigaapp.postgres.database.azure.com/postgres?sslmode=require",
     port: 5432,
@@ -56,6 +56,6 @@ var myDataSource = new typeorm_1.DataSource({
     entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true
-});
+}) */
 exports.default = myDataSource;
 //# sourceMappingURL=app-data-source.js.map

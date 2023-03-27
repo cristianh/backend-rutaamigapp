@@ -29,8 +29,8 @@ export class Forum {
     @ManyToMany(() => Usuario)
     usuario: Usuario[] */
 
-  @ManyToOne(() => User, (usuario) => usuario.forum)
-  user!: User
+ /*  @ManyToOne(() => User, (usuario) => usuario.forum)
+  user!: User */
 
   /*  @ManyToOne(() => Comentario, (comentario) => comentario.foro)
    comentario!: Comentario */
