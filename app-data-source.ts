@@ -4,7 +4,11 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 
-//mysql-conexion - local
+/* mysql-conexion - local 
+    CONFIGURANDO LAS VARIABLES DE CONEXION.
+    NOTA: REVISAR EL ARCHIVO .env SI DEBEN REALIZAR ALGUN CAMBIO
+    OJO!: REVISEN QUE EL ARCHIVO CON SU CONFIGURACION NO SE SUBA AL REPO.(YA ESTA EN EL ARCHIVO GIFIGNORE)
+*/
 const myDataSource = new DataSource({
     type: "mysql",
     host: process.env.DBHOST,

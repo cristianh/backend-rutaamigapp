@@ -13,7 +13,6 @@ exports.User = void 0;
 var typeorm_1 = require("typeorm");
 //Import needed entyties
 var comment_entity_1 = require("./comment.entity");
-var forum_entity_1 = require("./forum.entity");
 var file_entity_1 = require("./file.entity");
 /*idusuario           INT PRIMARY KEY auto_increment,
 nombre_usuario      VARCHAR(45) NOT NULL,
@@ -52,10 +51,6 @@ var User = /** @class */ (function () {
         (0, typeorm_1.Column)({ type: "boolean", nullable: false, default: true }),
         __metadata("design:type", String)
     ], User.prototype, "user_status", void 0);
-    __decorate([
-        (0, typeorm_1.OneToMany)(function () { return forum_entity_1.Forum; }, function (foro) { return foro.user; }),
-        __metadata("design:type", forum_entity_1.Forum)
-    ], User.prototype, "forum", void 0);
     __decorate([
         (0, typeorm_1.OneToMany)(function () { return comment_entity_1.Comment; }, function (comment) { return comment.user; }),
         __metadata("design:type", comment_entity_1.Comment)

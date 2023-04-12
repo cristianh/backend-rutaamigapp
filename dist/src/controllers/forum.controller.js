@@ -86,35 +86,38 @@ var ForumController = /** @class */ (function () {
         }); };
         /* Saving the foro in the database. */
         this.saveForo = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var _a, estado, message, user_id, searchUser, dbForo, results, error_3;
+            var _a, estado, message, user_id, searchUser, error_3;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _b.trys.push([0, 4, , 5]);
+                        _b.trys.push([0, 2, , 3]);
                         _a = req.body, estado = _a.estado, message = _a.message, user_id = _a.user_id;
                         return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).findOneBy({
                                 user_id: parseInt(user_id),
-                            })];
-                    case 1:
-                        searchUser = _b.sent();
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(forum_entity_1.Forum).create({
-                                estado: estado,
+                            })
+                            /* const dbForo = await myDataSource.getRepository(Forum).create({
+                                estado:estado,
                                 message: message,
                                 user: searchUser
-                            })
+                            }) */
                             //const forum = await myDataSource.getRepository(Forum).create(req.body)
-                        ];
+                            /* const results = await myDataSource.getRepository(Forum).save(dbForo)
+                             */ ];
+                    case 1:
+                        searchUser = _b.sent();
+                        /* const dbForo = await myDataSource.getRepository(Forum).create({
+                            estado:estado,
+                            message: message,
+                            user: searchUser
+                        }) */
+                        //const forum = await myDataSource.getRepository(Forum).create(req.body)
+                        /* const results = await myDataSource.getRepository(Forum).save(dbForo)
+                         */ return [2 /*return*/, res.status(202).send({ status: "Foro guardado", msg: "" })];
                     case 2:
-                        dbForo = _b.sent();
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(forum_entity_1.Forum).save(dbForo)];
-                    case 3:
-                        results = _b.sent();
-                        return [2 /*return*/, res.status(202).send({ status: "Foro guardado", results: results })];
-                    case 4:
                         error_3 = _b.sent();
                         res.json({ error: error_3 });
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
             });
         }); };

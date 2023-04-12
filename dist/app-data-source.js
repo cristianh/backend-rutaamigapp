@@ -4,7 +4,11 @@ var typeorm_1 = require("typeorm");
 //ENV
 var dotenv = require("dotenv");
 dotenv.config();
-//mysql-conexion - local
+/* mysql-conexion - local
+    CONFIGURANDO LAS VARIABLES DE CONEXION.
+    NOTA: REVISAR EL ARCHIVO .env SI DEBEN REALIZAR ALGUN CAMBIO
+    OJO!: REVISEN QUE EL ARCHIVO CON SU CONFIGURACION NO SE SUBA AL REPO.(YA ESTA EN EL ARCHIVO GIFIGNORE)
+*/
 var myDataSource = new typeorm_1.DataSource({
     type: "mysql",
     host: process.env.DBHOST,
