@@ -11,7 +11,6 @@ dotenv.config();
 */
 /* const myDataSource = new DataSource({
     type: "mysql",
-    url:process.env.DB_URL_POSTGRESSQL,
     host: process.env.DBHOST,
     port: parseInt(process.env.DBPORT),
     username: process.env.DBUSER,
