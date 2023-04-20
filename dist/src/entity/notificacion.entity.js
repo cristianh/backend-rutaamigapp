@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Notificacion = void 0;
 var typeorm_1 = require("typeorm");
 var route_entity_1 = require("../entity/route.entity");
+var user_entity_1 = require("../entity/user.entity");
 /*idNotificaciones INT primary key auto_increment,
 intervalo INT  not null,
 fecha_hora DATETIME not null,
@@ -28,14 +29,15 @@ var Notificacion = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Notificacion.prototype, "intervalo", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "timestamp", nullable: false }),
-        __metadata("design:type", String)
-    ], Notificacion.prototype, "fecha_hora", void 0);
-    __decorate([
         (0, typeorm_1.OneToOne)(function () { return route_entity_1.Route; }),
         (0, typeorm_1.JoinColumn)(),
         __metadata("design:type", route_entity_1.Route)
     ], Notificacion.prototype, "route", void 0);
+    __decorate([
+        (0, typeorm_1.ManyToMany)(function () { return user_entity_1.User; }),
+        (0, typeorm_1.JoinTable)(),
+        __metadata("design:type", Array)
+    ], Notificacion.prototype, "user_id", void 0);
     Notificacion = __decorate([
         (0, typeorm_1.Entity)()
     ], Notificacion);

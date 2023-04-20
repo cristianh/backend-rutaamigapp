@@ -24,6 +24,9 @@ export class ForgetPasswordController {
             //GENERATE JWT 1h RECOVERY TIME
             const token = await generateTokenForgetPassword(user.user_id, '1h');
 
+            console.log(process.env.USER_GMAIL)
+            console.log(process.env.PASSWORD_GMAIL)
+
             // We create the channel to link the mail where the mail and the password recovery link will be sent.
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
@@ -38,7 +41,7 @@ export class ForgetPasswordController {
 
             // We configure the body of the mail.
             const mailOptions = {
-                from: "rutaamigapp@gmial.com",
+                from: process.env.USER_GMAIL,
                 to: `${user.user_email}`,
                 subject: "Restablecer contraseña - RutaAmigapp",
                 text: `${emailPort}/new-password/${user.user_id}/${token}`

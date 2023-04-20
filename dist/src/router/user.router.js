@@ -16,8 +16,6 @@ var userController = new user_controller_1.UserController();
 var usersedders = new user_seed_1.UserSeeder();
 // Usuarios
 router.get("/allusers/:all?/:limit?/:skip?", validationJWT.validate, userController.getAllUsers);
-router.get("/:id/comentarios", userController.getComentariesUsersById);
-router.get("/:usuarioId/comentarios/:comentarioId", userController.getUserByIdComentariesById);
 router.get("/:id", userController.getUserById);
 router.post("/registro", validation.validateFormUsuarioRegister(), userController.saveUser);
 router.put("/:id", userController.updateUser);

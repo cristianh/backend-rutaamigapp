@@ -100,94 +100,63 @@ var UserController = /** @class */ (function () {
          * @param {Request} req - Request - The request object.
          * @param {Response} res - Response - The response object.
          */
-        this.getComentariesUsers = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var user, error_2;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find({
-                                relations: {
-                                    comment: true,
-                                },
-                                where: {
-                                    user_id: parseInt(req.params.user_id)
-                                }
-                            })];
-                    case 1:
-                        user = _a.sent();
-                        res.json(user);
-                        return [3 /*break*/, 3];
-                    case 2:
-                        error_2 = _a.sent();
-                        res.json({ error: error_2 });
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
-                }
-            });
-        }); };
+        /* public getComentariesUsers = async (req: Request, res: Response) => {
+    
+            try {
+                const user = await myDataSource.getRepository(User).find({
+                    relations: {
+                        comment: true,
+                    },
+                    where: {
+                        user_id: parseInt(req.params.user_id)
+                    }
+                })
+                res.json(user)
+            } catch (error) {
+                res.json({ error })
+            }
+        } */
         /**
          * "I want to get a user by id and a comment by id, and I want to get the user's comments"
          * </code>
          * @param {Request} req - Request
          * @param {Response} res - Response
          */
-        this.getUserByIdComentariesById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var user, error_3;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find({
-                                relations: {
-                                    comment: true,
-                                },
-                                where: {
-                                    user_id: parseInt(req.params.user_id),
-                                    comment: {
-                                        comment_id: parseInt(req.params.comment_id)
-                                    }
-                                },
-                            })];
-                    case 1:
-                        user = _a.sent();
-                        res.json(user);
-                        return [3 /*break*/, 3];
-                    case 2:
-                        error_3 = _a.sent();
-                        res.json({ error: error_3 });
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
-                }
-            });
-        }); };
+        /* public getUserByIdComentariesById = async (req: Request, res: Response) => {
+            try {
+                const user = await myDataSource.getRepository(User).find({
+                    relations: {
+                        comment: true,
+                    },
+                    where: {
+                        user_id: parseInt(req.params.user_id),
+                        comment: {
+                            comment_id: parseInt(req.params.comment_id)
+                        }
+                    },
+                })
+                res.json(user)
+            } catch (error) {
+                res.json({ error })
+            }
+        } */
         /* Getting all the comments of a user by id. */
-        this.getComentariesUsersById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var user, error_4;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find({
-                                relations: {
-                                    comment: true,
-                                },
-                                where: {
-                                    user_id: parseInt(req.params.id),
-                                },
-                            })];
-                    case 1:
-                        user = _a.sent();
-                        res.json(user);
-                        return [3 /*break*/, 3];
-                    case 2:
-                        error_4 = _a.sent();
-                        res.json({ error: error_4 });
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
-                }
-            });
-        }); };
+        /* public getComentariesUsersById = async (req: Request, res: Response) => {
+            try {
+                const user = await myDataSource.getRepository(User).find({
+                    relations: {
+                        comment: true,
+                    },
+                    where: {
+                        user_id: parseInt(req.params.id),
+                    },
+                })
+                res.json(user)
+            } catch (error) {
+                res.json({ error })
+            }
+        }
+     */
         /**
          * It gets a user by id from the database and returns it to the user.
          * @param {Request} req - Request - The request object
@@ -195,7 +164,7 @@ var UserController = /** @class */ (function () {
          * @returns An object with the user data.
          */
         this.getUserById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var results, error_5;
+            var results, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -207,8 +176,8 @@ var UserController = /** @class */ (function () {
                         results = _a.sent();
                         return [2 /*return*/, res.send(results)];
                     case 2:
-                        error_5 = _a.sent();
-                        res.json({ error: error_5 });
+                        error_2 = _a.sent();
+                        res.json({ error: error_2 });
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
@@ -221,7 +190,7 @@ var UserController = /** @class */ (function () {
          * @returns  An Usuario object
          */
         this.saveUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, _a, user_name, user_lastname, user_email, user_password, dbUser, user, error_6;
+            var errors, _a, user_name, user_lastname, user_email, user_password, dbUser, user, error_3;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -247,8 +216,8 @@ var UserController = /** @class */ (function () {
                         return [2 /*return*/, res.status(201).send({ status: "Usuario guardado con exito", user: user })];
                     case 4: return [3 /*break*/, 6];
                     case 5:
-                        error_6 = _b.sent();
-                        return [2 /*return*/, res.json({ error: error_6 })];
+                        error_3 = _b.sent();
+                        return [2 /*return*/, res.json({ error: error_3 })];
                     case 6: return [2 /*return*/];
                 }
             });
@@ -260,7 +229,7 @@ var UserController = /** @class */ (function () {
          * @returns The updated user.
          */
         this.updateUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, searchUser, user, error_7;
+            var errors, searchUser, user, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -299,8 +268,8 @@ var UserController = /** @class */ (function () {
                         user = _a.sent();
                         return [2 /*return*/, res.status(201).send({ status: "Usuario actualizado con exito", user: user })];
                     case 3:
-                        error_7 = _a.sent();
-                        res.json({ error: error_7 });
+                        error_4 = _a.sent();
+                        res.json({ error: error_4 });
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
                 }
@@ -313,7 +282,7 @@ var UserController = /** @class */ (function () {
          * @returns The number of rows affected by the delete operation.
          */
         this.deleteUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var searchUser, result, error_8;
+            var searchUser, result, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -330,8 +299,8 @@ var UserController = /** @class */ (function () {
                         console.log(result);
                         return [2 /*return*/, res.status(200).json({ status: "Usuario eliminado con exito", result: result })];
                     case 3:
-                        error_8 = _a.sent();
-                        res.json({ error: error_8 });
+                        error_5 = _a.sent();
+                        res.json({ error: error_5 });
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
                 }

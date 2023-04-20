@@ -60,7 +60,7 @@ export class UserController {
      * @param {Request} req - Request - The request object.
      * @param {Response} res - Response - The response object.
      */
-    public getComentariesUsers = async (req: Request, res: Response) => {
+    /* public getComentariesUsers = async (req: Request, res: Response) => {
 
         try {
             const user = await myDataSource.getRepository(User).find({
@@ -75,7 +75,7 @@ export class UserController {
         } catch (error) {
             res.json({ error })
         }
-    }
+    } */
 
 
     /**
@@ -84,7 +84,7 @@ export class UserController {
      * @param {Request} req - Request
      * @param {Response} res - Response
      */
-    public getUserByIdComentariesById = async (req: Request, res: Response) => {
+    /* public getUserByIdComentariesById = async (req: Request, res: Response) => {
         try {
             const user = await myDataSource.getRepository(User).find({
                 relations: {
@@ -101,10 +101,10 @@ export class UserController {
         } catch (error) {
             res.json({ error })
         }
-    }
+    } */
 
     /* Getting all the comments of a user by id. */
-    public getComentariesUsersById = async (req: Request, res: Response) => {
+    /* public getComentariesUsersById = async (req: Request, res: Response) => {
         try {
             const user = await myDataSource.getRepository(User).find({
                 relations: {
@@ -119,7 +119,7 @@ export class UserController {
             res.json({ error })
         }
     }
-
+ */
 
     /**
      * It gets a user by id from the database and returns it to the user.

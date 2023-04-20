@@ -67,6 +67,8 @@ var ForgetPasswordController = /** @class */ (function () {
                         return [4 /*yield*/, (0, generateJWT_1.generateTokenForgetPassword)(user.user_id, '1h')];
                     case 2:
                         token = _a.sent();
+                        console.log(process.env.USER_GMAIL);
+                        console.log(process.env.PASSWORD_GMAIL);
                         transporter = nodemailer.createTransport({
                             service: 'gmail',
                             auth: {
@@ -76,7 +78,7 @@ var ForgetPasswordController = /** @class */ (function () {
                         });
                         emailPort = process.env.URLDESARROLLOFRONT || 3000;
                         mailOptions = {
-                            from: "rutaamigapp@gmial.com",
+                            from: process.env.USER_GMAIL,
                             to: "".concat(user.user_email),
                             subject: "Restablecer contraseña - RutaAmigapp",
                             text: "".concat(emailPort, "/new-password/").concat(user.user_id, "/").concat(token)
