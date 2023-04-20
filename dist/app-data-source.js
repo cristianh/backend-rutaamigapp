@@ -35,9 +35,5 @@ var myDataSource = new typeorm_1.DataSource({
     synchronize: true,
 <<<<<<< HEAD
 }) */
-=======
-})
- */
->>>>>>> b69a122d72aa2813e10d1d845c67bd4250e59f23
 exports.default = myDataSource;
 //# sourceMappingURL=app-data-source.js.map
