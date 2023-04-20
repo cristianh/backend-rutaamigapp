@@ -33,7 +33,6 @@ var myDataSource = new typeorm_1.DataSource({
     entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
-<<<<<<< HEAD
 }) */
 exports.default = myDataSource;
 //# sourceMappingURL=app-data-source.js.map

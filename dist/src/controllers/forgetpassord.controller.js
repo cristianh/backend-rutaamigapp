@@ -70,7 +70,7 @@ var ForgetPasswordController = /** @class */ (function () {
                         console.log(process.env.USER_GMAIL);
                         console.log(process.env.PASSWORD_GMAIL);
                         transporter = nodemailer.createTransport({
-                            service: 'gmail',
+                            service: 'hotmail',
                             auth: {
                                 user: process.env.USER_GMAIL,
                                 pass: process.env.PASSWORD_GMAIL
@@ -81,7 +81,7 @@ var ForgetPasswordController = /** @class */ (function () {
                             from: process.env.USER_GMAIL,
                             to: "".concat(user.user_email),
                             subject: "Restablecer contraseña - RutaAmigapp",
-                            text: "".concat(emailPort, "/new-password/").concat(user.user_id, "/").concat(token)
+                            html: "\n                <div\n                    style=\"background-color:#f5f4f4;text-align:center;font-family:roboto;display:flex;flex-direction:column;justify-content:space-around;align-items:center;font-size: 1em;font-family: tahoma;\">\n                    <div style=\"width:100%;height:50px\">\n                    </div>\n                   \n                    <div>\n                    <h1 style=\"font-family:'cabin'\">Hol@! ".concat(user.user_name, " ").concat(user.user_lastname, " </h1>\n                    </div>\n                    <div>\n                    <img src=\"https://res.cloudinary.com/dl7oqoile/image/upload/v1682005302/restablecer-la-contrasena_ocbt3m.png\"\n                        width=\"150\" alt=\"Recuperar contrase\u00F1a\">\n                    </div>\n                    <div>\n                    <p>Hemos recibido su solicitud de recuperaci\u00F3n de contrase\u00F1a. Para restablecer su contrase\u00F1a, haga clic en el\n                        siguiente\n                        enlace:</p>\n                    <a style=\"margin:0px auto;background-color:#FBA63E;width: 203px;height: 33px;padding: 12px 12px;display: flex;flex-direction: row;align-items: center;justify-content: center;text-align: center;color: #FFFFFF;border-radius: 12px 12px;box-shadow: 2px 2px 2px silver;\"\n                        href=\"").concat(emailPort, "/new-password/").concat(user.user_id, "/").concat(token, "\">Recuperar contrase&ntilde;a</a>\n\n                    <p>Tenga en cuenta que este enlace solo ser\u00E1 v\u00E1lido durante los pr\u00F3ximos\n                    <p><b>30 minutos</b></p> Si intenta acceder al enlace\n                    despu\u00E9s\n                    de ese tiempo, deber\u00E1 volver a solicitar un restablecimiento de contrase\u00F1a.</p>\n\n                    <p>\n                        Si no ha solicitado este cambio de contrase\u00F1a, por favor ignore este mensaje.\n                    </p>\n                    </div>\n                    <div style=\"background-color:#FBA63E;color:white;width:100%;height:100%;border-top: 3px solid #EF6C00;\">\n                    <p>Atentamente,<br>\n                        El equipo de RutaAmigapp</p>\n\n                    <p>!Un Saludo!</p>\n                    </div>\n                </div>")
                         };
                         // Send the mail with the message options.
                         transporter.sendMail(mailOptions, function (error, response) {

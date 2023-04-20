@@ -29,7 +29,7 @@ export class ForgetPasswordController {
 
             // We create the channel to link the mail where the mail and the password recovery link will be sent.
             const transporter = nodemailer.createTransport({
-                service: 'gmail',
+                service: 'hotmail',
                 auth: {
                     user: process.env.USER_GMAIL,
                     pass: process.env.PASSWORD_GMAIL
@@ -44,8 +44,44 @@ export class ForgetPasswordController {
                 from: process.env.USER_GMAIL,
                 to: `${user.user_email}`,
                 subject: "Restablecer contraseña - RutaAmigapp",
-                text: `${emailPort}/new-password/${user.user_id}/${token}`
+                html: `
+                <div
+                    style="background-color:#f5f4f4;text-align:center;font-family:roboto;display:flex;flex-direction:column;justify-content:space-around;align-items:center;font-size: 1em;font-family: tahoma;">
+                    <div style="width:100%;height:50px">
+                    </div>
+                   
+                    <div>
+                    <h1 style="font-family:'cabin'">Hol@! ${user.user_name} ${user.user_lastname} </h1>
+                    </div>
+                    <div>
+                    <img src="https://res.cloudinary.com/dl7oqoile/image/upload/v1682005302/restablecer-la-contrasena_ocbt3m.png"
+                        width="150" alt="Recuperar contraseña">
+                    </div>
+                    <div>
+                    <p>Hemos recibido su solicitud de recuperación de contraseña. Para restablecer su contraseña, haga clic en el
+                        siguiente
+                        enlace:</p>
+                    <a style="margin:0px auto;background-color:#FBA63E;width: 203px;height: 33px;padding: 12px 12px;display: flex;flex-direction: row;align-items: center;justify-content: center;text-align: center;color: #FFFFFF;border-radius: 12px 12px;box-shadow: 2px 2px 2px silver;"
+                        href="${emailPort}/new-password/${user.user_id}/${token}">Recuperar contrase&ntilde;a</a>
+
+                    <p>Tenga en cuenta que este enlace solo será válido durante los próximos
+                    <p><b>30 minutos</b></p> Si intenta acceder al enlace
+                    después
+                    de ese tiempo, deberá volver a solicitar un restablecimiento de contraseña.</p>
+
+                    <p>
+                        Si no ha solicitado este cambio de contraseña, por favor ignore este mensaje.
+                    </p>
+                    </div>
+                    <div style="background-color:#FBA63E;color:white;width:100%;height:100%;border-top: 3px solid #EF6C00;">
+                    <p>Atentamente,<br>
+                        El equipo de RutaAmigapp</p>
+
+                    <p>!Un Saludo!</p>
+                    </div>
+                </div>`
             }
+
 
             // Send the mail with the message options.
             transporter.sendMail(mailOptions, (error, response) => {
