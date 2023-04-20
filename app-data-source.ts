@@ -1,15 +1,16 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var typeorm_1 = require("typeorm");
+import { DataSource } from "typeorm"
 //ENV
-var dotenv = require("dotenv");
+import * as dotenv from 'dotenv';
 dotenv.config();
-/* mysql-conexion - local
+
+
+
+/* mysql-conexion - local 
     CONFIGURANDO LAS VARIABLES DE CONEXION.
     NOTA: REVISAR EL ARCHIVO .env SI DEBEN REALIZAR ALGUN CAMBIO
     OJO!: REVISEN QUE EL ARCHIVO CON SU CONFIGURACION NO SE SUBA AL REPO.(YA ESTA EN EL ARCHIVO GIFIGNORE)
 */
-var myDataSource = new typeorm_1.DataSource({
+const myDataSource = new DataSource({
     type: "mysql",
     host: process.env.DBHOST,
     port: parseInt(process.env.DBPORT),
@@ -19,8 +20,10 @@ var myDataSource = new typeorm_1.DataSource({
     entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
-});
-/* postgres-conexion - REMOTE
+})
+
+
+/* postgres-conexion - REMOTE 
 */
 /* const myDataSource = new DataSource({
     type: "postgres",
@@ -33,11 +36,6 @@ var myDataSource = new typeorm_1.DataSource({
     entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
-<<<<<<< HEAD
 }) */
-=======
-})
- */
->>>>>>> b69a122d72aa2813e10d1d845c67bd4250e59f23
-exports.default = myDataSource;
-//# sourceMappingURL=app-data-source.js.map
+
+export default myDataSource
