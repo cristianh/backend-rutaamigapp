@@ -45,13 +45,9 @@ export class ForgetPasswordController {
                 to: `${user.user_email}`,
                 subject: "Restablecer contraseña - RutaAmigapp",
                 html: `
-                <div
-                    style="background-color:#f5f4f4;text-align:center;font-family:roboto;display:flex;flex-direction:column;justify-content:space-around;align-items:center;font-size: 1em;font-family: tahoma;">
-                    <div style="width:100%;height:50px">
-                    </div>
-                   
+                <div style="color:black;padding-top:34px;background-color:#f5f4f4;text-align:center;gap:12px;font-size:1em;font-family:tahoma">                   
                     <div>
-                    <h1 style="font-family:'cabin'">Hol@! ${user.user_name} ${user.user_lastname} </h1>
+                    <h1 style="font-family:'cabin'">¡Hol@! ${user.user_name} ${user.user_lastname} </h1>
                     </div>
                     <div>
                     <img src="https://res.cloudinary.com/dl7oqoile/image/upload/v1682005302/restablecer-la-contrasena_ocbt3m.png"
@@ -61,7 +57,7 @@ export class ForgetPasswordController {
                     <p>Hemos recibido su solicitud de recuperación de contraseña. Para restablecer su contraseña, haga clic en el
                         siguiente
                         enlace:</p>
-                    <a style="margin:0px auto;background-color:#FBA63E;width: 203px;height: 33px;padding: 12px 12px;display: flex;flex-direction: row;align-items: center;justify-content: center;text-align: center;color: #FFFFFF;border-radius: 12px 12px;box-shadow: 2px 2px 2px silver;"
+                    <a style="margin:0px auto;background-color:#fba63e;width:203px;padding:12px 12px;display:grid;place-items:center;align-items:center;text-align:center;color:#ffffff;border-radius:12px 12px;justify-content: center;"
                         href="${emailPort}/new-password/${user.user_id}/${token}">Recuperar contrase&ntilde;a</a>
 
                     <p>Tenga en cuenta que este enlace solo será válido durante los próximos
@@ -73,11 +69,11 @@ export class ForgetPasswordController {
                         Si no ha solicitado este cambio de contraseña, por favor ignore este mensaje.
                     </p>
                     </div>
-                    <div style="background-color:#FBA63E;color:white;width:100%;height:100%;border-top: 3px solid #EF6C00;">
+                    <div style="padding-bottom:6px;background-color:#FBA63E;color:white;width:100%;height:100%;border-top: 3px solid #EF6C00;">
                     <p>Atentamente,<br>
                         El equipo de RutaAmigapp</p>
 
-                    <p>!Un Saludo!</p>
+                    <p>¡Un Saludo!</p>
                     </div>
                 </div>`
             }
