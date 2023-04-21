@@ -1,6 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,UpdateDateColumn,DeleteDateColumn, OneToOne, JoinColumn} from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToOne, JoinColumn } from "typeorm"
 import { User } from "./user.entity";
-
 
 /* CREATE TABLE files (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -9,29 +8,31 @@ import { User } from "./user.entity";
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   ); */
 
-  @Entity()
+@Entity()
 export class File {
-    @PrimaryGeneratedColumn()
-    file_id: number
+  @PrimaryGeneratedColumn()
+  file_id: number
 
-    @Column({type: String,length: 100,nullable:false})
-    file_name: string
+  @Column({ type: String, length: 100, nullable: false })
+  file_name: string
 
-    @Column({type: String,length: 100,nullable:false})
-    cloudinary_url: string
+  @Column({ type: String, length: 100, nullable: false })
+  cloudinary_url: string
 
-    @OneToOne(()=>User,(user)=>user.user_file,{
-      cascade:true
-    })
-    @JoinColumn()
-    user: User;
+  @CreateDateColumn()
+  file_create_date: string
 
-    @CreateDateColumn()
-    create_date : string
+  @UpdateDateColumn()
+  file_update_date: string
 
-    @UpdateDateColumn()
-    update_date : string
+  @DeleteDateColumn()
+  file_removal_date: string
 
-    @DeleteDateColumn()
-    removal_date : string
+  //Relations
+  //With user one to one
+  @OneToOne(() => User, (user) => user.user_file, {
+    cascade: true
+  })
+  @JoinColumn()
+  user: User;
 }

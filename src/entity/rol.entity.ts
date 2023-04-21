@@ -1,18 +1,18 @@
-import { Entity, Column, PrimaryGeneratedColumn,  OneToOne,JoinColumn} from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm"
 import { User } from "../entity/user.entity"
 
 @Entity()
 export class Rol {
     @PrimaryGeneratedColumn()
-    idrol: number
+    id_rol: number
 
     @Column({ type: "varchar", nullable: false })
-    nombre: string
+    id_nombre: string
 
-    @Column({ type: "int", nullable: false })
-    nivel: number
-
-    @OneToOne(()=>User)
+    //Relations
+    //With user one to one
+    @OneToOne(() => User, (user) => user.user_rol, {
+    })
     @JoinColumn()
     user: User;
 }
