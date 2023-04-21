@@ -76,7 +76,7 @@ var ForgetPasswordController = /** @class */ (function () {
                                 pass: process.env.PASSWORD_GMAIL
                             }
                         });
-                        emailPort = process.env.URLDESARROLLOFRONT || 3000;
+                        emailPort = process.env.URLDESARROLLOFRONT || process.env.URLDESARROLLOPRODUCTION;
                         mailOptions = {
                             from: process.env.USER_GMAIL,
                             to: "".concat(user.user_email),
@@ -89,7 +89,7 @@ var ForgetPasswordController = /** @class */ (function () {
                                 return res.status(500).json({ result: "Ha ocurrido un error al tratar de enviar el correo: ".concat(error), status: "ok" });
                             }
                             else {
-                                return res.status(200).json({ result: "El email de recuperacion ha sido enviado, por favor revisa tu bandeja de mensajes." });
+                                return res.status(200).json({ result: "El email de recuperacion ha sido enviado, por favor revisa tu bandeja de mensajes y sigue las instrucciones." });
                             }
                         });
                         return [3 /*break*/, 4];
