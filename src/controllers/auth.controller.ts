@@ -26,7 +26,7 @@ export class AuthController {
                     user_email: req.body.user_email
                 },
                 relations: {
-                    user_file: true
+                    file: true
                 },
             })
 
@@ -54,7 +54,7 @@ export class AuthController {
 
             if (token) {
                 // If the user Exit we send the information.
-                return res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img':user.user_file?.cloudinary_url??"" }, token })
+                return res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img':user.file?.cloudinary_url??"" }, token })
             }
 
         } catch (error) {
