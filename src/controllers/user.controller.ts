@@ -33,7 +33,7 @@ export class UserController {
             if (all) {
                 const user = await myDataSource.getRepository(User).find({
                     relations: {
-                        user_file: true,
+                        file: true,
                     },  
                 })
                 let data = { user, totalUsers: user.length }
