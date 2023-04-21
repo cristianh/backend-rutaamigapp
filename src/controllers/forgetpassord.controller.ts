@@ -37,7 +37,7 @@ export class ForgetPasswordController {
             })
 
             // We specify the port from where the message is going to be sent
-            const emailPort = process.env.URLDESARROLLOFRONT || 3000
+            const emailPort = process.env.URLDESARROLLOFRONT || process.env.URLDESARROLLOPRODUCTION
 
             // We configure the body of the mail.
             const mailOptions = {
@@ -84,7 +84,7 @@ export class ForgetPasswordController {
                 if (error) {
                     return res.status(500).json({ result: `Ha ocurrido un error al tratar de enviar el correo: ${error}`, status: "ok" })
                 } else {
-                    return res.status(200).json({ result: "El email de recuperacion ha sido enviado, por favor revisa tu bandeja de mensajes." })
+                    return res.status(200).json({ result: "El email de recuperacion ha sido enviado, por favor revisa tu bandeja de mensajes y sigue las instrucciones." })
                 }
             })
         } catch (error) {
