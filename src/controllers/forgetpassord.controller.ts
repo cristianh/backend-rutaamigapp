@@ -58,7 +58,7 @@ export class ForgetPasswordController {
                         siguiente
                         enlace:</p>
                     <a style="margin:0px auto;background-color:#fba63e;width:203px;padding:12px 12px;display:grid;place-items:center;align-items:center;text-align:center;color:#ffffff;border-radius:12px 12px;justify-content: center;"
-                        href="${emailPort}/new-password/${user.user_id}/${token}">Recuperar contrase&ntilde;a</a>
+                        href="https://backrutaamigaapptestnotification-com.onrender.com/api/new-password/${user.user_id}/${token}">Recuperar contrase&ntilde;a</a>
 
                     <p>Tenga en cuenta que este enlace solo será válido durante los próximos
                     <p><b>30 minutos</b></p> Si intenta acceder al enlace
