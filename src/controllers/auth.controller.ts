@@ -36,7 +36,7 @@ export class AuthController {
                 return res.status(400).json({ result: "Usuario no encontrado, por favor revise correo y contraseña" })
             }
             // We validate if the user is active.
-            if (user.user_status=="0") {
+            if (user.user_status==Boolean(0)) {
                 return res.status(400).json({ result: "El usuario se encuentra inactivo, por favor contacte al administrador." })
             }
 

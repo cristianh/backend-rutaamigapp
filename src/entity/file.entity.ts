@@ -30,7 +30,7 @@ export class File {
 
   //Relations
   //With user one to one
-  @OneToOne(() => User, (user) => user.user_file, {
+  @OneToOne(() => User, (user) => user.file, {
     cascade: true
   })
   @JoinColumn()

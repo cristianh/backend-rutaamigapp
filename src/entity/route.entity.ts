@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn,  OneToOne,JoinColumn, UpdateDateColumn, DeleteDateColumn, CreateDateColumn} from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn,  OneToMany, UpdateDateColumn, DeleteDateColumn, CreateDateColumn} from "typeorm"
 import { Notification } from "./notification.entity"
 
 /*idRutas INT PRIMARY KEY auto_increment,
@@ -31,8 +31,6 @@ export class Route {
 
     //Relations
     //With notification one to one
-    @OneToOne(() => Notification, notificacion => notificacion.route, {
-    })
-    @JoinColumn()
-    notification: Notification;
+    @OneToMany(() => Notification, (notification) => notification.user) // specify inverse side as a second parameter
+    notification: Notification
 }

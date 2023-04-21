@@ -48,7 +48,7 @@ export class User {
     //Relations
     //With File one to one
     @OneToOne(() => File, (file) => file.user) // specify inverse side as a second parameter
-    user_file: File
+    file: File
 
     //With rol one to one
     @OneToOne(() => Rol, (rol) => rol.user) // specify inverse side as a second parameter

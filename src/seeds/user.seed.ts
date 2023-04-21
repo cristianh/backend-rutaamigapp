@@ -26,6 +26,7 @@ export class UserSeeder {
             /* let files = Array(); */
 
             let cantidad_usuarios = req.query['nusuarios'] ?? 3
+            cantidad_usuarios = parseInt('cantidad_usuarios',10)
             
             // Validate if users are greater than 10.
             if(cantidad_usuarios>10){
@@ -40,7 +41,7 @@ export class UserSeeder {
     
                     file.file_name = "Filedummi",
                         file.cloudinary_url = faker.image.avatar(),
-                        file.create_date = new Date().toISOString()
+                        file.file_create_date = new Date().toISOString()
                     
     
                     await myDataSource.getRepository(File).save(file)
@@ -49,7 +50,7 @@ export class UserSeeder {
                         user.user_lastname = faker.name.lastName('male'),
                         user.user_email = faker.internet.email(),
                         user.user_password = bcrypGenerateEncript("A123bb9%")
-                        user.user_file = file
+                        user.file = file
     
                     await myDataSource.getRepository(User).save(user)
     

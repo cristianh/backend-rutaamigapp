@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from "typeorm"
 import { Route } from "./route.entity"
 import { User } from "./user.entity"
 
@@ -19,12 +19,13 @@ export class Notification {
     fecha_hora: string */
 
     //Relations
-    //With route one to one
-    @OneToOne(() => Route, (route) => route.route_id, {
+    //With route many to one
+    @ManyToOne(() => Route, (route) => route.route_id, {
     })
     @JoinColumn()
     route: Route;
 
+    //With user many to one
     @ManyToOne(() => User, user => user.notification)
     user: User;
 }

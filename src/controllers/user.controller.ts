@@ -221,7 +221,7 @@ export class UserController {
                 user_id: parseInt(req.params.id),
             })
             
-            searchUser.user_status="0"
+            searchUser.user_status=Boolean(0)
             const result = await myDataSource.getRepository(User).update(searchUser.user_id,searchUser)
             console.log(result)
             return res.status(200).json({ status: "Usuario eliminado con exito", result})
