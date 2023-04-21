@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #contenedor-conectados{
+            display:flex;
+            justify-content:space-evenly;
+            flex-direction: row;
+            align-items: center;
+            width:100%
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Tablero Mensajes Usuarios</h1>
+    <div class="flex-container">
+        <h3>Usuarios conectados</h3>
+        <div id="contenedor-conectados">
+
+        </div>
+        <div>
+            <div id="mensaje_usuarios">
+                <form>
+                    <input type="text" name="mensajeAdmin" id="mensajeAdmin">
+                    
+                </form>
+                <button onclick="mensajeAdmin(event)">Enviar</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        /* const URL='http://localhost:6060/app/usuario' */
+        const url = 'https://backrutaamigaapptestnotification-com.onrender.com/app/'
+        const urlServer = 'https://backrutaamigaapptestnotification-com.onrender.com'
+        const urlLocalServer = 'http://localhost:6060'
+        let socket=null
+    </script>
+    <!-- <script src='./socket.io/socket.io.js'></script> -->
+   
+    <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
+    <script type="module">
+        import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
+        /*  console.log(io.on("user_conection",(data)=>{
+             console.log(data);
+         })); */
+        /* const urlServer = 'http://localhost:3500' */
+        /*  const urlServer = 'https://backrutaamigaapptestnotification-com.onrender.com:3500' */
+        socket = io(urlLocalServer, { autoConnect: false });
+
+        window.socket = socket
+
+        // client-side
+        socket.on("users", (data) => {
+            console.log(data);
+            const { users } = data
+            let contenedor = document.getElementById('contenedor-conectados');
+
+            Object.values(users).forEach((user, index) => {
+                let idUser = user.userID
+                let identify = `mensaje${index}`
+                contenedor.innerHTML += `<div>                                
+                                            <form>
+                                                <input type="text" name="mensaje" value="" id="${identify}">                                                
+                                            </form>
+                                            <p>${user.userID}</p>
+                                            <button onclick="enviarMensaje('${idUser}',${index})">ENVIAR</button>
+                                            `;
+            })
+        })
+
+
+        socket.on("mensaje_bienveida_admin", (mensaje) => {
+            
+            notifyMe(mensaje)
+            
+        });
+
+
+        socket.on("connect", () => {
+            console.log("id del cliente", socket.id);
+        });
+
+        socket.on("disconnect", (data) => {
+            console.log("id del cliente disconnect", data);
+        });
+
+        conectarAlServer()
+
+
+
+        function conectarAlServer() {
+            window.socket.connect()
+        }
+
+        function desconectarAlServer() {
+
+            console.log(window.socket);
+            window.socket.disconnect()
+        }
+    </script>
+    <script>
+        function enviarMensaje(id, position) {
+            let mensajeUsuario = document.getElementById(`${'mensaje' + position}`);
+            console.log(mensajeUsuario.value);
+            socket.emit("mensaje_privado", { mensaje:mensajeUsuario.value, id });
+        }
+
+        function mensajeAdmin(event){
+            event.preventDefault();
+           
+            let mensajeAdmin = document.getElementById('mensajeAdmin');
+            console.log(mensajeAdmin.value);
+            socket.emit("mensaje_admin", { mensaje:mensajeAdmin.value});
+        }
+    </script>
+     <script src='./js/Notify.js'></script>
+</body>
+
+</html>
