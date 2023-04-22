@@ -34,7 +34,7 @@ export class FileController {
                 ]
             });
 
-            
+
             // We keep the name and URL generated in Cloudinary.
             const filename = req.file.originalname;
             const cloudinary_url = result.secure_url;
@@ -51,10 +51,10 @@ export class FileController {
                 user:user
             }) */
 
-            const dbUserFile= new File();
-            dbUserFile.file_name= filename,
-            dbUserFile.cloudinary_url= cloudinary_url
-            dbUserFile.user  = user
+            const dbUserFile = new File();
+            dbUserFile.file_name = filename,
+                dbUserFile.cloudinary_url = cloudinary_url
+            dbUserFile.user = user
             const fileuser = await myDataSource.getRepository(File).save(dbUserFile)
             return res.status(201).send({ status: "¡Archivo cargado correctamente!", File })
 

@@ -7,12 +7,12 @@ export class Rol {
     id_rol: number
 
     @Column({ type: "varchar", nullable: false })
-    id_nombre: string
+    nombre_rol: string
 
     //Relations
     //With user one to one
     @OneToOne(() => User, (user) => user.user_rol, {
     })
     @JoinColumn()
-    user: User;
+    rol_user: User;
 }

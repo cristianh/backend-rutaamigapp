@@ -51,7 +51,7 @@ export class User {
     file: File
 
     //With rol one to one
-    @OneToOne(() => Rol, (rol) => rol.user) // specify inverse side as a second parameter
+    @OneToOne(() => Rol, (rol) => rol.rol_user) // specify inverse side as a second parameter
     user_rol: Rol
 
     //With notification many to many
