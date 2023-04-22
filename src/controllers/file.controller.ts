@@ -3,7 +3,8 @@ import { Request, Response } from "express"
 import { User } from "../entity/user.entity";
 import myDataSource from "../../app-data-source"
 const cloudinary = require("cloudinary").v2;
-//CONFIGURAMOS EL SERVIDOR DE IMAGENES. 
+
+//Set the image server. 
 cloudinary.config({
     cloud_name: "dl7oqoile",
     api_key: "511562285567879",
@@ -15,11 +16,14 @@ import { File } from "../entity/file.entity"
 
 export class FileController {
 
-
-
+    /**
+     * The above code is a function to save file.
+     * @param {Request} req - Request - The request object
+     * @param {Response} res - Response - The response object
+     * @returns Status string.
+     */
+    /*  */
     public saveFile = async (req: Request, res: Response) => {
-
-
         try {
 
             cloudinary.image(req.file.originalname, { width: 150, height: 150, gravity: "face", radius: "max", crop: "fill" })
@@ -33,7 +37,6 @@ export class FileController {
                     { width: 200, crop: "scale" }
                 ]
             });
-
 
             // We keep the name and URL generated in Cloudinary.
             const filename = req.file.originalname;

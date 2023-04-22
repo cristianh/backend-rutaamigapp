@@ -5,6 +5,7 @@ import { validationResult } from 'express-validator';
 import { generateTokenForgetPassword } from "../helpers/generateJWT";
 import * as nodemailer from 'nodemailer';
 import { bcrypGenerateEncript } from "../helpers/bcryptHelper";
+
 export class ForgetPasswordController {
 
     /* The above code is sending an email to the user with a link to reset the password. */
@@ -78,7 +79,6 @@ export class ForgetPasswordController {
                 </div>`
             }
 
-
             // Send the mail with the message options.
             transporter.sendMail(mailOptions, (error, response) => {
                 if (error) {
@@ -88,9 +88,8 @@ export class ForgetPasswordController {
                 }
             })
         } catch (error) {
-
+            return res.status(500).json({ error: error.message })
         }
-
     }
 
     /* The above code is updating the password of a user. */
@@ -117,5 +116,4 @@ export class ForgetPasswordController {
             return res.status(500).json({ error })
         }
     }
-
 }
