@@ -88,7 +88,7 @@ export class ForgetPasswordController {
                 }
             })
         } catch (error) {
-
+            return res.status(500).json({ error })
         }
 
     }

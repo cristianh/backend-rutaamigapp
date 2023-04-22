@@ -31,6 +31,6 @@ export class Route {
 
     //Relations
     //With notification one to one
-    @OneToMany(() => Notification, (notification) => notification.user) // specify inverse side as a second parameter
-    notification: Notification
+    @OneToMany(() => Notification, (notification) => notification.user_notification) // specify inverse side as a second parameter
+    route_notification: Notification
 }

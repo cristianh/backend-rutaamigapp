@@ -85,7 +85,7 @@ export class FileController {
             }
             */
         } catch (error) {
-            res.status(500).send({ msg: 'Se ha producido un error al cargar el archivo', error })
+            return res.status(500).send({ msg: 'Se ha producido un error al cargar el archivo', error })
         }
 
 
