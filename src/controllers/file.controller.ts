@@ -56,7 +56,7 @@ export class FileController {
 
             const dbUserFile = new File();
             dbUserFile.file_name = filename,
-                dbUserFile.cloudinary_url = cloudinary_url
+            dbUserFile.cloudinary_url = cloudinary_url
             dbUserFile.user = user
             const fileuser = await myDataSource.getRepository(File).save(dbUserFile)
             return res.status(201).send({ status: "¡Archivo cargado correctamente!", File })
