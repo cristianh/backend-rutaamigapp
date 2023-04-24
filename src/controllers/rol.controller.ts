@@ -1,8 +1,8 @@
 //Import dependences
 import { Router, Request, Response } from "express"
 import myDataSource from "../../app-data-source"
-import { User } from "src/entity/user.entity"
-import { Rol } from "src/entity/rol.entity"
+import { User } from "../entity/user.entity"
+import { Rol } from "../entity/rol.entity"
 import { validationResult } from 'express-validator';
 
 export class RolController {
@@ -88,7 +88,7 @@ export class RolController {
      * @param req Request - The request object
      * @param res Response - The response object
      */
-    public saveUser = async (req: Request, res: Response) => {
+    public saveRol = async (req: Request, res: Response) => {
 
         try {
             //Save in var the atributes of the request body

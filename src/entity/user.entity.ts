@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, JoinTable, UpdateDateColumn, DeleteDateColumn, OneToOne } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, OneToMany, ManyToMany, JoinTable, UpdateDateColumn, DeleteDateColumn, OneToOne } from "typeorm"
 //Import needed entyties
 import { File } from "./file.entity"
-import { Rol } from "./rol.entity"
+import { UserToRol } from "./userToRol.entity"
 import { Notification } from "./notification.entity"
 
 /*idusuario           INT PRIMARY KEY auto_increment,
@@ -50,9 +50,11 @@ export class User {
     @OneToOne(() => File, (file) => file.user) // specify inverse side as a second parameter
     file: File
 
-    //With rol one to one
-    @OneToOne(() => Rol, (rol) => rol.rol_user) // specify inverse side as a second parameter
-    user_rol: Rol
+
+    //With notification one to one
+    @OneToMany(() => UserToRol, (usertorol) => usertorol.user) // specify inverse side as a second parameter
+    user_rol: UserToRol[]
+
 
     //With notification many to many
     @OneToMany(() => Notification, notification => notification.user_notification)

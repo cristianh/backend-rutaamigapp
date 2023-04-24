@@ -11,8 +11,7 @@
             "dependsOrder": "parallel", // or parallel,sequence
             "dependsOn": [
                 "typescript",
-                "servidor",
-                "socket"
+                "servidor"
             ]
         },
         {

@@ -1,5 +1,7 @@
+
 import { Request, Response } from "express"
 import { User } from "../entity/user.entity"
+import { UserToRol } from './../entity/userToRol.entity';
 import myDataSource from "../../app-data-source"
 import { validationResult } from 'express-validator';
 import { generateToken } from "../helpers/generateJWT";
@@ -32,11 +34,23 @@ export class AuthController {
                     user_email: req.body.user_email
                 },
                 relations: {
-                    file: true
+                    file: true,
+                    user_rol: true
                 },
             })
 
-            console.log(user)
+            
+
+            //Find rol user login.
+            const user_to_rol: UserToRol = await myDataSource.getRepository(UserToRol).findOne({                
+                where: {
+                    user_to_rol_id: user.user_rol[0].user_to_rol_id
+                },
+                relations: {                    
+                    rol: true
+                },                
+            })
+
             // We validate if the user exists.
             if (!user) {
                 return res.status(400).json({ result: "Usuario no encontrado, por favor revise correo y contraseña" })
@@ -60,7 +74,7 @@ export class AuthController {
 
             if (token) {
                 // If the user Exit we send the information.
-                return res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img':user.file?.cloudinary_url??"" }, token })
+                return res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img':user.file?.cloudinary_url,'rol':user_to_rol.rol.id_rol??"" }, token })
             }
 
         } catch (error) {

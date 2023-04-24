@@ -25,6 +25,7 @@ const usersedders = new UserSeeder()
 
 router.get("/allusers/:all?/:limit?/:skip?",validationJWT.validate,userController.getAllUsers);
 router.get("/:id", userController.getUserById);
+router.get("/userrols/:id", userController.getUserByRol);
 router.post("/registro", validation.validateFormUsuarioRegister(), userController.saveUser);
 router.put("/:id", userController.updateUser);
 router.delete("/:id",userController.deleteUser);

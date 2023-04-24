@@ -10,6 +10,8 @@ import { bcrypGenerateEncript } from "../helpers/bcryptHelper";
 
 //Import database of user entity 
 import { User } from "../entity/user.entity"
+import { Rol } from "../entity/rol.entity"
+import { UserToRol } from "../entity/userToRol.entity"
 
 //Take ORM methods
 const userRepository = myDataSource.getRepository(User);
@@ -34,11 +36,13 @@ export class UserController {
                 const user = await myDataSource.getRepository(User).find({
                     relations: {
                         file: true,
-                    },  
+                        user_rol: true,
+                        notification: true
+                    },
                 })
                 let data = { user, totalUsers: user.length }
 
-               return res.status(200).json(data)
+                return res.status(200).json(data)
             } else {
                 query = {
                     skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
@@ -51,7 +55,7 @@ export class UserController {
             }
 
         } catch (error) {
-            return res.json({ error:error.message })
+            return res.json({ error: error.message })
         }
     }
 
@@ -68,8 +72,34 @@ export class UserController {
                 user_id: parseInt(req.params.id),
             })
 
-            if(!results){
-                return res.status(200).send({status:`Usuario con id: '${req.params.id}' no encontrado.`})
+            if (!results) {
+                return res.status(200).send({ status: `Usuario con id: '${req.params.id}' no encontrado.` })
+            }
+
+
+            return res.status(200).send(results)
+        } catch (error) {
+            return res.status(500).json({ error })
+        }
+    }
+
+    public getUserByRol = async (req: Request, res: Response) => {
+        try {
+            //Find rol user login.
+            const results: UserToRol[] = await myDataSource.getRepository(UserToRol).find({
+                relations: {
+                    user: true,
+                    rol: true
+                },
+                where: {
+                    rol: {
+                        id_rol: parseInt(req.params.id)
+                    }
+                }
+            })
+
+            if (!results) {
+                return res.status(200).send({ status: `No se encuentran datos` })
             }
 
 
@@ -95,8 +125,20 @@ export class UserController {
 
                 return res.status(400).json({ errors: errors.array() });
             } else {
+
+
                 //Save in var the atributes of the request body
-                let { user_name, user_lastname, user_email, user_password } = req.body;
+                let { user_name, user_lastname, user_email, user_password, user_rol } = req.body;
+
+                //FIND ROL IN DB
+                const findRol = await myDataSource.getRepository(Rol).findOneBy({
+                    id_rol: parseInt(user_rol),
+                })
+
+                //FIND ROLL FOR ID
+                if (!findRol) {
+                    return res.status(201).send({ status: `Rol de usuario '${user_rol}' no encontrado` })
+                }
 
                 const dbUser = await myDataSource.getRepository(User).create({
                     user_name: user_name,
@@ -105,10 +147,20 @@ export class UserController {
                     user_password: bcrypGenerateEncript(user_password)
                 })
 
-                
+
+
                 //Create the request body
                 const user = await myDataSource.getRepository(User).save(dbUser)
-                return res.status(201).send({ status: "Usuario guardado con exito", user })
+
+                //User to rol
+                let user_to_rol = new UserToRol()
+
+                //Crate insert entity in DB
+                user_to_rol.user = user
+                user_to_rol.rol = findRol
+
+                const user_to_rol_save = await myDataSource.getRepository(UserToRol).save(user_to_rol)
+                return res.status(201).send({ status: "Usuario guardado con exito." })
             }
 
         } catch (error) {
@@ -131,13 +183,13 @@ export class UserController {
                 user_id: parseInt(req.params.id),
             })
 
-            if(!searchUser){
-                return res.status(200).send({status:`Usuario con id: '${req.params.id}' no encontrado.`})
+            if (!searchUser) {
+                return res.status(200).send({ status: `Usuario con id: '${req.params.id}' no encontrado.` })
             }
 
-          
+
             myDataSource.getRepository(User).merge(searchUser, req.body)
-            const user = await myDataSource.getRepository(User).update(searchUser.user_id,searchUser)
+            const user = await myDataSource.getRepository(User).update(searchUser.user_id, searchUser)
             return res.status(201).send({ status: "Usuario actualizado con exito", user })
         } catch (error) {
             return res.status(500).json({ error })
@@ -157,14 +209,14 @@ export class UserController {
                 user_id: parseInt(req.params.id),
             })
 
-            if(!searchUser){
-                return res.status(200).send({status:`Usuario con id: '${req.params.id}' no encontrado.`})
+            if (!searchUser) {
+                return res.status(200).send({ status: `Usuario con id: '${req.params.id}' no encontrado.` })
             }
-            
-            searchUser.user_status=Boolean(0)
-            const result = await myDataSource.getRepository(User).update(searchUser.user_id,searchUser)
-            
-            return res.status(200).json({ status: "Usuario eliminado con exito", result})
+
+            searchUser.user_status = Boolean(0)
+            const result = await myDataSource.getRepository(User).update(searchUser.user_id, searchUser)
+
+            return res.status(200).json({ status: "Usuario eliminado con exito", result })
         } catch (error) {
             return res.status(500).json({ error })
         }

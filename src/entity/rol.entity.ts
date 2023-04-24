@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm"
 import { User } from "../entity/user.entity"
-
+import { UserToRol } from "./userToRol.entity"
 @Entity()
 export class Rol {
     @PrimaryGeneratedColumn()
@@ -10,9 +10,7 @@ export class Rol {
     nombre_rol: string
 
     //Relations
-    //With user one to one
-    @OneToOne(() => User, (user) => user.user_rol, {
-    })
-    @JoinColumn()
-    rol_user: User;
+    //With notification one to one
+    @OneToMany(() => UserToRol, (usertorol) => usertorol.user) // specify inverse side as a second parameter
+    rol_user: UserToRol[]
 }
