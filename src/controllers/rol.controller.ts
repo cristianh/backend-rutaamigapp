@@ -28,7 +28,7 @@ export class RolController {
                 })
                 let data = { rol, totalRol: rol.length }
 
-                res.status(200).json(data)
+                return res.status(200).json(data)
             } else {
                 query = {
                     skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
@@ -37,7 +37,7 @@ export class RolController {
                 const rol = await myDataSource.getRepository(Rol).find(query)
                 let data = { rol, totalRol: rol.length, page: skip, limit: limit }
 
-                res.status(200).json(data)
+                return res.status(200).json(data)
             }
 
         } catch (error) {
@@ -77,8 +77,7 @@ export class RolController {
                     id_rol: parseInt(req.params.id)
                 }
             });
-
-            res.json(user_rol)
+            return res.json(user_rol)
         } catch (error) {
             return res.status(500).json({ error: error.message })
         }
