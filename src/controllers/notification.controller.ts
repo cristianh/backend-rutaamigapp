@@ -5,6 +5,10 @@ import { Route } from "../entity/route.entity";
 import { Notification } from "../entity/notification.entity";
 import myDataSource from "../../app-data-source"
 
+/**
+ * 
+ */
+/* The NotificationController class is being exported. */
 export class NotificationController {
 
     /**
