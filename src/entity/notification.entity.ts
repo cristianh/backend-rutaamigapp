@@ -2,7 +2,10 @@ import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from "t
 import { Route } from "./route.entity"
 import { User } from "./user.entity"
 
-
+/*idNotificaciones INT primary key auto_increment,
+intervalo INT  not null,
+fecha_hora DATETIME not null,
+ruta_idruta int*/
 
 @Entity()
 export class Notification {
@@ -12,9 +15,6 @@ export class Notification {
     @Column({ type: "int", nullable: false })
     notification_inverval: number
 
-    @Column({ type: "varchar", length: 60, nullable: false })
-    notification_message: string 
-
     /* @Column({ type: "datetime", nullable: false })
     fecha_hora: string */
 
@@ -23,9 +23,9 @@ export class Notification {
     @ManyToOne(() => Route, (route) => route.route_id, {
     })
     @JoinColumn()
-    route_notification: Route;
+    route: Route;
 
     //With user many to one
     @ManyToOne(() => User, user => user.notification)
-    user_notification: User;
+    user: User;
 }
