@@ -30,14 +30,6 @@
             "presentation": {
                 "group": "groupServerStuff"
             }
-        },
-        {
-            "label": "socket",
-            "type": "shell",
-            "command": "nodemon dist/src/servermap/servermap",
-            "presentation": {
-                "group": "groupServerStuff"
-            }
-        },
+        }
     ]
 }

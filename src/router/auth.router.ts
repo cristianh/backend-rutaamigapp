@@ -20,7 +20,7 @@ const authController = new AuthController();
 const forgetPasswordController = new ForgetPasswordController();
 
 
-router.post("/login", validation.validateFormUsuarioLogin(), authController.getUsuarioLogin);
+router.post("/login", validation.validateFormUsuarioLogin(), authController.getUserLogin);
 
 router.get("/resetpassword/:id/:token", validationJWT.validateTimeToken, (req: Request, res: Response) => {
    res.sendFile(path.resolve(__dirname, '../../view', 'RecuperacionPassword.html'));

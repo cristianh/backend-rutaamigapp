@@ -9,8 +9,14 @@ import { bcrypCheck } from "../helpers/bcryptHelper";
 /* The above code is a function that is used to validate the user's login. */
 export class AuthController {
 
-    /* The above code is a function that is used to validate the user's login. */
-    public getUsuarioLogin = async (req: Request, res: Response) => {
+    /**
+     * The above code is a function that is used to validate the user's login.
+     * @param {Request} req - Request - The request object
+     * @param {Response} res - Response - The response object
+     * @returns Get users login.
+     */
+    /*  */
+    public getUserLogin = async (req: Request, res: Response) => {
         try {
             // We verify if there are error in the validated fields with Express-Validate
             let errors = validationResult(req);
