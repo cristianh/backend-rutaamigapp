@@ -30,7 +30,7 @@ router.post("/registro", validation.validateFormUsuarioRegister(), userControlle
 router.put("/:id", userController.updateUser);
 router.delete("/:id",userController.deleteUser);
 //Test
-router.post("/createUsers",validationJWT.validate,usersedders.CreateUser);
+router.post("/createUsers/:nusuarios",validationJWT.validate,usersedders.CreateUser);
 
 
 
