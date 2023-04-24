@@ -33,12 +33,12 @@ export class UserController {
             if (all) {
                 const user = await myDataSource.getRepository(User).find({
                     relations: {
-                        user_file: true,
+                        file: true,
                     },  
                 })
                 let data = { user, totalUsers: user.length }
 
-                res.status(200).json(data)
+               return res.status(200).json(data)
             } else {
                 query = {
                     skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
@@ -47,79 +47,14 @@ export class UserController {
                 const usuario = await myDataSource.getRepository(User).find(query)
                 let data = { usuario, totalUsers: usuario.length, page: skip, limit: limit }
 
-                res.status(200).json(data)
+                return res.status(200).json(data)
             }
 
         } catch (error) {
-            res.json({ error:error.message })
+            return res.json({ error:error.message })
         }
     }
 
-    /**
-     * It gets all the users and their comments.
-     * @param {Request} req - Request - The request object.
-     * @param {Response} res - Response - The response object.
-     */
-    /* public getComentariesUsers = async (req: Request, res: Response) => {
-
-        try {
-            const user = await myDataSource.getRepository(User).find({
-                relations: {
-                    comment: true,
-                },
-                where: {
-                    user_id: parseInt(req.params.user_id)
-                }
-            })
-            res.json(user)
-        } catch (error) {
-            res.json({ error })
-        }
-    } */
-
-
-    /**
-     * "I want to get a user by id and a comment by id, and I want to get the user's comments"
-     * </code>
-     * @param {Request} req - Request
-     * @param {Response} res - Response
-     */
-    /* public getUserByIdComentariesById = async (req: Request, res: Response) => {
-        try {
-            const user = await myDataSource.getRepository(User).find({
-                relations: {
-                    comment: true,
-                },
-                where: {
-                    user_id: parseInt(req.params.user_id),
-                    comment: {
-                        comment_id: parseInt(req.params.comment_id)
-                    }
-                },
-            })
-            res.json(user)
-        } catch (error) {
-            res.json({ error })
-        }
-    } */
-
-    /* Getting all the comments of a user by id. */
-    /* public getComentariesUsersById = async (req: Request, res: Response) => {
-        try {
-            const user = await myDataSource.getRepository(User).find({
-                relations: {
-                    comment: true,
-                },
-                where: {
-                    user_id: parseInt(req.params.id),
-                },
-            })
-            res.json(user)
-        } catch (error) {
-            res.json({ error })
-        }
-    }
- */
 
     /**
      * It gets a user by id from the database and returns it to the user.
@@ -132,9 +67,15 @@ export class UserController {
             const results = await myDataSource.getRepository(User).findOneBy({
                 user_id: parseInt(req.params.id),
             })
-            return res.send(results)
+
+            if(!results){
+                return res.status(200).send({status:`Usuario con id: '${req.params.id}' no encontrado.`})
+            }
+
+
+            return res.status(200).send(results)
         } catch (error) {
-            res.json({ error })
+            return res.status(500).json({ error })
         }
     }
 
@@ -190,21 +131,16 @@ export class UserController {
                 user_id: parseInt(req.params.id),
             })
 
-            //Save in var the atributes of the request body
-            //let { user_name, user_lastname, user_email, user_password } = req.body;
+            if(!searchUser){
+                return res.status(200).send({status:`Usuario con id: '${req.params.id}' no encontrado.`})
+            }
 
-            /* const dbUser = await myDataSource.getRepository(User).create({
-                user_name: user_name,
-                user_lastname: user_lastname,
-                user_email: user_email,
-                user_password: bcrypGenerateEncript(user_password)
-            }) */
-            //Create the request body
+          
             myDataSource.getRepository(User).merge(searchUser, req.body)
             const user = await myDataSource.getRepository(User).update(searchUser.user_id,searchUser)
             return res.status(201).send({ status: "Usuario actualizado con exito", user })
         } catch (error) {
-            res.json({ error })
+            return res.status(500).json({ error })
         }
     }
 
@@ -220,13 +156,17 @@ export class UserController {
             const searchUser = await myDataSource.getRepository(User).findOneBy({
                 user_id: parseInt(req.params.id),
             })
+
+            if(!searchUser){
+                return res.status(200).send({status:`Usuario con id: '${req.params.id}' no encontrado.`})
+            }
             
             searchUser.user_status=Boolean(0)
             const result = await myDataSource.getRepository(User).update(searchUser.user_id,searchUser)
-            console.log(result)
+            
             return res.status(200).json({ status: "Usuario eliminado con exito", result})
         } catch (error) {
-            res.json({ error })
+            return res.status(500).json({ error })
         }
     }
 
