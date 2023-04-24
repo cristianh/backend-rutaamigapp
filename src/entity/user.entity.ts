@@ -55,6 +55,6 @@ export class User {
     user_rol: Rol
 
     //With notification many to many
-    @OneToMany(() => Notification, notification => notification.user)
+    @OneToMany(() => Notification, notification => notification.user_notification)
     notification: Notification[];
 }
