@@ -16,10 +16,14 @@ dotenv.config();
     username: process.env.DBUSER,
     password: process.env.DBPASSWORD,
     database: process.env.DBNAME,
-    entities: [__dirname + "/src/entity/*.js"],
-    logging: false,
-    synchronize: true,
-}) */
+    entities: [__dirname + "/**/ 
+    * /entity/ * .js;
+"],;
+logging: false,
+    synchronize;
+true,
+;
+ * /;
 /* postgres-conexion - REMOTE
 */
 var myDataSource = new typeorm_1.DataSource({

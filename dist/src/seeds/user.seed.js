@@ -43,66 +43,65 @@ var app_data_source_1 = require("../../app-data-source");
 //Faker 
 var faker_1 = require("@faker-js/faker");
 var bcryptHelper_1 = require("../../src/helpers/bcryptHelper");
+var rol_entity_1 = require("../entity/rol.entity");
 var UserSeeder = /** @class */ (function () {
     function UserSeeder() {
         var _this = this;
         this.CreateUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var users, cantidad_usuarios, step, file, user, error_1;
+            var users, cantidad_usuarios, findRol, step, file, user, error_1;
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _b.trys.push([0, 7, , 8]);
+                        _b.trys.push([0, 8, , 9]);
                         users = Array();
-                        cantidad_usuarios = (_a = req.query['nusuarios']) !== null && _a !== void 0 ? _a : 3;
+                        cantidad_usuarios = (_a = req.params.nusuarios) !== null && _a !== void 0 ? _a : 3;
                         if (!(cantidad_usuarios > 10)) return [3 /*break*/, 1];
                         return [2 /*return*/, res.status(501).send({ status: "Solo se pueden generar 10 usuario." })];
-                    case 1:
-                        step = 0;
-                        _b.label = 2;
+                    case 1: return [4 /*yield*/, app_data_source_1.default.getRepository(rol_entity_1.Rol).findOneBy({
+                            id_rol: 2,
+                        })];
                     case 2:
-                        if (!(step < cantidad_usuarios)) return [3 /*break*/, 6];
-                        // Runs 5 times, with values of step 0 through 4.
-                        console.log("Walking east one step");
+                        findRol = _b.sent();
+                        step = 0;
+                        _b.label = 3;
+                    case 3:
+                        if (!(step < cantidad_usuarios)) return [3 /*break*/, 7];
                         file = new file_entity_1.File();
                         user = new user_entity_1.User();
                         file.file_name = "Filedummi",
                             file.cloudinary_url = faker_1.faker.image.avatar(),
-                            file.create_date = new Date().toISOString();
+                            file.file_create_date = new Date().toISOString();
                         return [4 /*yield*/, app_data_source_1.default.getRepository(file_entity_1.File).save(file)];
-                    case 3:
+                    case 4:
                         _b.sent();
                         user.user_name = faker_1.faker.name.firstName('male'),
                             user.user_lastname = faker_1.faker.name.lastName('male'),
                             user.user_email = faker_1.faker.internet.email(),
                             user.user_password = (0, bcryptHelper_1.bcrypGenerateEncript)("A123bb9%");
-                        user.user_file = file;
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).save(user)
-                            /*   users.push(user)
-              
-                              files.push(file) */
-                        ];
-                    case 4:
-                        _b.sent();
-                        _b.label = 5;
+                        user.file = file;
+                        user.rol_user = findRol;
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).save(user)];
                     case 5:
-                        step++;
-                        return [3 /*break*/, 2];
+                        _b.sent();
+                        _b.label = 6;
                     case 6:
-                        console.log("cantidad de usuarios generados", users.length);
-                        /*  const dbUser = await myDataSource.getRepository(User).create(users)
-             
-                         //Create the request body
-                         const user = await myDataSource.getRepository(User).insert(dbUser) */
-                        //--------------------
-                        /* const dbFile = await myDataSource.getRepository(File).create(files) */
-                        //Create the request body
-                        /* const file = await myDataSource.getRepository(File).insert(dbFile) */
-                        return [2 /*return*/, res.status(201).send({ status: "Usuarios creados con exito", cantidad_usuarios_creados: cantidad_usuarios })];
-                    case 7:
+                        step++;
+                        return [3 /*break*/, 3];
+                    case 7: 
+                    /*  const dbUser = await myDataSource.getRepository(User).create(users)
+         
+                     //Create the request body
+                     const user = await myDataSource.getRepository(User).insert(dbUser) */
+                    //--------------------
+                    /* const dbFile = await myDataSource.getRepository(File).create(files) */
+                    //Create the request body
+                    /* const file = await myDataSource.getRepository(File).insert(dbFile) */
+                    return [2 /*return*/, res.status(201).send({ status: "Usuarios creados con exito", cantidad_usuarios_creados: cantidad_usuarios })];
+                    case 8:
                         error_1 = _b.sent();
                         return [2 /*return*/, res.json({ error: error_1 })];
-                    case 8: return [2 /*return*/];
+                    case 9: return [2 /*return*/];
                 }
             });
         }); };

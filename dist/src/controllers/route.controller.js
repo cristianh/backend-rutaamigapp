@@ -40,15 +40,23 @@ exports.RouteController = void 0;
 var app_data_source_1 = require("../../app-data-source");
 //Import database route entity
 var route_entity_1 = require("../entity/route.entity");
+//Import the library to encrypt password
 var express_validator_1 = require("express-validator");
 //Take ORM methods
 var routeRepository = app_data_source_1.default.getRepository(route_entity_1.Route);
+/* The RouteController class contains methods for retrieving, saving, updating, and deleting routes
+from a database. */
 var RouteController = /** @class */ (function () {
     function RouteController() {
         var _this = this;
-        /* A function that is going to get all the rutas from the database. */
-        this.getAllRutas = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var limit, skip, all, query, routes, data, usuario, data, error_1;
+        /**
+         * A function that is going to get all the rutas from the database.
+         * @param {Request} req - Request - The request object
+         * @param {Response} res - Response - The response object
+         * @returns
+         */
+        this.getAllRoute = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var limit, skip, all, query, routes, data, route, data, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -62,8 +70,7 @@ var RouteController = /** @class */ (function () {
                     case 1:
                         routes = _a.sent();
                         data = { routes: routes, totalRoutes: routes.length };
-                        res.status(200).json(data);
-                        return [3 /*break*/, 4];
+                        return [2 /*return*/, res.status(200).json(data)];
                     case 2:
                         query = {
                             skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
@@ -71,21 +78,24 @@ var RouteController = /** @class */ (function () {
                         };
                         return [4 /*yield*/, app_data_source_1.default.getRepository(route_entity_1.Route).find(query)];
                     case 3:
-                        usuario = _a.sent();
-                        data = { Route: route_entity_1.Route, totalRoutes: route_entity_1.Route.length, page: skip, limit: limit };
-                        res.status(200).json(data);
-                        _a.label = 4;
+                        route = _a.sent();
+                        data = { route: route, totalRoutes: route.length, page: skip, limit: limit };
+                        return [2 /*return*/, res.status(200).json(data)];
                     case 4: return [3 /*break*/, 6];
                     case 5:
                         error_1 = _a.sent();
-                        res.json({ error: error_1 });
-                        return [3 /*break*/, 6];
+                        return [2 /*return*/, res.json({ error: error_1 })];
                     case 6: return [2 /*return*/];
                 }
             });
         }); };
-        /* Getting the id of the ruta and returning the results. */
-        this.getAllRutaById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        /**
+         * Getting the id of the ruta and returning the results.
+         * @param {Request} req - Request - The request object
+         * @param {Response} res - Response - The response object
+         * @returns string
+         */
+        this.getRouteById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var results, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -96,17 +106,24 @@ var RouteController = /** @class */ (function () {
                             })];
                     case 1:
                         results = _a.sent();
-                        return [2 /*return*/, res.send(results)];
+                        if (!results) {
+                            return [2 /*return*/, res.status(200).send({ status: "Ruta con id: '".concat(req.params.id, "' no encontrada") })];
+                        }
+                        return [2 /*return*/, res.status(200).send(results)];
                     case 2:
                         error_2 = _a.sent();
-                        res.json({ error: error_2 });
-                        return [3 /*break*/, 3];
+                        return [2 /*return*/, res.status(500).json({ error: error_2 })];
                     case 3: return [2 /*return*/];
                 }
             });
         }); };
-        /* Saving the ruta in the database. */
-        this.saveRuta = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        /**
+         * Saving the Route in the database.
+         * @param {Request} req - Request - The request object
+         * @param {Response} res - Response - The response object
+         * @returns
+         */
+        this.saveRoute = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var errors, ruta, results, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -115,9 +132,7 @@ var RouteController = /** @class */ (function () {
                         errors = (0, express_validator_1.validationResult)(req);
                         if (!!errors.isEmpty()) return [3 /*break*/, 1];
                         return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
-                    case 1:
-                        console.log(req.body);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(route_entity_1.Route).create(req.body)];
+                    case 1: return [4 /*yield*/, app_data_source_1.default.getRepository(route_entity_1.Route).create(req.body)];
                     case 2:
                         ruta = _a.sent();
                         return [4 /*yield*/, app_data_source_1.default.getRepository(route_entity_1.Route).save(ruta)];
@@ -127,19 +142,23 @@ var RouteController = /** @class */ (function () {
                     case 4: return [3 /*break*/, 6];
                     case 5:
                         error_3 = _a.sent();
-                        res.json({ error: error_3 });
-                        return [3 /*break*/, 6];
+                        return [2 /*return*/, res.status(500).json({ error: error_3 })];
                     case 6: return [2 /*return*/];
                 }
             });
         }); };
-        /* Updating the ruta in the database. */
-        this.updateRuta = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, searchUser, usuario, results, error_4;
+        /**
+        * Set route in database.
+        * @param {Request} req - Request - The request object
+        * @param {Response} res - Response - The response object
+        * @returns string
+        */
+        this.updateRoute = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var errors, searchRoute, router, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 6, , 7]);
+                        _a.trys.push([0, 5, , 6]);
                         errors = (0, express_validator_1.validationResult)(req);
                         if (!!errors.isEmpty()) return [3 /*break*/, 1];
                         return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
@@ -147,42 +166,55 @@ var RouteController = /** @class */ (function () {
                             route_id: parseInt(req.params.id),
                         })];
                     case 2:
-                        searchUser = _a.sent();
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(route_entity_1.Route).findOneBy({
-                                route_id: parseInt(req.params.id),
-                            })];
+                        searchRoute = _a.sent();
+                        if (!searchRoute) {
+                            return [2 /*return*/, res.status(201).send({ status: "Ruta id: '".concat(req.params.id, "' no encontrada") })];
+                        }
+                        //JOIN DATA DB AND REQUEST BODY
+                        app_data_source_1.default.getRepository(route_entity_1.Route).merge(searchRoute, req.body);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(route_entity_1.Route).update(searchRoute.route_id, searchRoute)];
                     case 3:
-                        usuario = _a.sent();
-                        app_data_source_1.default.getRepository(route_entity_1.Route).merge(usuario, req.body);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(route_entity_1.Route).save(usuario)];
-                    case 4:
-                        results = _a.sent();
-                        return [2 /*return*/, res.send(200).json({ status: 'ok', results: results })];
-                    case 5: return [3 /*break*/, 7];
-                    case 6:
+                        router = _a.sent();
+                        if (router) {
+                            return [2 /*return*/, res.status(201).send({ status: "Ruta actualizada con exito", router: router })];
+                        }
+                        _a.label = 4;
+                    case 4: return [3 /*break*/, 6];
+                    case 5:
                         error_4 = _a.sent();
-                        res.json({ error: error_4 });
-                        return [3 /*break*/, 7];
-                    case 7: return [2 /*return*/];
+                        return [2 /*return*/, res.send(500).json({ error: error_4 })];
+                    case 6: return [2 /*return*/];
                 }
             });
         }); };
-        /* Deleting the ruta from the database. */
-        this.deleteRuta = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var results, error_5;
+        /**
+         * Delete route in database.
+         * @param {Request} req - Request - The request object
+         * @param {Response} res - Response - The response object
+         * @returns string
+         */
+        this.deleteRoute = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var searchRoute, results, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(route_entity_1.Route).delete(req.params.id)];
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(route_entity_1.Route).findOneBy({
+                                route_id: parseInt(req.params.id),
+                            })];
                     case 1:
-                        results = _a.sent();
-                        return [2 /*return*/, res.send(results)];
+                        searchRoute = _a.sent();
+                        if (!searchRoute) {
+                            return [2 /*return*/, res.status(201).send({ status: "Ruta id: '".concat(req.params.id, "' no encontrada") })];
+                        }
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(route_entity_1.Route).delete(req.params.id)];
                     case 2:
+                        results = _a.sent();
+                        return [2 /*return*/, res.status(200).send(results)];
+                    case 3:
                         error_5 = _a.sent();
-                        res.json({ error: error_5 });
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+                        return [2 /*return*/, res.status(500).json({ error: error_5 })];
+                    case 4: return [2 /*return*/];
                 }
             });
         }); };

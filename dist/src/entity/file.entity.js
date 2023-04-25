@@ -34,24 +34,24 @@ var File = /** @class */ (function () {
         __metadata("design:type", String)
     ], File.prototype, "cloudinary_url", void 0);
     __decorate([
-        (0, typeorm_1.OneToOne)(function () { return user_entity_1.User; }, function (user) { return user.user_file; }, {
+        (0, typeorm_1.CreateDateColumn)(),
+        __metadata("design:type", String)
+    ], File.prototype, "file_create_date", void 0);
+    __decorate([
+        (0, typeorm_1.UpdateDateColumn)(),
+        __metadata("design:type", String)
+    ], File.prototype, "file_update_date", void 0);
+    __decorate([
+        (0, typeorm_1.DeleteDateColumn)(),
+        __metadata("design:type", String)
+    ], File.prototype, "file_removal_date", void 0);
+    __decorate([
+        (0, typeorm_1.OneToOne)(function () { return user_entity_1.User; }, function (user) { return user.file; }, {
             cascade: true
         }),
         (0, typeorm_1.JoinColumn)(),
         __metadata("design:type", user_entity_1.User)
     ], File.prototype, "user", void 0);
-    __decorate([
-        (0, typeorm_1.CreateDateColumn)(),
-        __metadata("design:type", String)
-    ], File.prototype, "create_date", void 0);
-    __decorate([
-        (0, typeorm_1.UpdateDateColumn)(),
-        __metadata("design:type", String)
-    ], File.prototype, "update_date", void 0);
-    __decorate([
-        (0, typeorm_1.DeleteDateColumn)(),
-        __metadata("design:type", String)
-    ], File.prototype, "removal_date", void 0);
     File = __decorate([
         (0, typeorm_1.Entity)()
     ], File);
