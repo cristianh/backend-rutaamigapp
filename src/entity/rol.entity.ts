@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm"
-import { User } from "../entity/user.entity"
-import { UserToRol } from "./userToRol.entity"
+import { Entity, Column, PrimaryGeneratedColumn,OneToMany} from "typeorm"
+import { User } from "./user.entity"
+
 @Entity()
 export class Rol {
     @PrimaryGeneratedColumn()
@@ -9,8 +9,9 @@ export class Rol {
     @Column({ type: "varchar", nullable: false })
     nombre_rol: string
 
-    //Relations
-    //With notification one to one
-    @OneToMany(() => UserToRol, (usertorol) => usertorol.user) // specify inverse side as a second parameter
-    rol_user: UserToRol[]
+    
+
+    //With rol user many to many
+    @OneToMany(() => User, user => user.rol_user,{ cascade: ['insert', 'update'] })
+    user_rol: Rol[];
 }

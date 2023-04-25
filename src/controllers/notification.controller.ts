@@ -64,10 +64,7 @@ export class NotificationController {
                 route_id: parseInt(req.params.id),
             })
 
-            const user_notification = await myDataSource.getRepository(User).findOneBy({
-                user_id: parseInt(req.params.id),
-            })
-
+          
             const dbNotification = await myDataSource.getRepository(Notification).create({
                 notification_inverval: notification_inverval,
                 notification_message: notification_message

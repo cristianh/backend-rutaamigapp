@@ -21,14 +21,14 @@ export class RolController {
             let query;
 
             if (all) {
-                const rol = await myDataSource.getRepository(Rol).find({
+                /* const rol = await myDataSource.getRepository(Rol).find({
                     relations: {
                         rol_user: true,
                     },
                 })
-                let data = { rol, totalRol: rol.length }
+                let data = { rol, totalRol: rol.length } */
 
-                return res.status(200).json(data)
+                return res.status(200).json("data")
             } else {
                 query = {
                     skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
@@ -69,15 +69,18 @@ export class RolController {
      */
     public getUserByIdRol = async (req: Request, res: Response) => {
         try {
-            const user_rol = await myDataSource.getRepository(Rol).find({
+            const user_rol = await myDataSource.getRepository(User).find({
                 relations: {
                     rol_user: true,
                 },
                 where: {
-                    id_rol: parseInt(req.params.id)
+                    rol_user:{
+                        id_rol: parseInt(req.params.id)
+                    }
+                    
                 }
             });
-            return res.json(user_rol)
+            return res.status(200).json({result:user_rol})
         } catch (error) {
             return res.status(500).json({ error: error.message })
         }

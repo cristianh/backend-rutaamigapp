@@ -11,7 +11,7 @@ import { bcrypGenerateEncript } from "../helpers/bcryptHelper";
 //Import database of user entity 
 import { User } from "../entity/user.entity"
 import { Rol } from "../entity/rol.entity"
-import { UserToRol } from "../entity/userToRol.entity"
+
 
 //Take ORM methods
 const userRepository = myDataSource.getRepository(User);
@@ -36,8 +36,8 @@ export class UserController {
                 const user = await myDataSource.getRepository(User).find({
                     relations: {
                         file: true,
-                        user_rol: true,
-                        notification: true
+                        notification: true,
+                        rol_user: true
                     },
                 })
                 let data = { user, totalUsers: user.length }
@@ -86,13 +86,12 @@ export class UserController {
     public getUserByRol = async (req: Request, res: Response) => {
         try {
             //Find rol user login.
-            const results: UserToRol[] = await myDataSource.getRepository(UserToRol).find({
+            const results: User[] = await myDataSource.getRepository(User).find({
                 relations: {
-                    user: true,
-                    rol: true
+                    rol_user: true
                 },
                 where: {
-                    rol: {
+                    rol_user: {
                         id_rol: parseInt(req.params.id)
                     }
                 }
@@ -103,7 +102,7 @@ export class UserController {
             }
 
 
-            return res.status(200).send(results)
+            return res.status(200).send({ results: results })
         } catch (error) {
             return res.status(500).json({ error })
         }
@@ -140,11 +139,16 @@ export class UserController {
                     return res.status(201).send({ status: `Rol de usuario '${user_rol}' no encontrado` })
                 }
 
+
+               
+
+
                 const dbUser = await myDataSource.getRepository(User).create({
                     user_name: user_name,
                     user_lastname: user_lastname,
                     user_email: user_email,
-                    user_password: bcrypGenerateEncript(user_password)
+                    user_password: bcrypGenerateEncript(user_password),
+                    rol_user: findRol
                 })
 
 
@@ -152,14 +156,6 @@ export class UserController {
                 //Create the request body
                 const user = await myDataSource.getRepository(User).save(dbUser)
 
-                //User to rol
-                let user_to_rol = new UserToRol()
-
-                //Crate insert entity in DB
-                user_to_rol.user = user
-                user_to_rol.rol = findRol
-
-                const user_to_rol_save = await myDataSource.getRepository(UserToRol).save(user_to_rol)
                 return res.status(201).send({ status: "Usuario guardado con exito." })
             }
 
