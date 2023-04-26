@@ -14,10 +14,11 @@ var middleware_1 = require("./../middleware");
 var validation = new middleware_1.Validations();
 var validationJWT = new middleware_1.ValidatiteJWT();
 // Notification routes
-router.get("/allnotification/:all?/:limit?/:skip?", validationJWT.validate, notificationController.getAllNotification);
-/* router.get("/:id", userController.getUserById); */
-/* router.post("/registro", validation.validateFormUsuarioRegister(), userController.saveUser);
-router.put("/:id", userController.updateUser);
-router.delete("/:id",userController.deleteUser); */
+//validationJWT.validate
+router.get("/allnotification/:all?/:limit?/:skip?", notificationController.getAllNotification);
+router.get("/:id", notificationController.getNotificationById);
+router.get("/notificationuser/:id", notificationController.getNotificationByUserId);
+router.get("/notificationroute/:id", notificationController.getNotificationByRouteId);
+router.post("/createNotification", notificationController.saveNotification);
 exports.default = router;
 //# sourceMappingURL=notifications.router.js.map

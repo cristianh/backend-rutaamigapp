@@ -48,7 +48,7 @@ export class NotificationController {
             }
 
         } catch (error) {
-           return res.status(200).json({ error: error.message })
+            return res.status(200).json({ error: error.message })
         }
     }
 
@@ -60,14 +60,29 @@ export class NotificationController {
             let { notification_inverval, notification_message, route_id, user_id } = req.body;
 
             //Create the request body
-            const route_notification = await myDataSource.getRepository(Route).findOneBy({
-                route_id: parseInt(req.params.id),
+            const routefind = await myDataSource.getRepository(Route).findOneBy({
+                route_id: parseInt(route_id),
             })
 
-          
+            if (!routefind) {
+                return res.status(201).send({ status: `Ruta ${route_id} no encontrado.` })
+            }
+
+            //Find user
+            const userfind = await myDataSource.getRepository(User).findOneBy({
+                user_id: parseInt(user_id),
+            })
+
+            if (!userfind) {
+                return res.status(201).send({ status: `Usuario ${user_id} no encontrado.` })
+            }
+
+
             const dbNotification = await myDataSource.getRepository(Notification).create({
                 notification_inverval: notification_inverval,
-                notification_message: notification_message
+                notification_message: notification_message,
+                route_notification: routefind,
+                user_notification: userfind
             })
 
             //Create the request body
@@ -75,6 +90,89 @@ export class NotificationController {
             return res.status(201).send({ status: "Notificacion guardada con exito", user })
 
 
+        } catch (error) {
+            return res.status(500).json({ error })
+        }
+    }
+
+    /**
+    * It gets a notification by id from the database and returns it to the notification.
+    * @param {Request} req - Request - The request object
+    * @param {Response} res - Response =&gt; Express.Response
+    * @returns An object with the user data.
+    */
+    public getNotificationById = async (req: Request, res: Response) => {
+        try {
+            const results = await myDataSource.getRepository(Notification).findOneBy({
+                id_notification: parseInt(req.params.id),
+            })
+
+            if (!results) {
+                return res.status(200).send({ status: `Notificacion con id: '${req.params.id}' no encontrado.` })
+            }
+
+
+            return res.status(200).send(results)
+        } catch (error) {
+            return res.status(500).json({ error })
+        }
+    }
+
+    /**
+    * It gets a notification by id from the database and returns it to the notification.
+    * @param {Request} req - Request - The request object
+    * @param {Response} res - Response =&gt; Express.Response
+    * @returns An object with the user data.
+    */
+    public getNotificationByUserId = async (req: Request, res: Response) => {
+        try {
+            const results = await myDataSource.getRepository(Notification).find({
+                relations: {
+                    user_notification: true
+                },
+                where: {
+                    user_notification: {
+                        user_id: parseInt(req.params.id)
+                    }
+                }
+            })
+
+            if (!results) {
+                return res.status(200).send({ status: `Usuario con id: '${req.params.id}' no encontrado.` })
+            }
+
+
+            return res.status(200).send(results)
+        } catch (error) {
+            return res.status(500).json({ error })
+        }
+    }
+
+    /**
+    * It gets a notification by id from the database and returns it to the notification.
+    * @param {Request} req - Request - The request object
+    * @param {Response} res - Response =&gt; Express.Response
+    * @returns An object with the user data.
+    */
+     public getNotificationByRouteId = async (req: Request, res: Response) => {
+        try {
+            const results = await myDataSource.getRepository(Notification).find({
+                relations: {
+                    route_notification: true
+                },
+                where: {
+                    route_notification: {
+                        route_id: parseInt(req.params.id)
+                    }
+                }
+            })
+
+            if (!results) {
+                return res.status(200).send({ status: `Ruta con id: '${req.params.id}' no encontrado.` })
+            }
+
+
+            return res.status(200).send(results)
         } catch (error) {
             return res.status(500).json({ error })
         }
