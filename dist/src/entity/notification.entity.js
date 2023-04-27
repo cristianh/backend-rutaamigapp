@@ -29,6 +29,10 @@ var Notification = /** @class */ (function () {
         __metadata("design:type", String)
     ], Notification.prototype, "notification_message", void 0);
     __decorate([
+        (0, typeorm_1.CreateDateColumn)(),
+        __metadata("design:type", String)
+    ], Notification.prototype, "notification_create_date", void 0);
+    __decorate([
         (0, typeorm_1.ManyToOne)(function () { return route_entity_1.Route; }, function (route) { return route.route_id; }, {}),
         (0, typeorm_1.JoinColumn)(),
         __metadata("design:type", route_entity_1.Route)
