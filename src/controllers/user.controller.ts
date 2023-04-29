@@ -131,7 +131,7 @@ export class UserController {
 
                 //FIND ROL IN DB
                 const findRol = await myDataSource.getRepository(Rol).findOneBy({
-                    id_rol: parseInt(user_rol),
+                    id_rol: 2
                 })
 
                 //FIND ROLL FOR ID
