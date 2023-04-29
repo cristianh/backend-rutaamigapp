@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, CreateDateColumn,UpdateDateColumn,DeleteDateColumn  } from "typeorm"
 import { Route } from "./route.entity"
 import { User } from "./user.entity"
 
@@ -14,6 +14,9 @@ export class Notification {
 
     @Column({ type: "varchar", length: 60, nullable: false })
     notification_message: string 
+
+    @CreateDateColumn()
+    notification_create_date: string
 
     /* @Column({ type: "datetime", nullable: false })
     fecha_hora: string */

@@ -210,7 +210,7 @@ var RouteController = /** @class */ (function () {
                         return [4 /*yield*/, app_data_source_1.default.getRepository(route_entity_1.Route).delete(req.params.id)];
                     case 2:
                         results = _a.sent();
-                        return [2 /*return*/, res.status(200).send(results)];
+                        return [2 /*return*/, res.status(200).send({ result: "Ruta  '".concat(req.params.id, "' Eliminada"), results: results })];
                     case 3:
                         error_5 = _a.sent();
                         return [2 /*return*/, res.status(500).json({ error: error_5 })];

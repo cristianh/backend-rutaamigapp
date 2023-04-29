@@ -55,11 +55,11 @@ var AuthController = /** @class */ (function () {
         /*  */
         this.getUserLogin = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var errors, user, validatePassword, token, error_1;
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        _b.trys.push([0, 3, , 4]);
+                        _c.trys.push([0, 3, , 4]);
                         errors = (0, express_validator_1.validationResult)(req);
                         if (!errors.isEmpty()) {
                             return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
@@ -76,7 +76,7 @@ var AuthController = /** @class */ (function () {
                             // We validate if the user exists.
                         ];
                     case 1:
-                        user = _b.sent();
+                        user = _c.sent();
                         // We validate if the user exists.
                         if (!user) {
                             return [2 /*return*/, res.status(400).json({ result: "Usuario no encontrado, por favor revise correo y contraseña" })];
@@ -92,14 +92,14 @@ var AuthController = /** @class */ (function () {
                         }
                         return [4 /*yield*/, (0, generateJWT_1.generateToken)(user.user_id)];
                     case 2:
-                        token = _b.sent();
+                        token = _c.sent();
                         if (token) {
                             // If the user Exit we send the information.
-                            return [2 /*return*/, res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img': (_a = user.file) === null || _a === void 0 ? void 0 : _a.cloudinary_url, 'rol': user !== null && user !== void 0 ? user : "" }, token: token })];
+                            return [2 /*return*/, res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img': (_a = user.file) === null || _a === void 0 ? void 0 : _a.cloudinary_url, 'rol': (_b = user.rol_user.id_rol) !== null && _b !== void 0 ? _b : "" }, token: token })];
                         }
                         return [3 /*break*/, 4];
                     case 3:
-                        error_1 = _b.sent();
+                        error_1 = _c.sent();
                         res.status(500).json({ error: error_1.message });
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];

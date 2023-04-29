@@ -65,7 +65,7 @@ export class AuthController {
             
             if (token) {
                 // If the user Exit we send the information.
-                return res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img':user.file?.cloudinary_url,'rol':user??"" }, token })
+                return res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img':user.file?.cloudinary_url,'rol':user.rol_user.id_rol??"" }, token })
             }
 
         } catch (error) {

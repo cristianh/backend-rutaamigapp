@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotificationController = void 0;
+var user_entity_1 = require("../entity/user.entity");
 var route_entity_1 = require("../entity/route.entity");
 var notification_entity_1 = require("../entity/notification.entity");
 var app_data_source_1 = require("../../app-data-source");
@@ -92,33 +93,144 @@ var NotificationController = /** @class */ (function () {
             });
         }); };
         this.saveNotification = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var _a, notification_inverval, notification_message, route_id, user_id, route_notification, dbNotification, user, error_2;
+            var _a, notification_inverval, notification_message, route_id, user_id, routefind, userfind, dbNotification, user, error_2;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _b.trys.push([0, 4, , 5]);
+                        _b.trys.push([0, 5, , 6]);
                         _a = req.body, notification_inverval = _a.notification_inverval, notification_message = _a.notification_message, route_id = _a.route_id, user_id = _a.user_id;
                         return [4 /*yield*/, app_data_source_1.default.getRepository(route_entity_1.Route).findOneBy({
-                                route_id: parseInt(req.params.id),
+                                route_id: parseInt(route_id),
                             })];
                     case 1:
-                        route_notification = _b.sent();
+                        routefind = _b.sent();
+                        if (!routefind) {
+                            return [2 /*return*/, res.status(201).send({ status: "Ruta ".concat(route_id, " no encontrado.") })];
+                        }
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).findOneBy({
+                                user_id: parseInt(user_id),
+                            })];
+                    case 2:
+                        userfind = _b.sent();
+                        if (!userfind) {
+                            return [2 /*return*/, res.status(201).send({ status: "Usuario ".concat(user_id, " no encontrado.") })];
+                        }
                         return [4 /*yield*/, app_data_source_1.default.getRepository(notification_entity_1.Notification).create({
                                 notification_inverval: notification_inverval,
-                                notification_message: notification_message
+                                notification_message: notification_message,
+                                route_notification: routefind,
+                                user_notification: userfind
                             })
                             //Create the request body
                         ];
-                    case 2:
+                    case 3:
                         dbNotification = _b.sent();
                         return [4 /*yield*/, app_data_source_1.default.getRepository(notification_entity_1.Notification).save(dbNotification)];
-                    case 3:
+                    case 4:
                         user = _b.sent();
                         return [2 /*return*/, res.status(201).send({ status: "Notificacion guardada con exito", user: user })];
-                    case 4:
+                    case 5:
                         error_2 = _b.sent();
                         return [2 /*return*/, res.status(500).json({ error: error_2 })];
-                    case 5: return [2 /*return*/];
+                    case 6: return [2 /*return*/];
+                }
+            });
+        }); };
+        /**
+        * It gets a notification by id from the database and returns it to the notification.
+        * @param {Request} req - Request - The request object
+        * @param {Response} res - Response =&gt; Express.Response
+        * @returns An object with the user data.
+        */
+        this.getNotificationById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var results, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(notification_entity_1.Notification).findOneBy({
+                                id_notification: parseInt(req.params.id),
+                            })];
+                    case 1:
+                        results = _a.sent();
+                        if (!results) {
+                            return [2 /*return*/, res.status(200).send({ status: "Notificacion con id: '".concat(req.params.id, "' no encontrado.") })];
+                        }
+                        return [2 /*return*/, res.status(200).send(results)];
+                    case 2:
+                        error_3 = _a.sent();
+                        return [2 /*return*/, res.status(500).json({ error: error_3 })];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); };
+        /**
+        * It gets a notification by id from the database and returns it to the notification.
+        * @param {Request} req - Request - The request object
+        * @param {Response} res - Response =&gt; Express.Response
+        * @returns An object with the user data.
+        */
+        this.getNotificationByUserId = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var results, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(notification_entity_1.Notification).find({
+                                relations: {
+                                    user_notification: true
+                                },
+                                where: {
+                                    user_notification: {
+                                        user_id: parseInt(req.params.id)
+                                    }
+                                }
+                            })];
+                    case 1:
+                        results = _a.sent();
+                        if (!results) {
+                            return [2 /*return*/, res.status(200).send({ status: "Usuario con id: '".concat(req.params.id, "' no encontrado.") })];
+                        }
+                        return [2 /*return*/, res.status(200).send(results)];
+                    case 2:
+                        error_4 = _a.sent();
+                        return [2 /*return*/, res.status(500).json({ error: error_4 })];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); };
+        /**
+        * It gets a notification by id from the database and returns it to the notification.
+        * @param {Request} req - Request - The request object
+        * @param {Response} res - Response =&gt; Express.Response
+        * @returns An object with the user data.
+        */
+        this.getNotificationByRouteId = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var results, error_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(notification_entity_1.Notification).find({
+                                relations: {
+                                    route_notification: true
+                                },
+                                where: {
+                                    route_notification: {
+                                        route_id: parseInt(req.params.id)
+                                    }
+                                }
+                            })];
+                    case 1:
+                        results = _a.sent();
+                        if (!results) {
+                            return [2 /*return*/, res.status(200).send({ status: "Ruta con id: '".concat(req.params.id, "' no encontrado.") })];
+                        }
+                        return [2 /*return*/, res.status(200).send(results)];
+                    case 2:
+                        error_5 = _a.sent();
+                        return [2 /*return*/, res.status(500).json({ error: error_5 })];
+                    case 3: return [2 /*return*/];
                 }
             });
         }); };

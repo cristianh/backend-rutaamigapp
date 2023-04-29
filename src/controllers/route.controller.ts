@@ -159,7 +159,7 @@ export class RouteController {
 
             const results = await myDataSource.getRepository(Route).delete(req.params.id)
 
-            return res.status(200).send(results)
+            return res.status(200).send({result:`Ruta  '${req.params.id}' Eliminada`,results})
         } catch (error) {
             return res.status(500).json({ error })
         }
