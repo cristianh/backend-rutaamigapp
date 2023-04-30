@@ -90,12 +90,12 @@ var AuthController = /** @class */ (function () {
                         if (!validatePassword) {
                             return [2 /*return*/, res.status(404).json({ result: "Usuario / Password no son correctos - password" })];
                         }
-                        return [4 /*yield*/, (0, generateJWT_1.generateToken)(user.user_id)];
+                        return [4 /*yield*/, (0, generateJWT_1.generateToken)(user)];
                     case 2:
                         token = _c.sent();
                         if (token) {
                             // If the user Exit we send the information.
-                            return [2 /*return*/, res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img': (_a = user.file) === null || _a === void 0 ? void 0 : _a.cloudinary_url, 'rol': (_b = user.rol_user.id_rol) !== null && _b !== void 0 ? _b : "" }, token: token })];
+                            return [2 /*return*/, res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img': (_a = user.file) === null || _a === void 0 ? void 0 : _a.cloudinary_url, 'rol': (_b = user.rol_user.id_rol) !== null && _b !== void 0 ? _b : "", result: token } })];
                         }
                         return [3 /*break*/, 4];
                     case 3:

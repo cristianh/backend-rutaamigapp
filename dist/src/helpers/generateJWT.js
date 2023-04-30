@@ -6,12 +6,12 @@ var jwt = require("jsonwebtoken");
 /**
  * It takes a user id, creates a payload with that id, signs the payload with a secret key, and returns
  * a promise that resolves to a token.
- * @param {number} uid - The user id of the user that is being authenticated.
+ * @param {number} user - The user being authenticated.
  * @returns A promise that will return a token or an error message.
  */
-var generateToken = function (uid) {
+var generateToken = function (user) {
     return new Promise(function (resolve, reject) {
-        var payload = { uid: uid };
+        var payload = { user: user };
         jwt.sign(payload, process.env.SECRETORPRIVATEKEY, {
             expiresIn: '4h'
         }, function (error, token) {

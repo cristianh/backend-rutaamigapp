@@ -59,13 +59,13 @@ export class AuthController {
             }
 
             // We generate JWT
-            const token = await generateToken(user.user_id);
+            const token = await generateToken(user);
             
 
             
             if (token) {
                 // If the user Exit we send the information.
-                return res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img':user.file?.cloudinary_url,'rol':user.rol_user.id_rol??"" }, token })
+                return res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img':user.file?.cloudinary_url,'rol':user.rol_user.id_rol??"" ,result:token}})
             }
 
         } catch (error) {
