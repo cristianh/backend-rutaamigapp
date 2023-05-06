@@ -12,8 +12,8 @@ import routerUploadFile from './uploadFile.roter'
 const ROUTER = Router()
 
 /* DEFINIMOS EL PATH INICIAL DE CADA RUTA*/
-ROUTER.use('/usuario',routerUser)
-ROUTER.use('/ruta',routerRuta)
+ROUTER.use('/user',routerUser)
+ROUTER.use('/route',routerRuta)
 ROUTER.use('/rol',routerRol)
 ROUTER.use('/notificacion',routerNotificacion)
 ROUTER.use('/uploadFile',routerUploadFile)

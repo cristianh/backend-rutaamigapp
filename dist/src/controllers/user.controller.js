@@ -159,7 +159,7 @@ var UserController = /** @class */ (function () {
          * @returns  An Usuario object
          */
         this.saveUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, _a, user_name, user_lastname, user_email, user_password, user_rol, findRol, dbUser, user, error_4;
+            var errors, _a, user_name, user_lastname, user_email, user_password, findRol, dbUser, user, error_4;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -168,7 +168,7 @@ var UserController = /** @class */ (function () {
                         if (!!errors.isEmpty()) return [3 /*break*/, 1];
                         return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
                     case 1:
-                        _a = req.body, user_name = _a.user_name, user_lastname = _a.user_lastname, user_email = _a.user_email, user_password = _a.user_password, user_rol = _a.user_rol;
+                        _a = req.body, user_name = _a.user_name, user_lastname = _a.user_lastname, user_email = _a.user_email, user_password = _a.user_password;
                         return [4 /*yield*/, app_data_source_1.default.getRepository(rol_entity_1.Rol).findOneBy({
                                 id_rol: 2
                             })
@@ -178,7 +178,7 @@ var UserController = /** @class */ (function () {
                         findRol = _b.sent();
                         //FIND ROLL FOR ID
                         if (!findRol) {
-                            return [2 /*return*/, res.status(201).send({ status: "Rol de usuario '".concat(user_rol, "' no encontrado") })];
+                            return [2 /*return*/, res.status(201).send({ status: "Rol de usuario  no encontrado" })];
                         }
                         return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).create({
                                 user_name: user_name,

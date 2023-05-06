@@ -127,7 +127,7 @@ export class UserController {
 
 
                 //Save in var the atributes of the request body
-                let { user_name, user_lastname, user_email, user_password, user_rol } = req.body;
+                let { user_name, user_lastname, user_email, user_password } = req.body;
 
                 //FIND ROL IN DB
                 const findRol = await myDataSource.getRepository(Rol).findOneBy({
@@ -136,7 +136,7 @@ export class UserController {
 
                 //FIND ROLL FOR ID
                 if (!findRol) {
-                    return res.status(201).send({ status: `Rol de usuario '${user_rol}' no encontrado` })
+                    return res.status(201).send({ status: `Rol de usuario  no encontrado` })
                 }
 
 

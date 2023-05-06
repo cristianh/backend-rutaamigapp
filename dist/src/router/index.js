@@ -11,8 +11,8 @@ var auth_router_1 = require("./auth.router");
 var uploadFile_roter_1 = require("./uploadFile.roter");
 var ROUTER = (0, express_1.Router)();
 /* DEFINIMOS EL PATH INICIAL DE CADA RUTA*/
-ROUTER.use('/usuario', user_router_1.default);
-ROUTER.use('/ruta', route_router_1.default);
+ROUTER.use('/user', user_router_1.default);
+ROUTER.use('/route', route_router_1.default);
 ROUTER.use('/rol', rol_router_1.default);
 ROUTER.use('/notificacion', notifications_router_1.default);
 ROUTER.use('/uploadFile', uploadFile_roter_1.default);
