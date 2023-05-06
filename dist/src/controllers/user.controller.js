@@ -170,7 +170,7 @@ var UserController = /** @class */ (function () {
                     case 1:
                         _a = req.body, user_name = _a.user_name, user_lastname = _a.user_lastname, user_email = _a.user_email, user_password = _a.user_password, user_rol = _a.user_rol;
                         return [4 /*yield*/, app_data_source_1.default.getRepository(rol_entity_1.Rol).findOneBy({
-                                id_rol: parseInt(user_rol),
+                                id_rol: 2
                             })
                             //FIND ROLL FOR ID
                         ];
