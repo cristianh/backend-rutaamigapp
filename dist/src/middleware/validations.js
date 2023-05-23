@@ -19,7 +19,7 @@ var Validations = /** @class */ (function () {
                 validator.body('user_email').not().isEmpty().trim().escape().withMessage('El campo correo es requerido'),
                 //Verifica que el campo password_usuario tenga como minimo 8 caracteres y que tenga al menos una letra, un número y un carácter especial.
                 validator.body('user_password').isLength({ min: 8 }).withMessage('La contraseña debe tener como minimo 8 caracteres.')
-                    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/)
+                    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.$@$!%*? &])[A-Za-zñÑ\d$@$!%*?& ]{8,15}$/)
                     .withMessage('La contraseña debe contener al menos una letra, un número y un carácter especial (.$@$!%*?&).'),
                 //varifica que el correo tenga un formato valido.
                 validator.body('user_email').isEmail().withMessage('El correo no es valido.'),
