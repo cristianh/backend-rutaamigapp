@@ -13,7 +13,7 @@ exports.Notification = void 0;
 var typeorm_1 = require("typeorm");
 var route_entity_1 = require("./route.entity");
 var user_entity_1 = require("./user.entity");
-var Notification = exports.Notification = /** @class */ (function () {
+var Notification = /** @class */ (function () {
     function Notification() {
     }
     __decorate([
@@ -46,4 +46,5 @@ var Notification = exports.Notification = /** @class */ (function () {
     ], Notification);
     return Notification;
 }());
+exports.Notification = Notification;
 //# sourceMappingURL=notification.entity.js.map
