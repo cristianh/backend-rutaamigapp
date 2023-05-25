@@ -16,7 +16,7 @@ var notification_entity_1 = require("./notification.entity");
 numero INT not null,
 descripcion VARCHAR(45),
 sentido VARCHAR(45) not null*/
-var Route = /** @class */ (function () {
+var Route = exports.Route = /** @class */ (function () {
     function Route() {
     }
     __decorate([
@@ -57,5 +57,4 @@ var Route = /** @class */ (function () {
     ], Route);
     return Route;
 }());
-exports.Route = Route;
 //# sourceMappingURL=route.entity.js.map
