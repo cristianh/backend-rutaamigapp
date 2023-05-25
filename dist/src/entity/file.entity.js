@@ -18,7 +18,7 @@ var user_entity_1 = require("./user.entity");
     cloudinary_url VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   ); */
-var File = exports.File = /** @class */ (function () {
+var File = /** @class */ (function () {
     function File() {
     }
     __decorate([
@@ -57,4 +57,5 @@ var File = exports.File = /** @class */ (function () {
     ], File);
     return File;
 }());
+exports.File = File;
 //# sourceMappingURL=file.entity.js.map

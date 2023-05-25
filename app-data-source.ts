@@ -10,7 +10,7 @@ dotenv.config();
     NOTA: REVISAR EL ARCHIVO .env SI DEBEN REALIZAR ALGUN CAMBIO
     OJO!: REVISEN QUE EL ARCHIVO CON SU CONFIGURACION NO SE SUBA AL REPO.(YA ESTA EN EL ARCHIVO GIFIGNORE)
 */
-const myDataSource = new DataSource({
+/* const myDataSource = new DataSource({
     type: "mysql",
     host: process.env.DBHOST,
     port: parseInt(process.env.DBPORT),
@@ -21,11 +21,11 @@ const myDataSource = new DataSource({
     logging: false,
     synchronize: true,
 })
-
+ */
 
 /* postgres-conexion - REMOTE 
 */
-/* const myDataSource = new DataSource({
+const myDataSource = new DataSource({
     type: "postgres",
     url:process.env.DBURLREMOTE,
     port: parseInt(process.env.DBPORTREMOTE),
@@ -36,6 +36,6 @@ const myDataSource = new DataSource({
     entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
-}) */
+})
 
 export default myDataSource

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Rol = void 0;
 var typeorm_1 = require("typeorm");
 var user_entity_1 = require("./user.entity");
-var Rol = exports.Rol = /** @class */ (function () {
+var Rol = /** @class */ (function () {
     function Rol() {
     }
     __decorate([
@@ -32,4 +32,5 @@ var Rol = exports.Rol = /** @class */ (function () {
     ], Rol);
     return Rol;
 }());
+exports.Rol = Rol;
 //# sourceMappingURL=rol.entity.js.map
