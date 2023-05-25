@@ -1,15 +1,16 @@
 //Import token library
 import * as jwt from 'jsonwebtoken';
+import { User } from 'src/entity/user.entity';
 
 /**
  * It takes a user id, creates a payload with that id, signs the payload with a secret key, and returns
  * a promise that resolves to a token.
- * @param {number} uid - The user id of the user that is being authenticated.
+ * @param {number} user - The user being authenticated.
  * @returns A promise that will return a token or an error message.
  */
-export const generateToken = (uid: number) => {
+export const generateToken = (user: User) => {
     return new Promise((resolve, reject) => {
-        const payload = { uid }
+        const payload = { user }
 
         jwt.sign(payload, process.env.SECRETORPRIVATEKEY, {
             expiresIn: '4h'

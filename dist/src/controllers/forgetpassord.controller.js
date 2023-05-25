@@ -95,7 +95,7 @@ var ForgetPasswordController = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 3:
                         error_1 = _a.sent();
-                        return [3 /*break*/, 4];
+                        return [2 /*return*/, res.status(500).json({ error: error_1 })];
                     case 4: return [2 /*return*/];
                 }
             });

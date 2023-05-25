@@ -13,6 +13,8 @@ exports.User = void 0;
 var typeorm_1 = require("typeorm");
 //Import needed entyties
 var file_entity_1 = require("./file.entity");
+var rol_entity_1 = require("./rol.entity");
+var notification_entity_1 = require("./notification.entity");
 /*idusuario           INT PRIMARY KEY auto_increment,
 nombre_usuario      VARCHAR(45) NOT NULL,
 apellido_usuario    VARCHAR(45) NOT NULL,
@@ -48,25 +50,38 @@ var User = /** @class */ (function () {
     ], User.prototype, "user_password", void 0);
     __decorate([
         (0, typeorm_1.Column)({ type: "boolean", nullable: false, default: true }),
-        __metadata("design:type", String)
+        __metadata("design:type", Boolean)
     ], User.prototype, "user_status", void 0);
-    __decorate([
-        (0, typeorm_1.OneToOne)(function () { return file_entity_1.File; }, function (file) { return file.user; }) // specify inverse side as a second parameter
-        ,
-        __metadata("design:type", file_entity_1.File)
-    ], User.prototype, "user_file", void 0);
     __decorate([
         (0, typeorm_1.CreateDateColumn)(),
         __metadata("design:type", String)
-    ], User.prototype, "create_date", void 0);
+    ], User.prototype, "user_create_date", void 0);
     __decorate([
         (0, typeorm_1.UpdateDateColumn)(),
         __metadata("design:type", String)
-    ], User.prototype, "update_date", void 0);
+    ], User.prototype, "user_update_date", void 0);
     __decorate([
         (0, typeorm_1.DeleteDateColumn)(),
         __metadata("design:type", String)
-    ], User.prototype, "removal_date", void 0);
+    ], User.prototype, "user_removal_date", void 0);
+    __decorate([
+        (0, typeorm_1.OneToOne)(function () { return file_entity_1.File; }, function (file) { return file.user; }) // specify inverse side as a second parameter
+        ,
+        __metadata("design:type", file_entity_1.File
+        //With File one to one
+        //Relation user - rol
+        )
+    ], User.prototype, "file", void 0);
+    __decorate([
+        (0, typeorm_1.ManyToOne)(function () { return rol_entity_1.Rol; }),
+        __metadata("design:type", rol_entity_1.Rol
+        //With notification many to many
+        )
+    ], User.prototype, "rol_user", void 0);
+    __decorate([
+        (0, typeorm_1.OneToMany)(function () { return notification_entity_1.Notification; }, function (notification) { return notification.user_notification; }),
+        __metadata("design:type", Array)
+    ], User.prototype, "notification", void 0);
     User = __decorate([
         (0, typeorm_1.Entity)()
     ], User);

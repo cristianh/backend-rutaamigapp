@@ -1,5 +1,6 @@
+import { Entity, Column, PrimaryGeneratedColumn,  OneToMany, UpdateDateColumn, DeleteDateColumn, CreateDateColumn} from "typeorm"
+import { Notification } from "./notification.entity"
 
-import { Entity, Column, PrimaryGeneratedColumn,  OneToOne,JoinColumn} from "typeorm"
 /*idRutas INT PRIMARY KEY auto_increment,
 numero INT not null,
 descripcion VARCHAR(45),
@@ -17,5 +18,19 @@ export class Route {
     route_content: string
 
     @Column({ type: "varchar", nullable: false })
-    orientation_route: string
+    route_orientation: string
+
+    @CreateDateColumn()
+    route_create_date: string
+
+    @UpdateDateColumn()
+    route_update_date: string
+
+    @DeleteDateColumn()
+    route_removal_date: string
+
+    //Relations
+    //With notification one to one
+    @OneToMany(() => Notification, (notification) => notification.user_notification) // specify inverse side as a second parameter
+    route_notification: Notification
 }

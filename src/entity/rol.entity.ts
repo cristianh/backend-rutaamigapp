@@ -1,18 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn,  OneToOne,JoinColumn} from "typeorm"
-import { User } from "../entity/user.entity"
+import { Entity, Column, PrimaryGeneratedColumn,OneToMany} from "typeorm"
+import { User } from "./user.entity"
 
 @Entity()
 export class Rol {
     @PrimaryGeneratedColumn()
-    idrol: number
+    id_rol: number
 
     @Column({ type: "varchar", nullable: false })
-    nombre: string
+    nombre_rol: string
 
-    @Column({ type: "int", nullable: false })
-    nivel: number
+    
 
-    @OneToOne(()=>User)
-    @JoinColumn()
-    user: User;
+    //With rol user many to many
+    @OneToMany(() => User, user => user.rol_user,{ cascade: ['insert', 'update'] })
+    user_rol: Rol[];
 }

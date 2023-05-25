@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Route = void 0;
 var typeorm_1 = require("typeorm");
+var notification_entity_1 = require("./notification.entity");
 /*idRutas INT PRIMARY KEY auto_increment,
 numero INT not null,
 descripcion VARCHAR(45),
@@ -33,7 +34,24 @@ var Route = /** @class */ (function () {
     __decorate([
         (0, typeorm_1.Column)({ type: "varchar", nullable: false }),
         __metadata("design:type", String)
-    ], Route.prototype, "orientation_route", void 0);
+    ], Route.prototype, "route_orientation", void 0);
+    __decorate([
+        (0, typeorm_1.CreateDateColumn)(),
+        __metadata("design:type", String)
+    ], Route.prototype, "route_create_date", void 0);
+    __decorate([
+        (0, typeorm_1.UpdateDateColumn)(),
+        __metadata("design:type", String)
+    ], Route.prototype, "route_update_date", void 0);
+    __decorate([
+        (0, typeorm_1.DeleteDateColumn)(),
+        __metadata("design:type", String)
+    ], Route.prototype, "route_removal_date", void 0);
+    __decorate([
+        (0, typeorm_1.OneToMany)(function () { return notification_entity_1.Notification; }, function (notification) { return notification.user_notification; }) // specify inverse side as a second parameter
+        ,
+        __metadata("design:type", notification_entity_1.Notification)
+    ], Route.prototype, "route_notification", void 0);
     Route = __decorate([
         (0, typeorm_1.Entity)()
     ], Route);

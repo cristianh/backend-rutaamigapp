@@ -20,8 +20,8 @@ dotenv.config();
     entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
-}) */
-
+})
+ */
 
 /* postgres-conexion - REMOTE 
 */
@@ -33,7 +33,7 @@ const myDataSource = new DataSource({
     password: process.env.DBPASSWORDREMOTE,
     database: process.env.DBNAMEREMOTE,
     ssl: { rejectUnauthorized: false },
-    entities: [__dirname + "/src/entity/*.js"],
+    entities: [__dirname + "/../**/*.entity.{js,ts}"],
     logging: false,
     synchronize: true,
 })
