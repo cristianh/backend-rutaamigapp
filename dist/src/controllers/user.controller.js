@@ -44,6 +44,7 @@ var express_validator_1 = require("express-validator");
 var bcryptHelper_1 = require("../helpers/bcryptHelper");
 //Import database of user entity 
 var user_entity_1 = require("../entity/user.entity");
+var rol_entity_1 = require("../entity/rol.entity");
 //Take ORM methods
 var userRepository = app_data_source_1.default.getRepository(user_entity_1.User);
 var UserController = /** @class */ (function () {
@@ -67,14 +68,15 @@ var UserController = /** @class */ (function () {
                         if (!all) return [3 /*break*/, 2];
                         return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find({
                                 relations: {
-                                    user_file: true,
+                                    file: true,
+                                    notification: true,
+                                    rol_user: true
                                 },
                             })];
                     case 1:
                         user = _a.sent();
                         data = { user: user, totalUsers: user.length };
-                        res.status(200).json(data);
-                        return [3 /*break*/, 4];
+                        return [2 /*return*/, res.status(200).json(data)];
                     case 2:
                         query = {
                             skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
@@ -84,79 +86,15 @@ var UserController = /** @class */ (function () {
                     case 3:
                         usuario = _a.sent();
                         data = { usuario: usuario, totalUsers: usuario.length, page: skip, limit: limit };
-                        res.status(200).json(data);
-                        _a.label = 4;
+                        return [2 /*return*/, res.status(200).json(data)];
                     case 4: return [3 /*break*/, 6];
                     case 5:
                         error_1 = _a.sent();
-                        res.json({ error: error_1.message });
-                        return [3 /*break*/, 6];
+                        return [2 /*return*/, res.json({ error: error_1.message })];
                     case 6: return [2 /*return*/];
                 }
             });
         }); };
-        /**
-         * It gets all the users and their comments.
-         * @param {Request} req - Request - The request object.
-         * @param {Response} res - Response - The response object.
-         */
-        /* public getComentariesUsers = async (req: Request, res: Response) => {
-    
-            try {
-                const user = await myDataSource.getRepository(User).find({
-                    relations: {
-                        comment: true,
-                    },
-                    where: {
-                        user_id: parseInt(req.params.user_id)
-                    }
-                })
-                res.json(user)
-            } catch (error) {
-                res.json({ error })
-            }
-        } */
-        /**
-         * "I want to get a user by id and a comment by id, and I want to get the user's comments"
-         * </code>
-         * @param {Request} req - Request
-         * @param {Response} res - Response
-         */
-        /* public getUserByIdComentariesById = async (req: Request, res: Response) => {
-            try {
-                const user = await myDataSource.getRepository(User).find({
-                    relations: {
-                        comment: true,
-                    },
-                    where: {
-                        user_id: parseInt(req.params.user_id),
-                        comment: {
-                            comment_id: parseInt(req.params.comment_id)
-                        }
-                    },
-                })
-                res.json(user)
-            } catch (error) {
-                res.json({ error })
-            }
-        } */
-        /* Getting all the comments of a user by id. */
-        /* public getComentariesUsersById = async (req: Request, res: Response) => {
-            try {
-                const user = await myDataSource.getRepository(User).find({
-                    relations: {
-                        comment: true,
-                    },
-                    where: {
-                        user_id: parseInt(req.params.id),
-                    },
-                })
-                res.json(user)
-            } catch (error) {
-                res.json({ error })
-            }
-        }
-     */
         /**
          * It gets a user by id from the database and returns it to the user.
          * @param {Request} req - Request - The request object
@@ -174,11 +112,42 @@ var UserController = /** @class */ (function () {
                             })];
                     case 1:
                         results = _a.sent();
-                        return [2 /*return*/, res.send(results)];
+                        if (!results) {
+                            return [2 /*return*/, res.status(200).send({ status: "Usuario con id: '".concat(req.params.id, "' no encontrado.") })];
+                        }
+                        return [2 /*return*/, res.status(200).send(results)];
                     case 2:
                         error_2 = _a.sent();
-                        res.json({ error: error_2 });
-                        return [3 /*break*/, 3];
+                        return [2 /*return*/, res.status(500).json({ error: error_2 })];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); };
+        this.getUserByRol = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var results, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find({
+                                relations: {
+                                    rol_user: true
+                                },
+                                where: {
+                                    rol_user: {
+                                        id_rol: parseInt(req.params.id)
+                                    }
+                                }
+                            })];
+                    case 1:
+                        results = _a.sent();
+                        if (!results) {
+                            return [2 /*return*/, res.status(200).send({ status: "No se encuentran datos" })];
+                        }
+                        return [2 /*return*/, res.status(200).send({ results: results })];
+                    case 2:
+                        error_3 = _a.sent();
+                        return [2 /*return*/, res.status(500).json({ error: error_3 })];
                     case 3: return [2 /*return*/];
                 }
             });
@@ -190,35 +159,47 @@ var UserController = /** @class */ (function () {
          * @returns  An Usuario object
          */
         this.saveUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, _a, user_name, user_lastname, user_email, user_password, dbUser, user, error_3;
+            var errors, _a, user_name, user_lastname, user_email, user_password, findRol, dbUser, user, error_4;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _b.trys.push([0, 5, , 6]);
+                        _b.trys.push([0, 6, , 7]);
                         errors = (0, express_validator_1.validationResult)(req);
                         if (!!errors.isEmpty()) return [3 /*break*/, 1];
                         return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
                     case 1:
                         _a = req.body, user_name = _a.user_name, user_lastname = _a.user_lastname, user_email = _a.user_email, user_password = _a.user_password;
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(rol_entity_1.Rol).findOneBy({
+                                id_rol: 2
+                            })
+                            //FIND ROLL FOR ID
+                        ];
+                    case 2:
+                        findRol = _b.sent();
+                        //FIND ROLL FOR ID
+                        if (!findRol) {
+                            return [2 /*return*/, res.status(201).send({ status: "Rol de usuario  no encontrado" })];
+                        }
                         return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).create({
                                 user_name: user_name,
                                 user_lastname: user_lastname,
                                 user_email: user_email,
-                                user_password: (0, bcryptHelper_1.bcrypGenerateEncript)(user_password)
+                                user_password: (0, bcryptHelper_1.bcrypGenerateEncript)(user_password),
+                                rol_user: findRol
                             })
                             //Create the request body
                         ];
-                    case 2:
+                    case 3:
                         dbUser = _b.sent();
                         return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).save(dbUser)];
-                    case 3:
+                    case 4:
                         user = _b.sent();
-                        return [2 /*return*/, res.status(201).send({ status: "Usuario guardado con exito", user: user })];
-                    case 4: return [3 /*break*/, 6];
-                    case 5:
-                        error_3 = _b.sent();
-                        return [2 /*return*/, res.json({ error: error_3 })];
-                    case 6: return [2 /*return*/];
+                        return [2 /*return*/, res.status(201).send({ status: "Usuario guardado con exito." })];
+                    case 5: return [3 /*break*/, 7];
+                    case 6:
+                        error_4 = _b.sent();
+                        return [2 /*return*/, res.json({ error: error_4 })];
+                    case 7: return [2 /*return*/];
                 }
             });
         }); };
@@ -229,7 +210,7 @@ var UserController = /** @class */ (function () {
          * @returns The updated user.
          */
         this.updateUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, searchUser, user, error_4;
+            var errors, searchUser, user, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -240,37 +221,20 @@ var UserController = /** @class */ (function () {
                         }
                         return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).findOneBy({
                                 user_id: parseInt(req.params.id),
-                            })
-                            //Save in var the atributes of the request body
-                            //let { user_name, user_lastname, user_email, user_password } = req.body;
-                            /* const dbUser = await myDataSource.getRepository(User).create({
-                                user_name: user_name,
-                                user_lastname: user_lastname,
-                                user_email: user_email,
-                                user_password: bcrypGenerateEncript(user_password)
-                            }) */
-                            //Create the request body
-                        ];
+                            })];
                     case 1:
                         searchUser = _a.sent();
-                        //Save in var the atributes of the request body
-                        //let { user_name, user_lastname, user_email, user_password } = req.body;
-                        /* const dbUser = await myDataSource.getRepository(User).create({
-                            user_name: user_name,
-                            user_lastname: user_lastname,
-                            user_email: user_email,
-                            user_password: bcrypGenerateEncript(user_password)
-                        }) */
-                        //Create the request body
+                        if (!searchUser) {
+                            return [2 /*return*/, res.status(200).send({ status: "Usuario con id: '".concat(req.params.id, "' no encontrado.") })];
+                        }
                         app_data_source_1.default.getRepository(user_entity_1.User).merge(searchUser, req.body);
                         return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).update(searchUser.user_id, searchUser)];
                     case 2:
                         user = _a.sent();
                         return [2 /*return*/, res.status(201).send({ status: "Usuario actualizado con exito", user: user })];
                     case 3:
-                        error_4 = _a.sent();
-                        res.json({ error: error_4 });
-                        return [3 /*break*/, 4];
+                        error_5 = _a.sent();
+                        return [2 /*return*/, res.status(500).json({ error: error_5 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -282,7 +246,7 @@ var UserController = /** @class */ (function () {
          * @returns The number of rows affected by the delete operation.
          */
         this.deleteUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var searchUser, result, error_5;
+            var searchUser, result, error_6;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -292,16 +256,17 @@ var UserController = /** @class */ (function () {
                             })];
                     case 1:
                         searchUser = _a.sent();
-                        searchUser.user_status = "0";
+                        if (!searchUser) {
+                            return [2 /*return*/, res.status(200).send({ status: "Usuario con id: '".concat(req.params.id, "' no encontrado.") })];
+                        }
+                        searchUser.user_status = Boolean(0);
                         return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).update(searchUser.user_id, searchUser)];
                     case 2:
                         result = _a.sent();
-                        console.log(result);
                         return [2 /*return*/, res.status(200).json({ status: "Usuario eliminado con exito", result: result })];
                     case 3:
-                        error_5 = _a.sent();
-                        res.json({ error: error_5 });
-                        return [3 /*break*/, 4];
+                        error_6 = _a.sent();
+                        return [2 /*return*/, res.status(500).json({ error: error_6 })];
                     case 4: return [2 /*return*/];
                 }
             });

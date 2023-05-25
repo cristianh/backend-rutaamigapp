@@ -14,7 +14,7 @@ var router = (0, express_1.Router)();
 //Inicialize the controller.
 var authController = new auth_controller_1.AuthController();
 var forgetPasswordController = new forgetpassord_controller_1.ForgetPasswordController();
-router.post("/login", validation.validateFormUsuarioLogin(), authController.getUsuarioLogin);
+router.post("/login", validation.validateFormUsuarioLogin(), authController.getUserLogin);
 router.get("/resetpassword/:id/:token", validationJWT.validateTimeToken, function (req, res) {
     res.sendFile(path.resolve(__dirname, '../../view', 'RecuperacionPassword.html'));
 });

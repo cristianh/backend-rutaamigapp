@@ -40,7 +40,7 @@ exports.FileController = void 0;
 var user_entity_1 = require("../entity/user.entity");
 var app_data_source_1 = require("../../app-data-source");
 var cloudinary = require("cloudinary").v2;
-//CONFIGURAMOS EL SERVIDOR DE IMAGENES. 
+//Set the image server. 
 cloudinary.config({
     cloud_name: "dl7oqoile",
     api_key: "511562285567879",
@@ -51,6 +51,13 @@ var file_entity_1 = require("../entity/file.entity");
 var FileController = /** @class */ (function () {
     function FileController() {
         var _this = this;
+        /**
+         * The above code is a function to save file.
+         * @param {Request} req - Request - The request object
+         * @param {Response} res - Response - The response object
+         * @returns Status string.
+         */
+        /*  */
         this.saveFile = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var result, filename, cloudinary_url, user, dbUserFile, fileuser, error_1;
             return __generator(this, function (_a) {
@@ -121,8 +128,7 @@ var FileController = /** @class */ (function () {
                         ];
                     case 4:
                         error_1 = _a.sent();
-                        res.status(500).send({ msg: 'Se ha producido un error al cargar el archivo', error: error_1 });
-                        return [3 /*break*/, 5];
+                        return [2 /*return*/, res.status(500).send({ msg: 'Se ha producido un error al cargar el archivo', error: error_1 })];
                     case 5: return [2 /*return*/];
                 }
             });

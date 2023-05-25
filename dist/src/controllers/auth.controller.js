@@ -46,8 +46,14 @@ var bcryptHelper_1 = require("../helpers/bcryptHelper");
 var AuthController = /** @class */ (function () {
     function AuthController() {
         var _this = this;
-        /* The above code is a function that is used to validate the user's login. */
-        this.getUsuarioLogin = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        /**
+         * The above code is a function that is used to validate the user's login.
+         * @param {Request} req - Request - The request object
+         * @param {Response} res - Response - The response object
+         * @returns Get users login.
+         */
+        /*  */
+        this.getUserLogin = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var errors, user, validatePassword, token, error_1;
             var _a, _b;
             return __generator(this, function (_c) {
@@ -63,18 +69,20 @@ var AuthController = /** @class */ (function () {
                                     user_email: req.body.user_email
                                 },
                                 relations: {
-                                    user_file: true
+                                    file: true,
+                                    rol_user: true
                                 },
-                            })];
+                            })
+                            // We validate if the user exists.
+                        ];
                     case 1:
                         user = _c.sent();
-                        console.log(user);
                         // We validate if the user exists.
                         if (!user) {
                             return [2 /*return*/, res.status(400).json({ result: "Usuario no encontrado, por favor revise correo y contraseña" })];
                         }
                         // We validate if the user is active.
-                        if (user.user_status == "0") {
+                        if (user.user_status == Boolean(0)) {
                             return [2 /*return*/, res.status(400).json({ result: "El usuario se encuentra inactivo, por favor contacte al administrador." })];
                         }
                         validatePassword = (0, bcryptHelper_1.bcrypCheck)(req.body.user_password, user.user_password);
@@ -82,12 +90,12 @@ var AuthController = /** @class */ (function () {
                         if (!validatePassword) {
                             return [2 /*return*/, res.status(404).json({ result: "Usuario / Password no son correctos - password" })];
                         }
-                        return [4 /*yield*/, (0, generateJWT_1.generateToken)(user.user_id)];
+                        return [4 /*yield*/, (0, generateJWT_1.generateToken)(user)];
                     case 2:
                         token = _c.sent();
                         if (token) {
                             // If the user Exit we send the information.
-                            return [2 /*return*/, res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img': (_b = (_a = user.user_file) === null || _a === void 0 ? void 0 : _a.cloudinary_url) !== null && _b !== void 0 ? _b : "" }, token: token })];
+                            return [2 /*return*/, res.status(200).json({ usuario: { 'nombre': user.user_name, 'apellido': user.user_lastname, 'estado': user.user_status, 'img': (_a = user.file) === null || _a === void 0 ? void 0 : _a.cloudinary_url, 'rol': (_b = user.rol_user.id_rol) !== null && _b !== void 0 ? _b : "", result: token } })];
                         }
                         return [3 /*break*/, 4];
                     case 3:

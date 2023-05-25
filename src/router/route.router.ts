@@ -5,15 +5,14 @@ import { Router } from "express"
 import { RouteController } from '../controllers/route.controller'
 
 const router = Router()
-//Iniciamos ruta controller
+//Initial instance Route controller
 const routeController = new RouteController()
 
-// register Rutas
-router.get("/", routeController.getAllRutas)
-router.get("/:id", routeController.getAllRutas)
-router.get("/:id", routeController.getAllRutaById)
-router.post("/", routeController.saveRuta)
-router.put("/:id", routeController.updateRuta)
-router.delete("/:id", routeController.deleteRuta)
+// Route
+router.get("/allroute/:all?/:limit?/:skip?", routeController.getAllRoute)
+router.get("/:id", routeController.getRouteById)
+router.post("/createRoute", routeController.saveRoute)
+router.put("/:id", routeController.updateRoute)
+router.delete("/:id", routeController.deleteRoute)
 
 export default router

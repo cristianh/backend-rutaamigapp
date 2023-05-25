@@ -20,8 +20,8 @@ dotenv.config();
     entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
-}) */
-
+})
+ */
 
 /* postgres-conexion - REMOTE 
 */

@@ -9,53 +9,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.File = void 0;
+exports.Notification = void 0;
 var typeorm_1 = require("typeorm");
+var route_entity_1 = require("./route.entity");
 var user_entity_1 = require("./user.entity");
-/* CREATE TABLE files (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    filename VARCHAR(255),
-    cloudinary_url VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-  ); */
-var File = /** @class */ (function () {
-    function File() {
+var Notification = /** @class */ (function () {
+    function Notification() {
     }
     __decorate([
         (0, typeorm_1.PrimaryGeneratedColumn)(),
         __metadata("design:type", Number)
-    ], File.prototype, "file_id", void 0);
+    ], Notification.prototype, "id_notification", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: String, length: 100, nullable: false }),
-        __metadata("design:type", String)
-    ], File.prototype, "file_name", void 0);
+        (0, typeorm_1.Column)({ type: "int", nullable: false }),
+        __metadata("design:type", Number)
+    ], Notification.prototype, "notification_inverval", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: String, length: 100, nullable: false }),
+        (0, typeorm_1.Column)({ type: "varchar", length: 60, nullable: false }),
         __metadata("design:type", String)
-    ], File.prototype, "cloudinary_url", void 0);
+    ], Notification.prototype, "notification_message", void 0);
     __decorate([
         (0, typeorm_1.CreateDateColumn)(),
         __metadata("design:type", String)
-    ], File.prototype, "file_create_date", void 0);
+    ], Notification.prototype, "notification_create_date", void 0);
     __decorate([
-        (0, typeorm_1.UpdateDateColumn)(),
-        __metadata("design:type", String)
-    ], File.prototype, "file_update_date", void 0);
-    __decorate([
-        (0, typeorm_1.DeleteDateColumn)(),
-        __metadata("design:type", String)
-    ], File.prototype, "file_removal_date", void 0);
-    __decorate([
-        (0, typeorm_1.OneToOne)(function () { return user_entity_1.User; }, function (user) { return user.file; }, {
-            cascade: true
-        }),
+        (0, typeorm_1.ManyToOne)(function () { return route_entity_1.Route; }, function (route) { return route.route_id; }, {}),
         (0, typeorm_1.JoinColumn)(),
+        __metadata("design:type", route_entity_1.Route)
+    ], Notification.prototype, "route_notification", void 0);
+    __decorate([
+        (0, typeorm_1.ManyToOne)(function () { return user_entity_1.User; }, function (user) { return user.notification; }),
         __metadata("design:type", user_entity_1.User)
-    ], File.prototype, "user", void 0);
-    File = __decorate([
+    ], Notification.prototype, "user_notification", void 0);
+    Notification = __decorate([
         (0, typeorm_1.Entity)()
-    ], File);
-    return File;
+    ], Notification);
+    return Notification;
 }());
-exports.File = File;
-//# sourceMappingURL=file.entity.js.map
+exports.Notification = Notification;
+//# sourceMappingURL=notification.entity.js.map
