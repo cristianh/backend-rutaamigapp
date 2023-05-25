@@ -33,7 +33,7 @@ const myDataSource = new DataSource({
     password: process.env.DBPASSWORDREMOTE,
     database: process.env.DBNAMEREMOTE,
     ssl: { rejectUnauthorized: false },
-    entities: [__dirname + "/../**/*.entity.{js,ts}"],
+    entities: [__dirname + "/src/entity/*.js"],
     logging: false,
     synchronize: true,
 })
