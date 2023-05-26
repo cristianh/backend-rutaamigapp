@@ -42,7 +42,6 @@ var myDataSource = new typeorm_1.DataSource({
     entities: [User,File,Notification,Rol,Route],//cambiar por el de arriba al subir.
     logging: false,
     synchronize: true,
-})
- */
+}) */
 exports.default = myDataSource;
 //# sourceMappingURL=app-data-source.js.map
