@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
-var app_data_source_1 = require("../../app-data-source");
+var app_data_source_1 = require("../../src/app-data-source");
 //Import express valitador this is like a regex code
 var express_validator_1 = require("express-validator");
 //Import the library to encrypt password

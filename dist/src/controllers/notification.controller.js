@@ -40,7 +40,7 @@ exports.NotificationController = void 0;
 var user_entity_1 = require("../entity/user.entity");
 var route_entity_1 = require("../entity/route.entity");
 var notification_entity_1 = require("../entity/notification.entity");
-var app_data_source_1 = require("../../app-data-source");
+var app_data_source_1 = require("../../src/app-data-source");
 /**
  *
  */

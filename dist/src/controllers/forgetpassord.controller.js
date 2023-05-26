@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForgetPasswordController = void 0;
 var user_entity_1 = require("../entity/user.entity");
-var app_data_source_1 = require("../../app-data-source");
+var app_data_source_1 = require("../../src/app-data-source");
 var express_validator_1 = require("express-validator");
 var generateJWT_1 = require("../helpers/generateJWT");
 var nodemailer = require("nodemailer");

@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { User } from "../entity/user.entity"
-import myDataSource from "../../app-data-source"
+import myDataSource from "../../src/app-data-source"
 import { validationResult } from 'express-validator';
 import { generateTokenForgetPassword } from "../helpers/generateJWT";
 import * as nodemailer from 'nodemailer';

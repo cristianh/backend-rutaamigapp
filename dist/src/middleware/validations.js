@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Validations = void 0;
 var validator = require("express-validator");
-var app_data_source_1 = require("../../app-data-source");
+var app_data_source_1 = require("../../src/app-data-source");
 //Import database user entity
 var user_entity_1 = require("../entity/user.entity");
 var Validations = /** @class */ (function () {

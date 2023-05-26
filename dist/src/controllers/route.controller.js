@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RouteController = void 0;
-var app_data_source_1 = require("../../app-data-source");
+var app_data_source_1 = require("../../src/app-data-source");
 //Import database route entity
 var route_entity_1 = require("../entity/route.entity");
 //Import the library to encrypt password

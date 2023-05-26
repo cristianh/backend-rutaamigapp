@@ -1,6 +1,6 @@
 //Import dependences
 import { Router, Request, Response } from "express"
-import myDataSource from "../../app-data-source"
+import myDataSource from "../../src/app-data-source"
 
 //Import database route entity
 import { Route } from "../entity/route.entity"

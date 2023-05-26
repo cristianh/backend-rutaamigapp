@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /*CONEXION DB */
-var app_data_source_1 = require("./app-data-source");
+var app_data_source_1 = require("./src/app-data-source");
 var express = require("express");
 /* CARGA DE ARCHIVOS*/
 /* import * as fileUpload from 'express-fileupload' */

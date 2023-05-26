@@ -39,7 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserSeeder = void 0;
 var user_entity_1 = require("../entity/user.entity");
 var file_entity_1 = require("../entity/file.entity");
-var app_data_source_1 = require("../../app-data-source");
+var app_data_source_1 = require("../../src/app-data-source");
 //Faker 
 var faker_1 = require("@faker-js/faker");
 var bcryptHelper_1 = require("../../src/helpers/bcryptHelper");
