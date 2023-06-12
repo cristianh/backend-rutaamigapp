@@ -1,10 +1,11 @@
 
 import { Request, Response } from "express"
 import { User } from "../entity/user.entity"
-import myDataSource from "../../app-data-source"
+import myDataSource from "../app-data-source";
 import { validationResult } from 'express-validator';
 import { generateToken } from "../helpers/generateJWT";
 import { bcrypCheck } from "../helpers/bcryptHelper";
+
 
 
 /* The above code is a function that is used to validate the user's login. */

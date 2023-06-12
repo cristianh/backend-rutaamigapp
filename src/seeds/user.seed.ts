@@ -3,7 +3,7 @@ import { File } from "../entity/file.entity"
 
 //Import require libraries
 import { Request, Response } from "express"
-import myDataSource from "../../app-data-source"
+import myDataSource from "../../src/app-data-source"
 
 //Faker 
 import { faker } from '@faker-js/faker';

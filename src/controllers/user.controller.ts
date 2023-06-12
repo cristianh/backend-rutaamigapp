@@ -1,6 +1,6 @@
 //Import require libraries
 import { Request, Response } from "express"
-import myDataSource from "../../app-data-source"
+import myDataSource from "../../src/app-data-source"
 
 //Import express valitador this is like a regex code
 import { validationResult } from 'express-validator';

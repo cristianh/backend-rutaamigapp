@@ -1,6 +1,6 @@
 import * as validator from 'express-validator';
 import { validationResult } from 'express-validator';
-import myDataSource from "../../app-data-source"
+import myDataSource from "../../src/app-data-source"
 
 //Import database user entity
 import { User} from "../entity/user.entity"

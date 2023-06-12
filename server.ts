@@ -1,5 +1,5 @@
 /*CONEXION DB */
-import myDataSource from "./app-data-source"
+import myDataSource from "./src/app-data-source";
 import * as express from "express"
 import { Response, Request } from "express";
 /* CARGA DE ARCHIVOS*/
@@ -13,6 +13,7 @@ import * as cors from "cors"
 import * as morgan from 'morgan'
 //IMPORTAMOS LAS RUTAS
 import ROUTER from './src/router/index'
+
 
 
 /* LIBRERIAS AUXILIARES */

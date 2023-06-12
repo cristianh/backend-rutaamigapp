@@ -1,7 +1,7 @@
 //Import require libraries
 import { Request, Response } from "express"
 import { User } from "../entity/user.entity";
-import myDataSource from "../../app-data-source"
+import myDataSource from "../../src/app-data-source"
 const cloudinary = require("cloudinary").v2;
 
 //Set the image server. 

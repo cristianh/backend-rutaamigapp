@@ -1,6 +1,6 @@
 //Import dependences
 import { Router, Request, Response } from "express"
-import myDataSource from "../../app-data-source"
+import myDataSource from "../../src/app-data-source"
 import { User } from "../entity/user.entity"
 import { Rol } from "../entity/rol.entity"
 import { validationResult } from 'express-validator';
