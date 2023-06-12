@@ -4,6 +4,7 @@ var typeorm_1 = require("typeorm");
 require("reflect-metadata");
 //ENV
 var dotenv = require("dotenv");
+//ENTITYIES
 require("reflect-metadata");
 var user_entity_1 = require("./entity/user.entity");
 var file_entity_1 = require("./entity/file.entity");
@@ -21,27 +22,13 @@ var port = typeof dbPort === 'string' ? parseInt(dbPort) : undefined;
 var myDataSource = new typeorm_1.DataSource({
     type: "mysql",
     host: process.env.DBHOST,
-    port: port,
+    port: parseInt(process.env.DBPORT),
     username: process.env.DBUSER,
     password: process.env.DBPASSWORD,
     database: process.env.DBNAME,
     entities: [user_entity_1.User, file_entity_1.File, notification_entity_1.Notification, rol_entity_1.Rol, route_entity_1.Route],
     logging: false,
-    synchronize: false,
-});
-/* postgres-conexion - REMOTE
-*/
-/* const myDataSource = new DataSource({
-    type: "postgres",
-    url:process.env.DBURLREMOTE,
-    port: parseInt(process.env.DBPORTREMOTE),
-    username: process.env.DBUSERREMOTE,
-    password: process.env.DBPASSWORDREMOTE,
-    database: process.env.DBNAMEREMOTE,
-    ssl: { rejectUnauthorized: false },
-    entities: [User,File,Notification,Rol,Route],//cambiar por el de arriba al subir.
-    logging: false,
     synchronize: true,
-}) */
+});
 exports.default = myDataSource;
 //# sourceMappingURL=app-data-source.js.map
