@@ -3,5 +3,3 @@ doc
 .env
 .env.production
 docs
-app-data-source.ts
-
