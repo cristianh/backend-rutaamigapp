@@ -20,18 +20,14 @@ dotenv.config();
 const dbPort = process.env.DBPORT;
 const port = typeof dbPort === 'string' ? parseInt(dbPort) : undefined;
 
-/* mysql-conexion - local 
-    CONFIGURANDO LAS VARIABLES DE CONEXION.
-    NOTA: REVISAR EL ARCHIVO .env SI DEBEN REALIZAR ALGUN CAMBIO
-    OJO!: REVISEN QUE EL ARCHIVO CON SU CONFIGURACION NO SE SUBA AL REPO.(YA ESTA EN EL ARCHIVO GIFIGNORE)
+/* postgres-conexion - REMOTE 
 */
 const myDataSource = new DataSource({
-    type: "mysql",
-    host: process.env.DBHOST,
-    port: parseInt(process.env.DBPORT),
-    username: process.env.DBUSER,
-    password: process.env.DBPASSWORD,
-    database: process.env.DBNAME,
+    type: "postgres",
+    url:process.env.DBURLREMOTE,
+    port: parseInt(process.env.DBPORTREMOTE),
+    database: process.env.DBNAMEREMOTE,
+    ssl: { rejectUnauthorized: false },
     entities: [User,File,Notification,Rol,Route],
     logging: false,
     synchronize: true,
