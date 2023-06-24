@@ -1,17 +1,39 @@
-import * as express from "express";
-import { createServer } from "http";
-import { Server } from "socket.io";
-
+const express = require('express');
 const app = express();
-const httpServer = createServer(app);
-const io = new Server(httpServer, { /* options */ });
+const http = require('http');
+const path = require('path');
+const server = http.createServer(app);
 
-io.on("connection", (socket) => {
-    // test conexion
-    console.log("cliente conectado");
-    /* socket.disconnect() */
+//socket 
+const { Server } = require("socket.io");
+const io = new Server(server,{ cors: true, origin:true, allowEIO3: true });
+
+
+//SOCKET.io
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+  socket.emit('mensaje_bienvenida', "bienvenido usuario")
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
+    //socket.broadcast.emit('hi');
+    io.emit('chat send server message', msg);
+  });
+  socket.emit('text', 'wow. such event. very real time.');
+
+  //EVENTO PARA ENVIAR INFORMACION DE LAS RUTAS.
+  socket.on('geo_posicion', (msg) => {
+    console.log('objectposition: ' + msg);
+    //socket.broadcast.emit('hi');
+    io.emit('chat send server message', msg);
+    io.emit('chat_send_server_message', msg);
+  });
 });
 
-httpServer.listen(4000);
 
-console.log("servidor corriendo en el puerto 4000")
+
+server.listen(process.env.PORT || 5000, () => {
+  console.log('listening on http://localhost:5000');
+});

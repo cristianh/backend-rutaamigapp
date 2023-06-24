@@ -11,27 +11,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Rol = void 0;
 var typeorm_1 = require("typeorm");
-var usuario_entity_1 = require("../entity/usuario.entity");
+var user_entity_1 = require("./user.entity");
 var Rol = /** @class */ (function () {
     function Rol() {
     }
     __decorate([
         (0, typeorm_1.PrimaryGeneratedColumn)(),
         __metadata("design:type", Number)
-    ], Rol.prototype, "idrol", void 0);
+    ], Rol.prototype, "id_rol", void 0);
     __decorate([
         (0, typeorm_1.Column)({ type: "varchar", nullable: false }),
         __metadata("design:type", String)
-    ], Rol.prototype, "nombre", void 0);
+    ], Rol.prototype, "nombre_rol", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "int", nullable: false }),
-        __metadata("design:type", Number)
-    ], Rol.prototype, "nivel", void 0);
-    __decorate([
-        (0, typeorm_1.OneToOne)(function () { return usuario_entity_1.Usuario; }),
-        (0, typeorm_1.JoinColumn)(),
-        __metadata("design:type", usuario_entity_1.Usuario)
-    ], Rol.prototype, "usuario", void 0);
+        (0, typeorm_1.OneToMany)(function () { return user_entity_1.User; }, function (user) { return user.rol_user; }, { cascade: ['insert', 'update'] }),
+        __metadata("design:type", Array)
+    ], Rol.prototype, "user_rol", void 0);
     Rol = __decorate([
         (0, typeorm_1.Entity)()
     ], Rol);

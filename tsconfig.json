@@ -13,14 +13,20 @@
         "experimentalDecorators": true,
         "sourceMap": true,
         "outDir": "dist",
-        "inlineSources": false
+        "inlineSources": false,
+        "downlevelIteration":true
     },
     "exclude": [
         "node_modules"
     ],
     "typedocOptions": {
         "entryPoints": [
-            "src/controllers/*.ts"
+            "src/controllers/*.ts",
+            "src/entity/*.ts",
+            "src/helpers/*.ts",
+            "src/middleware/*.ts",
+            "src/router/*.ts",
+
         ],
         "out": "docs"
     }

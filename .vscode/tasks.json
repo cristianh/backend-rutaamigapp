@@ -8,11 +8,10 @@
             "runOptions": {
                 "runOn": "folderOpen"
             },
-            "dependsOrder": "parallel", // or parallel
+            "dependsOrder": "parallel", // or parallel,sequence
             "dependsOn": [
                 "typescript",
-                "servidor",
-                "socket"
+                "servidor"
             ]
         },
         {
@@ -30,14 +29,6 @@
             "presentation": {
                 "group": "groupServerStuff"
             }
-        },
-        {
-            "label": "socket",
-            "type": "shell",
-            "command": "nodemon dist/src/servermap/servermap",
-            "presentation": {
-                "group": "groupServerStuff"
-            }
-        },
+        }
     ]
 }
