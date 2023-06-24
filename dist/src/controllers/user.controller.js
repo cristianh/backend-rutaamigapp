@@ -56,11 +56,11 @@ var UserController = /** @class */ (function () {
      * @param {Response} res - Response - The response object
      */
         this.getAllUsers = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var limit, skip, all, query, user, data, usuario, data, error_1;
+            var limit, skip, all, query, user, data, usuario, user, data, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 5, , 6]);
+                        _a.trys.push([0, 6, , 7]);
                         limit = req.query['limit'] || 10;
                         skip = req.query['skip'] || 0;
                         all = req.query['all'] || false;
@@ -72,6 +72,9 @@ var UserController = /** @class */ (function () {
                                     notification: true,
                                     rol_user: true
                                 },
+                                where: {
+                                    user_status: true
+                                }
                             })];
                     case 1:
                         user = _a.sent();
@@ -80,18 +83,33 @@ var UserController = /** @class */ (function () {
                     case 2:
                         query = {
                             skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
-                            take: req.query['limit'] == undefined ? 10 : parseInt(limit)
+                            take: req.query['limit'] == undefined ? 10 : parseInt(limit),
+                            where: {
+                                user_status: true
+                            }
                         };
                         return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find(query)];
                     case 3:
                         usuario = _a.sent();
-                        data = { usuario: usuario, totalUsers: usuario.length, page: skip, limit: limit };
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find({
+                                relations: {
+                                    file: true,
+                                    notification: true,
+                                    rol_user: true
+                                },
+                                where: {
+                                    user_status: true
+                                }
+                            })];
+                    case 4:
+                        user = _a.sent();
+                        data = { usuario: usuario, totalUsers: user.length, totalUsersPage: usuario.length, page: skip, limit: limit };
                         return [2 /*return*/, res.status(200).json(data)];
-                    case 4: return [3 /*break*/, 6];
-                    case 5:
+                    case 5: return [3 /*break*/, 7];
+                    case 6:
                         error_1 = _a.sent();
                         return [2 /*return*/, res.json({ error: error_1.message })];
-                    case 6: return [2 /*return*/];
+                    case 7: return [2 /*return*/];
                 }
             });
         }); };
@@ -123,8 +141,39 @@ var UserController = /** @class */ (function () {
                 }
             });
         }); };
-        this.getUserByRol = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        /**
+         * It gets a user by id from the database and returns it to the user.
+         * @param {Request} req - Request - The request object
+         * @param {Response} res - Response =&gt; Express.Response
+         * @returns An object with the user data.
+         */
+        this.getUserByEmail = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var results, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find({
+                                where: {
+                                    user_email: req.params.email,
+                                    user_status: true
+                                }
+                            })];
+                    case 1:
+                        results = _a.sent();
+                        if (!results) {
+                            return [2 /*return*/, res.status(200).send({ status: "Usuario con correo: '".concat(req.params.email, "' no encontrado.") })];
+                        }
+                        return [2 /*return*/, res.status(200).send(results)];
+                    case 2:
+                        error_3 = _a.sent();
+                        return [2 /*return*/, res.status(500).json({ error: error_3 })];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); };
+        this.getUserByRol = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var results, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -146,8 +195,8 @@ var UserController = /** @class */ (function () {
                         }
                         return [2 /*return*/, res.status(200).send({ results: results })];
                     case 2:
-                        error_3 = _a.sent();
-                        return [2 /*return*/, res.status(500).json({ error: error_3 })];
+                        error_4 = _a.sent();
+                        return [2 /*return*/, res.status(500).json({ error: error_4 })];
                     case 3: return [2 /*return*/];
                 }
             });
@@ -159,7 +208,7 @@ var UserController = /** @class */ (function () {
          * @returns  An Usuario object
          */
         this.saveUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, _a, user_name, user_lastname, user_email, user_password, findRol, dbUser, user, error_4;
+            var errors, _a, user_name, user_lastname, user_email, user_password, findRol, dbUser, user, error_5;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -197,8 +246,8 @@ var UserController = /** @class */ (function () {
                         return [2 /*return*/, res.status(201).send({ status: "Usuario guardado con exito." })];
                     case 5: return [3 /*break*/, 7];
                     case 6:
-                        error_4 = _b.sent();
-                        return [2 /*return*/, res.json({ error: error_4 })];
+                        error_5 = _b.sent();
+                        return [2 /*return*/, res.json({ error: error_5 })];
                     case 7: return [2 /*return*/];
                 }
             });
@@ -210,7 +259,7 @@ var UserController = /** @class */ (function () {
          * @returns The updated user.
          */
         this.updateUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, searchUser, user, error_5;
+            var errors, searchUser, user, error_6;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -233,8 +282,8 @@ var UserController = /** @class */ (function () {
                         user = _a.sent();
                         return [2 /*return*/, res.status(201).send({ status: "Usuario actualizado con exito", user: user })];
                     case 3:
-                        error_5 = _a.sent();
-                        return [2 /*return*/, res.status(500).json({ error: error_5 })];
+                        error_6 = _a.sent();
+                        return [2 /*return*/, res.status(500).json({ error: error_6 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -246,7 +295,7 @@ var UserController = /** @class */ (function () {
          * @returns The number of rows affected by the delete operation.
          */
         this.deleteUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var searchUser, result, error_6;
+            var searchUser, result, error_7;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -265,8 +314,8 @@ var UserController = /** @class */ (function () {
                         result = _a.sent();
                         return [2 /*return*/, res.status(200).json({ status: "Usuario eliminado con exito", result: result })];
                     case 3:
-                        error_6 = _a.sent();
-                        return [2 /*return*/, res.status(500).json({ error: error_6 })];
+                        error_7 = _a.sent();
+                        return [2 /*return*/, res.status(500).json({ error: error_7 })];
                     case 4: return [2 /*return*/];
                 }
             });

@@ -39,6 +39,9 @@ export class UserController {
                         notification: true,
                         rol_user: true
                     },
+                    where: {
+                        user_status:true
+                    }
                 })
                 let data = { user, totalUsers: user.length }
 
@@ -46,10 +49,25 @@ export class UserController {
             } else {
                 query = {
                     skip: req.query['skip'] == undefined ? 0 : parseInt(skip),
-                    take: req.query['limit'] == undefined ? 10 : parseInt(limit)
+                    take: req.query['limit'] == undefined ? 10 : parseInt(limit),
+                    where: {
+                        user_status:true
+                    }   
                 }
                 const usuario = await myDataSource.getRepository(User).find(query)
-                let data = { usuario, totalUsers: usuario.length, page: skip, limit: limit }
+
+                const user = await myDataSource.getRepository(User).find({
+                    relations: {
+                        file: true,
+                        notification: true,
+                        rol_user: true
+                    },
+                    where: {
+                        user_status:true
+                    }
+                })
+
+                let data = { usuario, totalUsers: user.length,totalUsersPage: usuario.length, page: skip, limit: limit }
 
                 return res.status(200).json(data)
             }
@@ -74,6 +92,33 @@ export class UserController {
 
             if (!results) {
                 return res.status(200).send({ status: `Usuario con id: '${req.params.id}' no encontrado.` })
+            }
+
+
+            return res.status(200).send(results)
+        } catch (error) {
+            return res.status(500).json({ error })
+        }
+    }
+
+    /**
+     * It gets a user by id from the database and returns it to the user.
+     * @param {Request} req - Request - The request object
+     * @param {Response} res - Response =&gt; Express.Response
+     * @returns An object with the user data.
+     */
+     public getUserByEmail = async (req: Request, res: Response) => {
+        try {
+            const results = await myDataSource.getRepository(User).find({
+                where: {
+                    user_email:req.params.email,
+                    user_status:true
+                }
+                
+            })
+
+            if (!results) {
+                return res.status(200).send({ status: `Usuario con correo: '${req.params.email}' no encontrado.` })
             }
 
 
