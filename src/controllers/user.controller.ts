@@ -108,17 +108,17 @@ export class UserController {
      * @returns An object with the user data.
      */
      public getUserByEmail = async (req: Request, res: Response) => {
-        try {
+        try {            
             const results = await myDataSource.getRepository(User).find({
                 where: {
-                    user_email:req.params.email,
+                    user_email:req.body.email,
                     user_status:true
                 }
                 
             })
 
             if (!results) {
-                return res.status(200).send({ status: `Usuario con correo: '${req.params.email}' no encontrado.` })
+                return res.status(200).send({ status: `Usuario con correo: '${req.body.email}' no encontrado.` })
             }
 
 

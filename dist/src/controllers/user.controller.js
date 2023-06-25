@@ -155,14 +155,14 @@ var UserController = /** @class */ (function () {
                         _a.trys.push([0, 2, , 3]);
                         return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).find({
                                 where: {
-                                    user_email: req.params.email,
+                                    user_email: req.body.email,
                                     user_status: true
                                 }
                             })];
                     case 1:
                         results = _a.sent();
                         if (!results) {
-                            return [2 /*return*/, res.status(200).send({ status: "Usuario con correo: '".concat(req.params.email, "' no encontrado.") })];
+                            return [2 /*return*/, res.status(200).send({ status: "Usuario con correo: '".concat(req.body.email, "' no encontrado.") })];
                         }
                         return [2 /*return*/, res.status(200).send(results)];
                     case 2:
