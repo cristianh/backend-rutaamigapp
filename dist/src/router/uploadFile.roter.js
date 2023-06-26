@@ -13,5 +13,6 @@ var upload = multer({ dest: __dirname + '../../uploads' });
 //Inicializamos el controlador.
 var fileUserController = new file_controller_1.FileController();
 router.post("/upload", upload.single('file'), fileUserController.saveFile);
+router.post("/uploadNotificacionImagen", upload.single('file'), fileUserController.saveFileNotificacion);
 exports.default = router;
 //# sourceMappingURL=uploadFile.roter.js.map

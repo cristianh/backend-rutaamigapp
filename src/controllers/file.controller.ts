@@ -25,7 +25,7 @@ export class FileController {
     /*  */
     public saveFile = async (req: Request, res: Response) => {
         try {
-
+                console.log(req.file)
             cloudinary.image(req.file.originalname, { width: 150, height: 150, gravity: "face", radius: "max", crop: "fill" })
 
             const result = await cloudinary.uploader.upload(req.file.path, {
@@ -60,37 +60,29 @@ export class FileController {
             dbUserFile.user = user
             const fileuser = await myDataSource.getRepository(File).save(dbUserFile)
             return res.status(201).send({ status: "¡Archivo cargado correctamente!", File })
-
-            /* Version 1 
-            if (!req.files) {
-                res.send({
-                    status: false,
-                    message: "Archivo no cargado."
-                })
-            } else {
-                //Info file
-    
-    
-                let imagenUpload: any = req.files.imagen;
-                //Implementar el sanitizador para evitar archivos indeseados
-                imagenUpload.mv(path.resolve(__dirname, '../../uploads', imagenUpload.name))
-    
-    
-                res.send({
-                    status: 200,
-                    message: "Archivo Cargado",
-                    data: {
-                        name: imagenUpload.name,
-                        mimetype: imagenUpload.mimetype,
-                        size: imagenUpload.size
-                    }
-                })
-            }
-            */
         } catch (error) {
             return res.status(500).send({ msg: 'Se ha producido un error al cargar el archivo', error })
         }
+    }
 
+    public saveFileNotificacion = async (req: Request, res: Response) => {
+        try {       
+            const result = await cloudinary.uploader.upload(req.file.path, {
+                resource_type: 'auto',
+                folder: 'uploads/',
+                transformation: [
+                    { width: 800, height: 600}
+                ]
+            });
 
+            // We keep the name and URL generated in Cloudinary.
+            const filename = req.file.originalname;
+            const cloudinary_url = result.secure_url;
+
+           
+            return res.status(201).send({ status: "¡Archivo cargado correctamente!", url:cloudinary_url })
+        } catch (error) {
+            return res.status(500).send({ msg: 'Se ha producido un error al cargar el archivo', error })
+        }
     }
 }

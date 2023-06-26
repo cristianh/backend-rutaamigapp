@@ -64,6 +64,7 @@ var FileController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 4, , 5]);
+                        console.log(req.file);
                         cloudinary.image(req.file.originalname, { width: 150, height: 150, gravity: "face", radius: "max", crop: "fill" });
                         return [4 /*yield*/, cloudinary.uploader.upload(req.file.path, {
                                 resource_type: 'auto',
@@ -98,38 +99,36 @@ var FileController = /** @class */ (function () {
                         return [4 /*yield*/, app_data_source_1.default.getRepository(file_entity_1.File).save(dbUserFile)];
                     case 3:
                         fileuser = _a.sent();
-                        return [2 /*return*/, res.status(201).send({ status: "¡Archivo cargado correctamente!", File: file_entity_1.File })
-                            /* Version 1
-                            if (!req.files) {
-                                res.send({
-                                    status: false,
-                                    message: "Archivo no cargado."
-                                })
-                            } else {
-                                //Info file
-                    
-                    
-                                let imagenUpload: any = req.files.imagen;
-                                //Implementar el sanitizador para evitar archivos indeseados
-                                imagenUpload.mv(path.resolve(__dirname, '../../uploads', imagenUpload.name))
-                    
-                    
-                                res.send({
-                                    status: 200,
-                                    message: "Archivo Cargado",
-                                    data: {
-                                        name: imagenUpload.name,
-                                        mimetype: imagenUpload.mimetype,
-                                        size: imagenUpload.size
-                                    }
-                                })
-                            }
-                            */
-                        ];
+                        return [2 /*return*/, res.status(201).send({ status: "¡Archivo cargado correctamente!", File: file_entity_1.File })];
                     case 4:
                         error_1 = _a.sent();
                         return [2 /*return*/, res.status(500).send({ msg: 'Se ha producido un error al cargar el archivo', error: error_1 })];
                     case 5: return [2 /*return*/];
+                }
+            });
+        }); };
+        this.saveFileNotificacion = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var result, filename, cloudinary_url, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, cloudinary.uploader.upload(req.file.path, {
+                                resource_type: 'auto',
+                                folder: 'uploads/',
+                                transformation: [
+                                    { width: 800, height: 600 }
+                                ]
+                            })];
+                    case 1:
+                        result = _a.sent();
+                        filename = req.file.originalname;
+                        cloudinary_url = result.secure_url;
+                        return [2 /*return*/, res.status(201).send({ status: "¡Archivo cargado correctamente!", url: cloudinary_url })];
+                    case 2:
+                        error_2 = _a.sent();
+                        return [2 /*return*/, res.status(500).send({ msg: 'Se ha producido un error al cargar el archivo', error: error_2 })];
+                    case 3: return [2 /*return*/];
                 }
             });
         }); };

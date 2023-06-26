@@ -19,5 +19,6 @@ const upload = multer({ dest: __dirname + '../../uploads' })
 const fileUserController = new FileController();
 
 router.post("/upload", upload.single('file'),fileUserController.saveFile);
+router.post("/uploadNotificacionImagen", upload.single('file'),fileUserController.saveFileNotificacion);
 
 export default router
