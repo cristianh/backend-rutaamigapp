@@ -36,6 +36,9 @@ export class User {
     @Column({ type: "boolean", nullable: false, default: true })
     user_status: boolean
 
+    @Column({ type: "boolean", nullable: false, default: false })
+    user_isactive: boolean
+
     @CreateDateColumn()
     user_create_date: string
 

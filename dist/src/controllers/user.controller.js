@@ -45,6 +45,8 @@ var bcryptHelper_1 = require("../helpers/bcryptHelper");
 //Import database of user entity 
 var user_entity_1 = require("../entity/user.entity");
 var rol_entity_1 = require("../entity/rol.entity");
+var generateJWT_1 = require("../helpers/generateJWT");
+var nodemailer = require("nodemailer");
 //Take ORM methods
 var userRepository = app_data_source_1.default.getRepository(user_entity_1.User);
 var UserController = /** @class */ (function () {
@@ -208,11 +210,11 @@ var UserController = /** @class */ (function () {
          * @returns  An Usuario object
          */
         this.saveUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var errors, _a, user_name, user_lastname, user_email, user_password, findRol, dbUser, user, error_5;
+            var errors, _a, user_name, user_lastname, user_email, user_password, findRol, dbUser, user, token, transporter, emailPort, mailOptions, error_5;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _b.trys.push([0, 6, , 7]);
+                        _b.trys.push([0, 7, , 8]);
                         errors = (0, express_validator_1.validationResult)(req);
                         if (!!errors.isEmpty()) return [3 /*break*/, 1];
                         return [2 /*return*/, res.status(400).json({ errors: errors.array() })];
@@ -240,15 +242,44 @@ var UserController = /** @class */ (function () {
                         ];
                     case 3:
                         dbUser = _b.sent();
-                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).save(dbUser)];
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).save(dbUser)
+                            //SEND EMAIL VALIDACION     
+                            //GENERATE JWT 1h RECOVERY TIME
+                        ];
                     case 4:
                         user = _b.sent();
-                        return [2 /*return*/, res.status(201).send({ status: "Usuario guardado con exito." })];
-                    case 5: return [3 /*break*/, 7];
-                    case 6:
+                        return [4 /*yield*/, (0, generateJWT_1.generateTokenForgetPassword)(user.user_id, '1h')];
+                    case 5:
+                        token = _b.sent();
+                        transporter = nodemailer.createTransport({
+                            service: 'hotmail',
+                            auth: {
+                                user: process.env.USER_GMAIL,
+                                pass: process.env.PASSWORD_GMAIL
+                            }
+                        });
+                        emailPort = process.env.URLDESARROLLOFRONT || 3000;
+                        mailOptions = {
+                            from: process.env.USER_GMAIL,
+                            to: "".concat(user.user_email),
+                            subject: "Validar Usuario - RutaAmigapp",
+                            html: "<div style=\"color:black;padding-top:34px;background-color:#f5f4f4;text-align:center;gap:12px;font-size:1em;font-family:tahoma\">\n    <div>\n        <h1 style=\"font-family:'cabin'\">\u00A1Bienvenido(a), ".concat(user.user_name, " ").concat(user.user_lastname, "!</h1>\n    </div>\n    <div>\n        <img src=\"https://res.cloudinary.com/dl7oqoile/image/upload/v1682005302/restablecer-la-contrasena_ocbt3m.png\"\n            width=\"150\" alt=\"Recuperar contrase\u00F1a\">\n    </div>\n    <div>\n        <p>Para comenzar a disfrutar de nuestros servicios, haga clic en el siguiente\n            enlace:</p>\n        <a style=\"margin:0px auto;background-color:#fba63e;width:203px;padding:12px 12px;display:grid;place-items:center;align-items:center;text-align:center;color:#ffffff;border-radius:12px 12px;justify-content: center;\"\n            href=\"http://rutamigapp.com/activate-account/").concat(user.user_id, "/").concat(token, "\">Activar cuenta</a>\n\n        <p>Tenga en cuenta que este enlace solo ser\u00E1 v\u00E1lido durante los pr\u00F3ximos</p>\n        <p><b>30 minutos</b></p>\n        <p>\n            Gracias por activar su cuenta.\n        </p>\n    </div>\n    <div style=\"padding-bottom:6px;background-color:#FBA63E;color:white;width:100%;height:100%;border-top: 3px solid #EF6C00;\">\n        <p>Atentamente,<br>\n            El equipo de RutaAmigapp</p>\n\n        <p>\u00A1Saludos!</p>\n    </div>\n</div>")
+                        };
+                        // Send the mail with the message options.
+                        transporter.sendMail(mailOptions, function (error, response) {
+                            if (error) {
+                                return res.status(500).json({ result: "Ha ocurrido un error al tratar de enviar el correo: ".concat(error), status: "ok" });
+                            }
+                            else {
+                                return res.status(201).send({ status: "Usuario guardado con exito, por favor revisa tu correo para validar tu cuenta." });
+                            }
+                        });
+                        _b.label = 6;
+                    case 6: return [3 /*break*/, 8];
+                    case 7:
                         error_5 = _b.sent();
                         return [2 /*return*/, res.json({ error: error_5 })];
-                    case 7: return [2 /*return*/];
+                    case 8: return [2 /*return*/];
                 }
             });
         }); };

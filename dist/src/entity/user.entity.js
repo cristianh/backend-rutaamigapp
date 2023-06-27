@@ -53,6 +53,10 @@ var User = /** @class */ (function () {
         __metadata("design:type", Boolean)
     ], User.prototype, "user_status", void 0);
     __decorate([
+        (0, typeorm_1.Column)({ type: "boolean", nullable: false, default: false }),
+        __metadata("design:type", Boolean)
+    ], User.prototype, "user_isactive", void 0);
+    __decorate([
         (0, typeorm_1.CreateDateColumn)(),
         __metadata("design:type", String)
     ], User.prototype, "user_create_date", void 0);

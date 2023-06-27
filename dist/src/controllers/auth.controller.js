@@ -82,7 +82,7 @@ var AuthController = /** @class */ (function () {
                             return [2 /*return*/, res.status(400).json({ result: "Usuario no encontrado, por favor revise correo y contraseña" })];
                         }
                         // We validate if the user is active.
-                        if (user.user_status == Boolean(0)) {
+                        if (user.user_isactive == Boolean(0)) {
                             return [2 /*return*/, res.status(400).json({ result: "El usuario se encuentra inactivo, por favor contacte al administrador." })];
                         }
                         validatePassword = (0, bcryptHelper_1.bcrypCheck)(req.body.user_password, user.user_password);

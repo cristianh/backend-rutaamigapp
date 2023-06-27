@@ -3,3 +3,4 @@ doc
 .env
 .env.production
 docs
+dist/src/uploads

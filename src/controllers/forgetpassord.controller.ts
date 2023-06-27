@@ -25,9 +25,6 @@ export class ForgetPasswordController {
             //GENERATE JWT 1h RECOVERY TIME
             const token = await generateTokenForgetPassword(user.user_id, '1h');
 
-            console.log(process.env.USER_GMAIL)
-            console.log(process.env.PASSWORD_GMAIL)
-
             // We create the channel to link the mail where the mail and the password recovery link will be sent.
             const transporter = nodemailer.createTransport({
                 service: 'hotmail',
@@ -59,7 +56,7 @@ export class ForgetPasswordController {
                         siguiente
                         enlace:</p>
                     <a style="margin:0px auto;background-color:#fba63e;width:203px;padding:12px 12px;display:grid;place-items:center;align-items:center;text-align:center;color:#ffffff;border-radius:12px 12px;justify-content: center;"
-                        href="${process.env.URLDESARROLLOFRONT}/new-password/${user.user_id}/${token}">Recuperar contrase&ntilde;a</a>
+                        href="https://rutaamigapp.onrender.com/new-password/${user.user_id}/${token}">Recuperar contrase&ntilde;a</a>
 
                     <p>Tenga en cuenta que este enlace solo será válido durante los próximos
                     <p><b>30 minutos</b></p> Si intenta acceder al enlace

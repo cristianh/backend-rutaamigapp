@@ -11,7 +11,8 @@ import { bcrypGenerateEncript } from "../helpers/bcryptHelper";
 //Import database of user entity 
 import { User } from "../entity/user.entity"
 import { Rol } from "../entity/rol.entity"
-
+import { generateTokenForgetPassword } from "../helpers/generateJWT";
+import * as nodemailer from 'nodemailer';
 
 //Take ORM methods
 const userRepository = myDataSource.getRepository(User);
@@ -200,8 +201,70 @@ export class UserController {
 
                 //Create the request body
                 const user = await myDataSource.getRepository(User).save(dbUser)
+                
+//SEND EMAIL VALIDACION     
+ //GENERATE JWT 1h RECOVERY TIME
+ const token = await generateTokenForgetPassword(user.user_id, '1h');
 
-                return res.status(201).send({ status: "Usuario guardado con exito." })
+ 
+ // We create the channel to link the mail where the mail and the password recovery link will be sent.
+ const transporter = nodemailer.createTransport({
+     service: 'hotmail',
+     auth: {
+         user: process.env.USER_GMAIL,
+         pass: process.env.PASSWORD_GMAIL
+     }
+ })
+
+ // We specify the port from where the message is going to be sent
+ const emailPort = process.env.URLDESARROLLOFRONT || 3000
+
+ // We configure the body of the mail.
+ const mailOptions = {
+     from: process.env.USER_GMAIL,
+     to: `${user.user_email}`,
+     subject: "Validar Usuario - RutaAmigapp",
+     html: `<div style="color:black;padding-top:34px;background-color:#f5f4f4;text-align:center;gap:12px;font-size:1em;font-family:tahoma">
+    <div>
+        <h1 style="font-family:'cabin'">¡Bienvenido(a), ${user.user_name} ${user.user_lastname}!</h1>
+    </div>
+    <div>
+        <img src="https://res.cloudinary.com/dl7oqoile/image/upload/v1682005302/restablecer-la-contrasena_ocbt3m.png"
+            width="150" alt="Recuperar contraseña">
+    </div>
+    <div>
+        <p>Para comenzar a disfrutar de nuestros servicios, haga clic en el siguiente
+            enlace:</p>
+        <a style="margin:0px auto;background-color:#fba63e;width:203px;padding:12px 12px;display:grid;place-items:center;align-items:center;text-align:center;color:#ffffff;border-radius:12px 12px;justify-content: center;"
+            href="http://rutamigapp.com/activate-account/${user.user_id}/${token}">Activar cuenta</a>
+
+        <p>Tenga en cuenta que este enlace solo será válido durante los próximos</p>
+        <p><b>30 minutos</b></p>
+        <p>
+            Gracias por activar su cuenta.
+        </p>
+    </div>
+    <div style="padding-bottom:6px;background-color:#FBA63E;color:white;width:100%;height:100%;border-top: 3px solid #EF6C00;">
+        <p>Atentamente,<br>
+            El equipo de RutaAmigapp</p>
+
+        <p>¡Saludos!</p>
+    </div>
+</div>`
+ }
+
+ // Send the mail with the message options.
+ transporter.sendMail(mailOptions, (error, response) => {
+     if (error) {
+         return res.status(500).json({ result: `Ha ocurrido un error al tratar de enviar el correo: ${error}`, status: "ok" })
+     } else {
+        return res.status(201).send({ status: "Usuario guardado con exito, por favor revisa tu correo para validar tu cuenta." })
+     }
+ })
+
+
+
+                
             }
 
         } catch (error) {
