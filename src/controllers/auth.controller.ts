@@ -47,7 +47,7 @@ export class AuthController {
             }
             // We validate if the user is active.
             if (user.user_isactive==Boolean(0)) {
-                return res.status(400).json({ result: "El usuario se encuentra inactivo, por favor contacte al administrador." })
+                return res.status(400).json({ result: "El usuario se encuentra inactivo, por favor activa tu cuenta" })
             }
 
 

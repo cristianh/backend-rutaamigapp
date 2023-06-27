@@ -20,5 +20,6 @@ router.get("/resetpassword/:id/:token", validationJWT.validateTimeToken, functio
 });
 router.post("/forgetPassword", forgetPasswordController.sendEmail);
 router.post("/updatePasswordUsuario", validationJWT.validateTimeToken, validation.validateFormNewPassword(), forgetPasswordController.updatePasswordUser);
+router.post("/validateAccountUsuario", validationJWT.validateTimeToken, forgetPasswordController.userActivateAccountUser);
 exports.default = router;
 //# sourceMappingURL=auth.router.js.map

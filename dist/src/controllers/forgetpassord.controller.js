@@ -79,7 +79,7 @@ var ForgetPasswordController = /** @class */ (function () {
                             from: process.env.USER_GMAIL,
                             to: "".concat(user.user_email),
                             subject: "Restablecer contraseña - RutaAmigapp",
-                            html: "\n                <div style=\"color:black;padding-top:34px;background-color:#f5f4f4;text-align:center;gap:12px;font-size:1em;font-family:tahoma\">                   \n                    <div>\n                    <h1 style=\"font-family:'cabin'\">\u00A1Hol@! ".concat(user.user_name, " ").concat(user.user_lastname, " </h1>\n                    </div>\n                    <div>\n                    <img src=\"https://res.cloudinary.com/dl7oqoile/image/upload/v1682005302/restablecer-la-contrasena_ocbt3m.png\"\n                        width=\"150\" alt=\"Recuperar contrase\u00F1a\">\n                    </div>\n                    <div>\n                    <p>Hemos recibido su solicitud de recuperaci\u00F3n de contrase\u00F1a. Para restablecer su contrase\u00F1a, haga clic en el\n                        siguiente\n                        enlace:</p>\n                    <a style=\"margin:0px auto;background-color:#fba63e;width:203px;padding:12px 12px;display:grid;place-items:center;align-items:center;text-align:center;color:#ffffff;border-radius:12px 12px;justify-content: center;\"\n                        href=\"https://rutaamigapp.onrender.com/new-password/").concat(user.user_id, "/").concat(token, "\">Recuperar contrase&ntilde;a</a>\n\n                    <p>Tenga en cuenta que este enlace solo ser\u00E1 v\u00E1lido durante los pr\u00F3ximos\n                    <p><b>30 minutos</b></p> Si intenta acceder al enlace\n                    despu\u00E9s\n                    de ese tiempo, deber\u00E1 volver a solicitar un restablecimiento de contrase\u00F1a.</p>\n\n                    <p>\n                        Si no ha solicitado este cambio de contrase\u00F1a, por favor ignore este mensaje.\n                    </p>\n                    </div>\n                    <div style=\"padding-bottom:6px;background-color:#FBA63E;color:white;width:100%;height:100%;border-top: 3px solid #EF6C00;\">\n                    <p>Atentamente,<br>\n                        El equipo de RutaAmigapp</p>\n\n                    <p>\u00A1Un Saludo!</p>\n                    </div>\n                </div>")
+                            html: "\n                <div style=\"color:black;padding-top:34px;background-color:#f5f4f4;text-align:center;gap:12px;font-size:1em;font-family:tahoma\">                   \n                    <div>\n                    <h1 style=\"font-family:'cabin'\">\u00A1Hol@! ".concat(user.user_name, " ").concat(user.user_lastname, " </h1>\n                    </div>\n                    <div>\n                    <img src=\"https://res.cloudinary.com/dl7oqoile/image/upload/v1682005302/restablecer-la-contrasena_ocbt3m.png\"\n                        width=\"150\" alt=\"Recuperar contrase\u00F1a\">\n                    </div>\n                    <div>\n                    <p>Hemos recibido su solicitud de recuperaci\u00F3n de contrase\u00F1a. Para restablecer su contrase\u00F1a, haga clic en el\n                        siguiente\n                        enlace:</p>\n                    <a style=\"margin:0px auto;background-color:#fba63e;width:203px;padding:12px 12px;display:grid;place-items:center;align-items:center;text-align:center;color:#ffffff;border-radius:12px 12px;justify-content: center;\"\n                        href=\"https://rutaamigapp.onrender.com/#/new-password/").concat(user.user_id, "/").concat(token, "\">Recuperar contrase&ntilde;a</a>\n\n                    <p>Tenga en cuenta que este enlace solo ser\u00E1 v\u00E1lido durante los pr\u00F3ximos\n                    <p><b>30 minutos</b></p> Si intenta acceder al enlace\n                    despu\u00E9s\n                    de ese tiempo, deber\u00E1 volver a solicitar un restablecimiento de contrase\u00F1a.</p>\n\n                    <p>\n                        Si no ha solicitado este cambio de contrase\u00F1a, por favor ignore este mensaje.\n                    </p>\n                    </div>\n                    <div style=\"padding-bottom:6px;background-color:#FBA63E;color:white;width:100%;height:100%;border-top: 3px solid #EF6C00;\">\n                    <p>Atentamente,<br>\n                        El equipo de RutaAmigapp</p>\n\n                    <p>\u00A1Un Saludo!</p>\n                    </div>\n                </div>")
                         };
                         // Send the mail with the message options.
                         transporter.sendMail(mailOptions, function (error, response) {
@@ -125,6 +125,31 @@ var ForgetPasswordController = /** @class */ (function () {
                         error_2 = _a.sent();
                         return [2 /*return*/, res.status(500).json({ error: error_2 })];
                     case 5: return [2 /*return*/];
+                }
+            });
+        }); };
+        /* The above code is updating the password of a user. */
+        this.userActivateAccountUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var newStado, results, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        newStado = true;
+                        return [4 /*yield*/, app_data_source_1.default.getRepository(user_entity_1.User).update(req.body.id, { user_isactive: newStado })];
+                    case 1:
+                        results = _a.sent();
+                        if (results) {
+                            return [2 /*return*/, res.status(200).json({ result: "Usuario activado con exito", results: results })];
+                        }
+                        else {
+                            return [2 /*return*/, res.status(500).json({ error: "Error al activar el usuario." })];
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_3 = _a.sent();
+                        return [2 /*return*/, res.status(500).json({ error: error_3 })];
+                    case 3: return [2 /*return*/];
                 }
             });
         }); };

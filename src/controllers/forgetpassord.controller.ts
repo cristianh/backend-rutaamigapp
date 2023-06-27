@@ -56,7 +56,7 @@ export class ForgetPasswordController {
                         siguiente
                         enlace:</p>
                     <a style="margin:0px auto;background-color:#fba63e;width:203px;padding:12px 12px;display:grid;place-items:center;align-items:center;text-align:center;color:#ffffff;border-radius:12px 12px;justify-content: center;"
-                        href="https://rutaamigapp.onrender.com/new-password/${user.user_id}/${token}">Recuperar contrase&ntilde;a</a>
+                        href="https://rutaamigapp.onrender.com/#/new-password/${user.user_id}/${token}">Recuperar contrase&ntilde;a</a>
 
                     <p>Tenga en cuenta que este enlace solo será válido durante los próximos
                     <p><b>30 minutos</b></p> Si intenta acceder al enlace
@@ -109,6 +109,25 @@ export class ForgetPasswordController {
                     return res.status(500).json({ error: "Error al actualizar el usuario." })
                 }
             }
+        } catch (error) {
+            return res.status(500).json({ error })
+        }
+    }
+
+    /* The above code is updating the password of a user. */
+    public userActivateAccountUser = async (req: Request, res: Response) => {
+
+        try {
+            // We verify if there are error in the validated fields with Express-Validate
+                // We update user with the new password.
+                let newStado:boolean = true
+                const results = await myDataSource.getRepository(User).update(req.body.id, { user_isactive: newStado});
+                if (results) {
+                    return res.status(200).json({ result: "Usuario activado con exito", results })
+                } else {
+                    return res.status(500).json({ error: "Error al activar el usuario." })
+                }
+            
         } catch (error) {
             return res.status(500).json({ error })
         }

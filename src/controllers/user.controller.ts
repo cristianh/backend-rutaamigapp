@@ -236,7 +236,7 @@ export class UserController {
         <p>Para comenzar a disfrutar de nuestros servicios, haga clic en el siguiente
             enlace:</p>
         <a style="margin:0px auto;background-color:#fba63e;width:203px;padding:12px 12px;display:grid;place-items:center;align-items:center;text-align:center;color:#ffffff;border-radius:12px 12px;justify-content: center;"
-            href="http://rutamigapp.com/activate-account/${user.user_id}/${token}">Activar cuenta</a>
+            href="https://rutaamigapp.onrender.com/#/activate-account/${user.user_id}/${token}">Activar cuenta</a>
 
         <p>Tenga en cuenta que este enlace solo será válido durante los próximos</p>
         <p><b>30 minutos</b></p>

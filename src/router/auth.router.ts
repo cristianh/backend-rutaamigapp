@@ -28,6 +28,7 @@ router.get("/resetpassword/:id/:token", validationJWT.validateTimeToken, (req: R
 
 router.post("/forgetPassword", forgetPasswordController.sendEmail);
 router.post("/updatePasswordUsuario",validationJWT.validateTimeToken,validation.validateFormNewPassword(), forgetPasswordController.updatePasswordUser);
+router.post("/validateAccountUsuario",validationJWT.validateTimeToken, forgetPasswordController.userActivateAccountUser);
 
 
 export default router
