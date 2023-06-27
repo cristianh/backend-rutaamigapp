@@ -229,7 +229,7 @@ export class UserController {
         <h1 style="font-family:'cabin'">¡Bienvenido(a), ${user.user_name} ${user.user_lastname}!</h1>
     </div>
     <div>
-        <img src="https://res.cloudinary.com/dl7oqoile/image/upload/v1682005302/restablecer-la-contrasena_ocbt3m.png"
+        <img src="https://res.cloudinary.com/dl7oqoile/image/upload/v1687900935/UserActivate_d1kpzt.png"
             width="150" alt="Recuperar contraseña">
     </div>
     <div>
